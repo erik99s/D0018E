@@ -1,14 +1,16 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template #request
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = ''
 
 @app.route("/")
 def home():
     return render_template("HomePage.html")
 
-#@app.route("/login",methods=["POST", "GET"])
-#def login():
-    #return render_template("LoginPage.html")
+@app.route("/login",methods=["POST", "GET"])
+def login():
+   return render_template("LoginPage.html")
 
 #@app.route("/<usr>")
 #def user(usr): 
