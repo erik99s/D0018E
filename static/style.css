@@ -94,3 +94,7 @@ div.container {
   background-color: none;
   color: white;
 }
+
+div.container ::placeholder {
+  color: grey;
+}
