@@ -89,7 +89,7 @@ form {
 }
 
 /*REGISTER PAGE*/
-div.content-section {
-  background-color: red;
+div.container {
+  background-color: none;
   color: white;
 }
