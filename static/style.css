@@ -46,6 +46,10 @@ textarea:focus, input:focus{
   transform: translateX(-50%);
 }
 
+.top h1 > a:link {
+  text-decoration: none;
+}
+
 .top_register, .top_login {
   position: absolute;
   background-color: #3987e6;
