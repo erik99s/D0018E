@@ -1,7 +1,9 @@
-<html>
+{% extends "BasePage.html" %}
+
+{% block main %}
     <div class ="content-section">
-        <from method="POST" action="">
-            {{from.hidden_tag()}}
+        <form method="POST" action="">
+            {{form.hidden_tag()}}
             <fieldset class> ="form-group">
                  <legend class="border-bottom mb-4">Join Today </legend>
                  <dir class = "form-group">
@@ -9,5 +11,4 @@
             </fieldset> 
         </form>
     </div>
-
-</html>
+{% endblock %}

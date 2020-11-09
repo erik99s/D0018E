@@ -87,3 +87,9 @@ textarea:focus, input:focus{
 form {
   color: white;
 }
+
+/*REGISTER PAGE*/
+div.content-section {
+  background-color: red;
+  color: white;
+}
