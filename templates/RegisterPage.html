@@ -1,4 +1,6 @@
-<html>
+{% extends "BasePage.html" %}
+
+{% block main %}
     <div class ="content-section">
         <from method="POST" action="">
             {{from.hidden_tag()}}
@@ -9,5 +11,4 @@
             </fieldset> 
         </form>
     </div>
-
-</html>
+{% endblock %}
