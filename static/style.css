@@ -46,7 +46,8 @@ textarea:focus, input:focus{
   transform: translateX(-50%);
 }
 
-.top h1 > a:link {
+.top h1 > a {
+  color: white;
   text-decoration: none;
 }
 
