@@ -9,6 +9,7 @@ app.config['SECRET_KEY'] = '1c15e0b9ef383e18d6ba8646275b4c88'
 def home():
     return render_template("HomePage.html")
 
+
 @app.route("/register")
 def registrer():
     form = RegistrationForm()
