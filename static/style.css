@@ -49,9 +49,10 @@ textarea:focus, input:focus{
 .top_register, .top_login {
   position: absolute;
   background-color: #3987e6;
+  top: 0;
   right: 0;
   width: 150px;
-  height: calc(100% - 10px);
+  height: 40px;
   margin: 5px;
   text-align: center;
 }
@@ -89,7 +90,11 @@ form {
 }
 
 /*REGISTER PAGE*/
-div.content-section {
-  background-color: red;
+div.container {
+  background-color: none;
   color: white;
+}
+
+div.container ::placeholder {
+  color: grey;
 }
