@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Page Title</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+  <script src="https://kit.fontawesome.com/5a692c1b08.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <div class="top">
+    <div class="top_menu">
+
+    </div>
+
+    <h1>E-Commerce Site</h1>
+
+  </div>
+
+  <div class="main">
+    {% block hej %}{% endblock %}
+  </div>
+
+</body>
+
+</html>
