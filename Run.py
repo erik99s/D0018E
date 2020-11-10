@@ -29,9 +29,6 @@ def login():
 def products():
     return render_template('ProductsPage.html', title='products')
 
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
 
