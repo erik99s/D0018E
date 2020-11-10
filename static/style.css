@@ -17,7 +17,7 @@ body {
 
 /*color placeholder*/
 ::-webkit-input-placeholder {
-  color: white;
+  color: grey;
 }
 
 textarea:focus, input:focus{
@@ -68,16 +68,18 @@ textarea:focus, input:focus{
 }
 
 .top_register a, .top_login a {
-  background-color: none;
+  background-color: #3987e6;
   position: absolute;
   color: white;
   text-decoration: none;
   font-size: 20px;
   top: 50%;
   width: inherit;
+  height: inherit;
   transform: translate(-50%, -50%);
   margin: 0;
   padding: 0;
+  vertical-align: middle;
 }
 
 .top_register, .top_login > i {
@@ -96,8 +98,43 @@ textarea:focus, input:focus{
 }
 
 /*LOGIN PAGE*/
+
 form {
+  background-color: none;
+  height: auto;
+  width: auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 100px;
+  display: inline-table;
+}
+
+form > input {
+  font-size: large;
+  margin-bottom: 20px;
+  height: 40px;
+  width: 400px;
+  border: none;
+  display: inline-cell;
+  border-radius: 10px;
+  padding: 0;
+}
+
+form > .input {
+  background-color: none;
+  text-indent: 10px;
+}
+
+form > .button  {
+  background-color: #3987e6;
+  cursor: pointer;
   color: white;
+  font-weight: bold;
+}
+
+form > .button:hover {
+  background-color: #2976d3;
 }
 
 /*REGISTER PAGE*/
