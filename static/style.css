@@ -75,15 +75,15 @@ textarea:focus, input:focus{
   font-size: 20px;
   top: 50%;
   width: inherit;
-  height: inherit;
+  height: auto;
   transform: translate(-50%, -50%);
   margin: 0;
   padding: 0;
   vertical-align: middle;
 }
 
-.top_register, .top_login > i {
-
+.top_register:hover, .top_login:hover {
+  background-color: #2976d3;
 }
 
 /*MAIN*/
