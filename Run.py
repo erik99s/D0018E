@@ -25,6 +25,10 @@ def login():
     form = LoginForm()
     return render_template('LoginPage.html', title='login', form=form)
 
+@app.route("/products")
+def products():
+    return render_template('ProductsPage.html', title='products')
+
 
 
 
