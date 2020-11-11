@@ -8,23 +8,23 @@
         <hr>
 
         <label for="fname"><b>First Name</b></label>
-        <input type="text" placeholder="Enter First Name" name="fname" id="fname" required>
+        {{ form.firstName(class = "") }}<!-- <input type="text" placeholder="Enter First Name" name="fname" id="fname" required> -->
 
         <label for="lname"><b>Last Name</b></label>
-        <input type="text" placeholder="Enter Last Name" name="lname" id="lname" required>
+        {{ form.lastName(class = "") }}<!-- <input type="text" placeholder="Enter Last Name" name="lname" id="lname" required> -->
 
         <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" id="email" required>
+        {{ form.email(class = "") }}<!-- <input type="text" placeholder="Enter Email" name="email" id="email" required>-->
 
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+        {{ form.password(class = "") }}<!-- <input type="password" placeholder="Enter Password" name="psw" id="psw" required> -->
 
         <label for="psw-repeat"><b>Repeat Password</b></label>
-        <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+        {{ form.confirm_password(class = "") }} <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required> 
         <hr>
 
         <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-        <button type="submit" class="registerbtn">Register</button>
+        {{ form.submit(class = "") }}<!--<button type="submit" class="registerbtn">Register</button>-->
     </div>
 
     <div class="container signin">

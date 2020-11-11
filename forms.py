@@ -6,15 +6,15 @@ class RegistrationForm(FlaskForm):
     firstName = StringField('firstName', [DataRequired()])
     lastName = StringField('lastName', [DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Passwrod', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
       
-    submit = SubmitField('sign in')
+    submit = SubmitField('sign up')
 
 class LoginForm(FlaskForm):
     firstName = StringField('firstName', [DataRequired()])
     lastName = StringField('lastName', [DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('passwrod', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
     remember = BooleanField('remember me')
     submit = SubmitField('login in')
