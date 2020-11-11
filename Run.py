@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '1c15e0b9ef383e18d6ba8646275b4c88'  
 
 @app.route("/")
+@app.route("/home")
 def home():
     return render_template("HomePage.html")
 
@@ -14,8 +15,8 @@ def home():
 def registrer():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for{form.username.data}!','success')
-        return redirect(url_for('HomePage.html'))
+        flash(f'Account created for{form.email.data}!','success')
+        return redirect(url_for('home'))
     return render_template('RegisterPage.html', title='Register', form=form)
 
 
