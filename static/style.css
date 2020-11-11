@@ -17,7 +17,7 @@ body {
 
 /*color placeholder*/
 ::-webkit-input-placeholder {
-  color: white;
+  color: grey;
 }
 
 textarea:focus, input:focus{
@@ -36,7 +36,7 @@ textarea:focus, input:focus{
   position: absolute;
   display: block;
   background-color: none;
-  font-family: fantasy;
+  font-family: verdana;
   color: white;
   text-align: center;
   position: absolute;
@@ -44,6 +44,11 @@ textarea:focus, input:focus{
   margin: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.top h1 > a {
+  color: white;
+  text-decoration: none;
 }
 
 .top_register, .top_login {
@@ -55,6 +60,7 @@ textarea:focus, input:focus{
   height: 40px;
   margin: 5px;
   text-align: center;
+  border-radius: 5px;
 }
 
 .top_login {
@@ -62,34 +68,77 @@ textarea:focus, input:focus{
 }
 
 .top_register a, .top_login a {
-  background-color: none;
+  background-color: #3987e6;
   position: absolute;
   color: white;
   text-decoration: none;
   font-size: 20px;
   top: 50%;
   width: inherit;
+  height: auto;
   transform: translate(-50%, -50%);
   margin: 0;
   padding: 0;
+  vertical-align: middle;
 }
 
-.top_register, .top_login > i {
-
+.top_register:hover, .top_login:hover {
+  background-color: #2976d3;
 }
 
 /*MAIN*/
 
 .main {
-
+  background-color: none;
+  width: 100%;
+  height: 500px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /*LOGIN PAGE*/
+
 form {
+  background-color: none;
+  height: auto;
+  width: auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 100px;
+  display: inline-table;
+}
+
+form > input {
+  font-size: large;
+  margin-bottom: 20px;
+  height: 40px;
+  width: 400px;
+  border: none;
+  display: inline-cell;
+  border-radius: 10px;
+  padding: 0;
+}
+
+form > .input {
+  background-color: none;
+  text-indent: 10px;
+}
+
+form > .button  {
+  background-color: #3987e6;
+  cursor: pointer;
   color: white;
+  font-weight: bold;
+}
+
+form > .button:hover {
+  background-color: #2976d3;
 }
 
 /*REGISTER PAGE*/
+
 div.container {
   background-color: none;
   color: white;
@@ -97,4 +146,24 @@ div.container {
 
 div.container ::placeholder {
   color: grey;
+}
+
+/*PRODUCTS PAGE*/
+
+div.product {
+  position: relative;
+  background-color: #2e2e2e;
+  height: 100px;
+  width: 600px;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 2px black;
+  margin-bottom: 20px;
+}
+
+div.product:hover {
+  background-color: #3987e6;
+  cursor: pointer;
 }
