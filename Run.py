@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, flash, redirect
 from forms import RegistrationForm, LoginForm
+import sys
 
 #run
 app = Flask(__name__)
@@ -16,8 +17,9 @@ def home():
 def registrer():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for{form.email.data}!','success')
+        flash(f'Account created for{form.email.data}!', 'success')
         return redirect(url_for('home'))
+    print("fail", file=sys.stderr)
     return render_template('RegisterPage.html', title='Register', form=form)
 
 
