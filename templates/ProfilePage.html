@@ -1,0 +1,15 @@
+{% extends "BasePage.html" %}
+
+{% block style %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+
+{% endblock %}
+
+{% block main %}
+
+<form class="profile_form" method="post" action="">
+  <input type="button" class="button" id="change_profile_button" name="profile" value="Change profile"><br>
+</form>
+
+{% endblock %}
