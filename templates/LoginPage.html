@@ -1,11 +1,20 @@
 {% extends "BasePage.html" %}
 
+{% block style %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+
+{% endblock %}
+
 {% block main %}
 
-<form method="post" action="">
+<form class="login_form" method="post" action="">
   <input type="text" class="input" name="name" placeholder="Username"><br>
   <input type="password" class="input" name="pass" placeholder="Password"><br>
-  <input type="button" class="button" name="login" value="Sign In"><br>
+  <input type="button" class="button" id="login_button" name="login" value="Sign In"><br>
+
+  <p>Don't have an ccount yet? Sign up by pressing the sign up button.</p>
+  <input type="button" class="button" id="register_button" name="login" value="Sign Up"><br>
 </form>
 
 {% endblock %}
