@@ -1,3 +1,4 @@
+/*BASE PAGE*/
 
 body {
   background-color: #1c1c1c;
@@ -5,8 +6,7 @@ body {
   font-family: arial;
 }
 
-/*TOP BAR*/
-
+/*top bar*/
 .top {
   position: relative;
   background-color: #2e2e2e;
@@ -25,6 +25,7 @@ textarea:focus, input:focus{
     outline: none;
 }
 
+/*Grey square in top right*/
 .top_menu {
   position: absolute;
   background-color: grey;
@@ -33,7 +34,8 @@ textarea:focus, input:focus{
   height: 40px;
 }
 
-.top h1 {
+/*Website name in top middle*/
+.top > h1 {
   position: absolute;
   display: block;
   background-color: none;
@@ -47,7 +49,7 @@ textarea:focus, input:focus{
   transform: translateX(-50%);
 }
 
-.top h1 > a {
+.top > h1 > a {
   color: white;
   text-decoration: none;
 }
@@ -87,8 +89,8 @@ textarea:focus, input:focus{
   background-color: #2976d3;
 }
 
-/*MAIN*/
 
+/*main div (has different content for each page)*/
 .main {
   background-color: none;
   width: 100%;
@@ -98,9 +100,9 @@ textarea:focus, input:focus{
   transform: translateX(-50%);
 }
 
-/*LOGIN PAGE*/
+/*LOGIN PAGE ====================================================================*/
 
-form {
+.login_form {
   background-color: none;
   height: auto;
   width: auto;
@@ -111,34 +113,56 @@ form {
   display: inline-table;
 }
 
-form > input {
+.login_form > input {
   font-size: large;
   margin-bottom: 20px;
   height: 40px;
   width: 400px;
   border: none;
-  display: inline-cell;
   border-radius: 10px;
   padding: 0;
+
+  position: relative;
+  display: inline-cell;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-form > .input {
+.login_form > .input {
   background-color: none;
   text-indent: 10px;
 }
 
-form > .button  {
+.login_form > .button  {
   background-color: #3987e6;
   cursor: pointer;
   color: white;
   font-weight: bold;
 }
 
-form > .button:hover {
+.login_form > .button:hover {
   background-color: #2976d3;
 }
 
-/*REGISTER PAGE*/
+.login_form > #register_button {
+  background-color: rgb(10, 150, 10);
+  width: 200px;
+  position: relative;
+  display: inline-cell;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 40px;
+}
+
+.login_form > #register_button:hover {
+  background-color: rgb(7, 133, 7);
+}
+
+.login_form > p {
+  color: white;
+}
+
+/*REGISTER PAGE =================================================================*/
 
 div.container {
   background-color: none;
@@ -149,7 +173,7 @@ div.container ::placeholder {
   color: grey;
 }
 
-/*PRODUCTS PAGE*/
+/*PRODUCTS PAGE =================================================================*/
 
 .product_table {
   background-color: rgb(77, 77, 77);
@@ -191,4 +215,21 @@ div.product:hover {
   padding: 0;
   background-color: none;
   text-indent: 10px;
+}
+
+/*PROFILE PAGE ==================================================================*/
+
+.profile_form {
+  font-size: large;
+  margin-bottom: 20px;
+  height: 40px;
+  width: 400px;
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+
+  position: relative;
+  display: inline-cell;
+  left: 50%;
+  transform: translateX(-50%);
 }
