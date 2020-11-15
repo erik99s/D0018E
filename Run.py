@@ -32,6 +32,11 @@ def login():
 def products():
     return render_template('ProductsPage.html', title='products')
 
+@app.route("/profile")
+def profile():
+    form = ProfileForm()
+    return render_template('ProfilePage.html', title='profile', form=form)
+
 if __name__ == "__main__":
     app.run(debug=True)
 
