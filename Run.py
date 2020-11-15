@@ -34,8 +34,7 @@ def products():
 
 @app.route("/profile")
 def profile():
-    form = ProfileForm()
-    return render_template('ProfilePage.html', title='profile', form=form)
+    return render_template('ProfilePage.html', title='profile')
 
 if __name__ == "__main__":
     app.run(debug=True)
