@@ -219,9 +219,79 @@ div.product:hover {
 
 /*PROFILE PAGE ==================================================================*/
 
-.profile_form {
+div.profile_main {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: red;
+  width: 800px;
+  height: 800px;
+  margin-top: 50px;
+}
+
+/*table*/
+div.table_div {
+  position: relative;
+  display: inline-block;
+  
+  background-color: white;
+  height: auto;
+  width: inherit;
+}
+
+table.profile_info {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: green;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+table.profile_info {
+  height: auto;
+  width: 80%;
+}
+
+table.profile_info tr {
+  background-color: #1c1c1c;
+  width: inherit;
+  height: 50px;
+}
+
+table.profile_info td {
+  width: 100%;
+}
+
+/*change-profile button*/
+div.form_div {
+  position: relative;
+  display: inline-block;
+
+  background-color: none;
+  height: auto;
+  width: inherit;
+  padding-top: 50px;
+}
+
+form.profile_form {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: blue;
+  height: auto;
+  width: auto;
+}
+
+.profile_form > input {
   font-size: large;
-  margin-bottom: 20px;
   height: 40px;
   width: 400px;
   border: none;
@@ -232,4 +302,15 @@ div.product:hover {
   display: inline-cell;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.profile_form > .button  {
+  background-color: #3987e6;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.profile_form > .button:hover {
+  background-color: #2976d3;
 }
