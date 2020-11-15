@@ -1,5 +1,11 @@
 {% extends "BasePage.html" %}
 
+{% block style %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+
+{% endblock %}
+
 {% block main %}
 
 <div class="product_table">
