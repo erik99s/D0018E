@@ -1,0 +1,37 @@
+{% extends "BasePage.html" %}
+
+{% block style %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+
+{% endblock %}
+
+{% block main %}
+
+<div class="profile_main">
+    <div class="table_div">
+        <table class="profile_info">
+            <tr>
+                <td>Firstname:</td>
+                <td>Stefan</td>
+            </tr>
+            <tr>
+                <td>Lastname:</td>
+                <td>Holm</td>
+                
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>stefanholm@gmail.com</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form_div">
+        <form class="profile_form" method="post" action="">
+            <input type="button" class="button" id="change_profile_button" name="profile" value="Change profile"><br>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -3,7 +3,7 @@
 
 <head>
   <title>Page Title</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+  {% block style %}{% endblock %}
   <script src="https://kit.fontawesome.com/5a692c1b08.js" crossorigin="anonymous"></script>
 </head>
 
@@ -27,18 +27,24 @@
     </div>
 
     <h1><a class="homelink" href="/">E-Commerce Site</a></h1>
-
-    <div class="top_login">
-      <a href="/login">
-        <i class="fas fa-user-circle"></i>
-        Sign In
-      </a>
+    <!--
+    <div class="top_profile">
+      <i class="fas fa-user-circle"></i>
     </div>
+    -->
+    <div class="top_profile_div">
+      <a href="/login">
+        <div class="top_login">
+          <i class="fas fa-user-circle"></i>
+          Sign In
+        </div>
+      </a>
 
-    <div class="top_register">
       <a href="/register">
-        <i class="fas fa-user-circle"></i>
-        Sign Up
+        <div class="top_register">
+          <i class="fas fa-user-circle"></i>
+          Sign Up
+        </div>
       </a>
     </div>
 

@@ -1,3 +1,4 @@
+/*BASE PAGE*/
 
 body {
   background-color: #1c1c1c;
@@ -5,8 +6,7 @@ body {
   font-family: arial;
 }
 
-/*TOP BAR*/
-
+/*top bar*/
 .top {
   position: relative;
   background-color: #2e2e2e;
@@ -25,6 +25,7 @@ textarea:focus, input:focus{
     outline: none;
 }
 
+/*Grey square in top right*/
 .top_menu {
   position: absolute;
   background-color: grey;
@@ -33,7 +34,8 @@ textarea:focus, input:focus{
   height: 40px;
 }
 
-.top h1 {
+/*Website name in top middle*/
+.top > h1 {
   position: absolute;
   display: block;
   background-color: none;
@@ -47,48 +49,44 @@ textarea:focus, input:focus{
   transform: translateX(-50%);
 }
 
-.top h1 > a {
+.top > h1 > a {
   color: white;
   text-decoration: none;
 }
 
-.top_register, .top_login {
+.top_profile_div {
   position: absolute;
-  background-color: #3987e6;
-  top: 0;
+  display: inline-block;
   right: 0;
-  width: 150px;
-  height: 40px;
-  margin: 5px;
-  text-align: center;
-  border-radius: 5px;
-}
+  top: 0;
 
-.top_login {
-  right: 160px;
-}
+  background-color: none;
+  width: auto;
+  height: inherit;
 
-.top_register a, .top_login a {
-  background-color: #3987e6;
-  position: absolute;
-  color: white;
-  text-decoration: none;
   font-size: 20px;
-  top: 50%;
-  width: inherit;
-  height: auto;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  padding: 0;
-  vertical-align: middle;
 }
 
-.top_register:hover, .top_login:hover {
+.top_profile_div > a {
+  position: relative;
+  display: inline-block;
+
+  background-color: #3987e6;
+  height: 40px;
+  width: 150px;
+  margin: 5px;
+  border-radius: 5px;
+
+  text-decoration: none;
+  color: white;
+  text-align: center;
+}
+
+.top_profile_div > a:hover {
   background-color: #2976d3;
 }
 
-/*MAIN*/
-
+/*main div (has different content for each page)*/
 .main {
   background-color: none;
   width: 100%;
@@ -98,9 +96,9 @@ textarea:focus, input:focus{
   transform: translateX(-50%);
 }
 
-/*LOGIN PAGE*/
+/*LOGIN PAGE ====================================================================*/
 
-form {
+.login_form {
   background-color: none;
   height: auto;
   width: auto;
@@ -111,34 +109,56 @@ form {
   display: inline-table;
 }
 
-form > input {
+.login_form > input {
   font-size: large;
   margin-bottom: 20px;
   height: 40px;
   width: 400px;
   border: none;
-  display: inline-cell;
   border-radius: 10px;
   padding: 0;
+
+  position: relative;
+  display: inline-cell;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-form > .input {
+.login_form > .input {
   background-color: none;
   text-indent: 10px;
 }
 
-form > .button  {
+.login_form > .button  {
   background-color: #3987e6;
   cursor: pointer;
   color: white;
   font-weight: bold;
 }
 
-form > .button:hover {
+.login_form > .button:hover {
   background-color: #2976d3;
 }
 
-/*REGISTER PAGE*/
+.login_form > #register_button {
+  background-color: rgb(10, 150, 10);
+  width: 200px;
+  position: relative;
+  display: inline-cell;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 40px;
+}
+
+.login_form > #register_button:hover {
+  background-color: rgb(7, 133, 7);
+}
+
+.login_form > p {
+  color: white;
+}
+
+/*REGISTER PAGE =================================================================*/
 
 div.container {
   background-color: none;
@@ -147,37 +167,6 @@ div.container {
 
 div.container ::placeholder {
   color: grey;
-}
-
-/*PRODUCTS PAGE*/
-
-.product_table {
-  background-color: rgb(77, 77, 77);
-  position: relative;
-  height: 600px;
-  width: 700px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-table;
-  z-index: -10px;
-  text-align: center;
-}
-
-div.product {
-  position: relative;
-  background-color: white;
-  height: 100px;
-  width: 200px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
-  margin-bottom: 20px;
-  display: inline-block;
-  margin: 10px;
-}
-
-div.product:hover {
-  box-shadow: 0px 0px 10px 2px rgb(168, 168, 168);
-  cursor: pointer;
 }
 
 .reg_input {
@@ -191,4 +180,183 @@ div.product:hover {
   padding: 0;
   background-color: none;
   text-indent: 10px;
+}
+
+/*HOME PAGE =================================================================*/
+
+div.product_table {
+  background-color: none;
+  position: relative;
+  height: 600px;
+  width: 700px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-table;
+  z-index: -10px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+div.product {
+  position: relative;
+  background-color: #2e2e2e;
+  height: 100px;
+  width: 200px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: inline-block;
+  margin: 10px;
+}
+
+div.product:hover {
+  box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+/*PRODUCT PAGE =================================================================*/
+
+div.product_info {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: #2e2e2e;
+  height: 800px;
+  width: 1000px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
+}
+
+div.product_info > div#image_div {
+  position: relative;
+  display: inline-block;
+
+  background-color: grey;
+  height: 250px;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+div.product_info > div#image_div > img {
+  position: relative;
+  display: inline-block;
+
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+div.product_info > div#text_div {
+  position: relative;
+  display: inline-block;
+
+  background-color: #1c1c1c;
+  height: 100px;
+  width: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+/*PROFILE PAGE ==================================================================*/
+
+div.profile_main {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: red;
+  width: 800px;
+  height: 800px;
+  margin-top: 50px;
+}
+
+/*table*/
+div.table_div {
+  position: relative;
+  display: inline-block;
+  
+  background-color: white;
+  height: auto;
+  width: inherit;
+}
+
+table.profile_info {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: green;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+table.profile_info {
+  height: auto;
+  width: 80%;
+}
+
+table.profile_info tr {
+  background-color: #1c1c1c;
+  width: inherit;
+  height: 50px;
+}
+
+table.profile_info td {
+  width: 100%;
+}
+
+/*change-profile button*/
+div.form_div {
+  position: relative;
+  display: inline-block;
+
+  background-color: none;
+  height: auto;
+  width: inherit;
+  padding-top: 50px;
+}
+
+form.profile_form {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: blue;
+  height: auto;
+  width: auto;
+}
+
+.profile_form > input {
+  font-size: large;
+  height: 40px;
+  width: 400px;
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+
+  position: relative;
+  display: inline-cell;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.profile_form > .button  {
+  background-color: #3987e6;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.profile_form > .button:hover {
+  background-color: #2976d3;
 }
