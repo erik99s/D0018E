@@ -109,7 +109,7 @@ textarea:focus, input:focus{
   display: inline-table;
 }
 
-.login_form > input {
+input {
   font-size: large;
   margin-bottom: 20px;
   height: 40px;
@@ -129,7 +129,7 @@ textarea:focus, input:focus{
   text-indent: 10px;
 }
 
-.login_form > .button  {
+.button  {
   background-color: #3987e6;
   cursor: pointer;
   color: white;
@@ -160,8 +160,13 @@ textarea:focus, input:focus{
 
 /*REGISTER PAGE =================================================================*/
 
-div.container {
-  background-color: none;
+div.reg_win {
+  position: relative;
+  display: inline-table;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: red;
   color: white;
 }
 
@@ -169,18 +174,6 @@ div.container ::placeholder {
   color: grey;
 }
 
-.reg_input {
-  font-size: large;
-  margin-bottom: 20px;
-  height: 40px;
-  width: 400px;
-  border: none;
-  display: inline-cell;
-  border-radius: 10px;
-  padding: 0;
-  background-color: none;
-  text-indent: 10px;
-}
 
 /*HOME PAGE =================================================================*/
 
