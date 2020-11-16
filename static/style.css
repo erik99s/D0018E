@@ -174,9 +174,9 @@ div.container ::placeholder {
   color: grey;
 }
 
-/*PRODUCTS PAGE =================================================================*/
+/*PRODUCT PAGE =================================================================*/
 
-.product_table {
+div.product_table {
   background-color: none;
   position: relative;
   height: 600px;
@@ -203,6 +203,43 @@ div.product {
 div.product:hover {
   box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
   cursor: pointer;
+}
+
+div.product_info {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: #2e2e2e;
+  height: 800px;
+  width: 1000px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
+}
+
+
+div.product_info > div#image_div {
+  position: relative;
+  display: inline-block;
+
+  background-color: red;
+  height: 250px;
+  width: 250px;
+  margin: 0;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+div.product_info > div#image_div > img {
+  position: absolute;
+
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  margin: 20px;
 }
 
 .reg_input {
