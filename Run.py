@@ -28,9 +28,9 @@ def login():
     form = LoginForm()
     return render_template('LoginPage.html', title='login', form=form)
 
-@app.route("/products")
+@app.route("/product")
 def products():
-    return render_template('ProductsPage.html', title='products')
+    return render_template('ProductPage.html', title='product')
 
 @app.route("/profile")
 def profile():
