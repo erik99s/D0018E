@@ -54,42 +54,37 @@ textarea:focus, input:focus{
   text-decoration: none;
 }
 
-.top_register, .top_login {
+.top_profile_div {
   position: absolute;
-  display: block;
-  background-color: #3987e6;
-  top: 0;
+  display: inline-block;
   right: 0;
-  width: 150px;
-  height: 40px;
-  margin: 5px;
-  text-align: center;
-  border-radius: 5px;
-}
+  top: 0;
 
-.top_login {
-  right: 160px;
-}
+  background-color: none;
+  width: auto;
+  height: inherit;
 
-.top_register a, .top_login a {
-  background-color: #3987e6;
-  position: absolute;
-  color: white;
-  text-decoration: none;
   font-size: 20px;
-  top: 50%;
-  width: inherit;
-  height: auto;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  padding: 0;
-  vertical-align: middle;
 }
 
-.top_register:hover, .top_login:hover {
+.top_profile_div > a {
+  position: relative;
+  display: inline-block;
+
+  background-color: #3987e6;
+  height: 40px;
+  width: 150px;
+  margin: 5px;
+  border-radius: 5px;
+
+  text-decoration: none;
+  color: white;
+  text-align: center;
+}
+
+.top_profile_div > a:hover {
   background-color: #2976d3;
 }
-
 
 /*main div (has different content for each page)*/
 .main {
@@ -174,7 +169,20 @@ div.container ::placeholder {
   color: grey;
 }
 
-/*PRODUCT PAGE =================================================================*/
+.reg_input {
+  font-size: large;
+  margin-bottom: 20px;
+  height: 40px;
+  width: 400px;
+  border: none;
+  display: inline-cell;
+  border-radius: 10px;
+  padding: 0;
+  background-color: none;
+  text-indent: 10px;
+}
+
+/*HOME PAGE =================================================================*/
 
 div.product_table {
   background-color: none;
@@ -205,6 +213,8 @@ div.product:hover {
   cursor: pointer;
 }
 
+/*PRODUCT PAGE =================================================================*/
+
 div.product_info {
   position: relative;
   display: inline-block;
@@ -219,21 +229,21 @@ div.product_info {
   box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
 }
 
-
 div.product_info > div#image_div {
   position: relative;
   display: inline-block;
 
-  background-color: red;
+  background-color: grey;
   height: 250px;
   width: 250px;
   margin: 0;
-  padding: 0px;
+  padding: 0;
   box-sizing: border-box;
 }
 
 div.product_info > div#image_div > img {
-  position: absolute;
+  position: relative;
+  display: inline-block;
 
   background-color: black;
   height: 100%;
@@ -242,17 +252,15 @@ div.product_info > div#image_div > img {
   margin: 20px;
 }
 
-.reg_input {
-  font-size: large;
-  margin-bottom: 20px;
-  height: 40px;
-  width: 400px;
-  border: none;
-  display: inline-cell;
-  border-radius: 10px;
+div.product_info > div#text_div {
+  position: relative;
+  display: inline-block;
+
+  background-color: #1c1c1c;
+  height: 100px;
+  width: 100px;
+  margin: 0;
   padding: 0;
-  background-color: none;
-  text-indent: 10px;
 }
 
 /*PROFILE PAGE ==================================================================*/
