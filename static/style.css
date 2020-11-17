@@ -9,11 +9,12 @@ body {
 /*top bar*/
 .top {
   position: relative;
-  background-color: #2e2e2e;
-  width: 100%;
-  height: 50px;
-  box-shadow: 0px 0px 5px black;
   z-index: 1000px;
+
+  background-color: #2e2e2e;
+  height: 50px;
+  width: 100%;
+  box-shadow: 0px 0px 5px black;
 }
 
 /*color placeholder*/
@@ -25,28 +26,30 @@ textarea:focus, input:focus{
     outline: none;
 }
 
-/*Grey square in top right*/
+/*grey square in top right*/
 .top_menu {
   position: absolute;
+
   background-color: grey;
   margin: 5px 5px;
-  width: 40px;
   height: 40px;
+  width: 40px;
 }
 
 /*Website name in top middle*/
 .top > h1 {
   position: absolute;
   display: block;
-  background-color: none;
-  font-family: verdana;
-  color: white;
-  text-align: center;
-  position: absolute;
-  padding: 0;
-  margin: 0;
   left: 50%;
   transform: translateX(-50%);
+
+  background-color: none;
+  padding: 0;
+  margin: 0;
+
+  color: white;
+  font-family: verdana;
+  text-align: center;
 }
 
 .top > h1 > a {
@@ -88,12 +91,13 @@ textarea:focus, input:focus{
 
 /*main div (has different content for each page)*/
 .main {
-  background-color: none;
-  width: 100%;
-  height: 500px;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+
+  background-color: none;
+  height: 500px;
+  width: 100%;
 }
 
 /*LOGIN PAGE ====================================================================*/
@@ -108,20 +112,24 @@ form {
   height: auto;
   width: auto;
   margin-top: 100px;
+
   color: white;
 }
 
+/*for all inputs*/
 input {
-  font-size: large;
-  margin-bottom: 20px;
   height: 40px;
   width: 400px;
+  margin-bottom: 20px;
+  padding: 0;
   border: none;
   border-radius: 10px;
-  padding: 0;
+
+  font-size: large;
 }
 
-.login_form > input {
+/*specifically for the login form inputs*/
+form.login_form > input {
   position: relative;
   display: inline-block;
   left: 50%;
@@ -141,6 +149,7 @@ input[type=submit] {
 
   background-color: #3987e6;
   cursor: pointer;
+
   color: white;
   font-weight: bold;
 }
@@ -158,6 +167,7 @@ input[type=button] {
   background-color: rgb(10, 150, 10);
   width: 200px;
   margin-top: 40px;
+
   color: white;
   font-weight: bold;
 }
@@ -181,27 +191,30 @@ div.row {
 /*HOME PAGE =================================================================*/
 
 div.product_table {
-  background-color: none;
   position: relative;
-  height: 600px;
-  width: 700px;
+  display: inline-table;
   left: 50%;
   transform: translateX(-50%);
-  display: inline-table;
   z-index: -10px;
-  text-align: center;
+
+  background-color: none;
+  height: 600px;
+  width: 700px;
   margin-top: 20px;
+  
+  text-align: center;
 }
 
 div.product {
   position: relative;
+  display: inline-block;
+
   background-color: #2e2e2e;
   height: 100px;
   width: 200px;
   border-radius: 10px;
-  margin-bottom: 20px;
-  display: inline-block;
   margin: 10px;
+  margin-bottom: 20px;
 }
 
 div.product:hover {
@@ -333,26 +346,29 @@ form.profile_form {
 }
 
 .profile_form > input {
-  font-size: large;
-  height: 40px;
-  width: 400px;
-  border: none;
-  border-radius: 10px;
-  padding: 0;
-
   position: relative;
   display: inline-cell;
   left: 50%;
   transform: translateX(-50%);
+
+  background-color: none;
+  height: 40px;
+  width: 400px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+
+  font-size: large;
 }
 
-.profile_form > .button  {
+form.profile_form > input[type=button] {
   background-color: #3987e6;
   cursor: pointer;
+
   color: white;
   font-weight: bold;
 }
 
-.profile_form > .button:hover {
+form.profile_form > input[type=button]:hover {
   background-color: #2976d3;
 }
