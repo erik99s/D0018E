@@ -3,7 +3,6 @@ from forms import RegistrationForm, LoginForm
 from flask_mysqldb import MySQLdb
 import sys
 
-#run
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '1c15e0b9ef383e18d6ba8646275b4c88'  
