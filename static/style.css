@@ -3,7 +3,7 @@
 body {
   background-color: #1c1c1c;
   margin: 0;
-  font-family: arial;
+  font-family: Product Sans;
 }
 
 /*top bar*/
@@ -20,10 +20,17 @@ div.top {
 /*color placeholder*/
 ::-webkit-input-placeholder {
   color: grey;
+  font-family: Product Sans;
 }
 
 textarea:focus, input:focus, button:focus{
     outline: none;
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
 }
 
 .noselect {
@@ -62,11 +69,12 @@ div.top > h1 {
   margin: 0;
 
   color: white;
-  font-family: verdana;
+  font-family: Product Sans;
   text-align: center;
 }
 
 div.top > h1 > a {
+  vertical-align: middle;
   color: white;
   text-decoration: none;
 }
@@ -108,7 +116,8 @@ div.top_profile input {
 
   text-decoration: none;
   color: white;
-  font-size: 20px;
+  font-family: Product Sans;
+  font-size: 22px;
   font-weight: bold;
 }
 
@@ -179,6 +188,7 @@ div.main input[type=submit] {
   cursor: pointer;
 
   color: white;
+  font-family: Product Sans;
   font-weight: bold;
 }
 
@@ -197,6 +207,7 @@ div.main input[type=button] {
   margin-top: 40px;
 
   color: white;
+  font-family: Product Sans;
   font-weight: bold;
 }
 
