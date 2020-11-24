@@ -8,16 +8,17 @@
 
 {% block main %}
 
-<form class="login_form" method="post" action="">
+<form class="login_form" method="" action="/">
   <h1>Sign In</h1>
-  <p>Please fill in this form to sign up.</p>
 
-  <input type="text" name="name" placeholder="Email"><br>
-  <input type="password" name="pass" placeholder="Password"><br>
+  <input type="email" name="name" placeholder="Email" required><br>
+  <input type="password" name="pass" placeholder="Password" required><br>
   <input type="submit" id="login_button" name="login" value="Sign In"><br>
-
-  <p>Don't have an account yet?</p>
-  <input type="button" class="button" id="register_button" name="login" value="Sign Up"><br>
 </form>
+
+<p>Don't have an account yet?</p>
+<a href="/register">
+  <input type="button" class="green_button" value="Sign Up">
+</a>
 
 {% endblock %}

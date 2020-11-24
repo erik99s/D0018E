@@ -3,11 +3,11 @@
 body {
   background-color: #1c1c1c;
   margin: 0;
-  font-family: arial;
+  font-family: Product Sans;
 }
 
 /*top bar*/
-.top {
+div.top {
   position: relative;
   z-index: 1000px;
 
@@ -20,14 +20,35 @@ body {
 /*color placeholder*/
 ::-webkit-input-placeholder {
   color: grey;
+  font-family: Product Sans;
 }
 
-textarea:focus, input:focus{
+textarea:focus, input:focus, button:focus{
     outline: none;
 }
 
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+button:hover, input[type=button]:hover {
+  cursor: pointer;
+}
+
 /*grey square in top right*/
-.top_menu {
+div.top_menu {
   position: absolute;
 
   background-color: grey;
@@ -37,7 +58,7 @@ textarea:focus, input:focus{
 }
 
 /*Website name in top middle*/
-.top > h1 {
+div.top > h1 {
   position: absolute;
   display: block;
   left: 50%;
@@ -48,49 +69,64 @@ textarea:focus, input:focus{
   margin: 0;
 
   color: white;
-  font-family: verdana;
+  font-family: Product Sans;
   text-align: center;
 }
 
-.top > h1 > a {
+div.top > h1 > a {
+  vertical-align: middle;
   color: white;
   text-decoration: none;
 }
 
-.top_profile_div {
+div.top_profile {
   position: absolute;
-  display: inline-block;
+  display: block;
   right: 0;
   top: 0;
 
   background-color: none;
   width: auto;
   height: inherit;
-
-  font-size: 20px;
 }
 
-.top_profile_div > a {
+div.top_profile > a {
+  display: inline-block;
+
+  background-color: none;
+  height: auto;           /*IMPORTANT*/
+  width: auto;            /*IMPORTANT*/
+  margin-top: 5px;        /*IMPORTANT*/
+  margin-right: 5px;      /*IMPORTANT*/
+  border-radius: 10px;    /*IMPORTANT*/
+
+  text-decoration: none;  /*IMPORTANT*/
+}
+
+div.top_profile input {
   position: relative;
   display: inline-block;
 
   background-color: #3987e6;
   height: 40px;
   width: 150px;
-  margin: 5px;
-  border-radius: 5px;
+  margin: 0;
+  border: none;
+  border-radius: 10px;
 
   text-decoration: none;
   color: white;
-  text-align: center;
+  font-family: Product Sans;
+  font-size: 22px;
+  font-weight: bold;
 }
 
-.top_profile_div > a:hover {
+div.top_profile button:hover {
   background-color: #2976d3;
 }
 
 /*main div (has different content for each page)*/
-.main {
+div.main {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -102,7 +138,8 @@ textarea:focus, input:focus{
 
 /*LOGIN PAGE ====================================================================*/
 
-form {
+/*forms within the main div*/
+div.main form {
   position: relative;
   display: inline-table;
   left: 50%;
@@ -116,8 +153,8 @@ form {
   color: white;
 }
 
-/*for all inputs*/
-input {
+/*for all inputs within main*/
+div.main input {
   height: 40px;
   width: 400px;
   margin-bottom: 20px;
@@ -136,12 +173,12 @@ form.login_form > input {
   transform: translateX(-50%);
 }
 
-input[type=text], input[type=password] {
+div.main input[type=text], div.main input[type=email], div.main input[type=password] {
   background-color: none;
   text-indent: 10px;
 }
 
-input[type=submit] {
+div.main input[type=submit] {
   position: relative;
   display: inline-cell;
   left: 50%;
@@ -151,14 +188,15 @@ input[type=submit] {
   cursor: pointer;
 
   color: white;
+  font-family: Product Sans;
   font-weight: bold;
 }
 
-input[type=submit]:hover {
+div.main input[type=submit]:hover {
   background-color: #2976d3;
 }
 
-input[type=button] {
+div.main input[type=button] {
   position: relative;
   display: inline-cell;
   left: 50%;
@@ -169,16 +207,38 @@ input[type=button] {
   margin-top: 40px;
 
   color: white;
+  font-family: Product Sans;
   font-weight: bold;
 }
 
-input[type=button]:hover {
+.green_button {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: rgb(10, 150, 10);
+  height: 40px;
+  width: 200px;
+  margin-top: 40px;
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+div.main input[type=button]:hover {
   background-color: rgb(7, 133, 7);
   cursor: pointer;
 }
 
-form > p {
+div.main > p {
+  background-color: none;
   color: white;
+
+  text-align: center;
 }
 
 /*REGISTER PAGE =================================================================*/
@@ -346,7 +406,7 @@ form.profile_form {
   width: auto;
 }
 
-.profile_form > input {
+form.profile_form > input {
   position: relative;
   display: inline-cell;
   left: 50%;
