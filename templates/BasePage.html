@@ -28,14 +28,14 @@
 
     <h1><a class="homelink" href="/">E-Commerce Site</a></h1>
 
-    {% if session['logged_in'] %}   
+    {% if session['logged_in'] == True %}   
 
       <div class="top_loggedin">
         <i class="fas fa-user-circle"></i>
-      </div>
+      </div>      
 
     {% else %}
-
+    
       <div class="top_loggedout noselect">
         <a class="blue_button" href="/login">
           <input type="button" value="Sign In">
