@@ -79,7 +79,7 @@ div.top > h1 > a {
   text-decoration: none;
 }
 
-div.top_profile {
+div.top_loggedout {
   position: absolute;
   display: block;
   right: 0;
@@ -90,7 +90,7 @@ div.top_profile {
   height: inherit;
 }
 
-div.top_profile > a {
+div.top_loggedout > a {
   display: inline-block;
 
   background-color: none;
@@ -103,7 +103,7 @@ div.top_profile > a {
   text-decoration: none;  /*IMPORTANT*/
 }
 
-div.top_profile input {
+div.top_loggedout input {
   position: relative;
   display: inline-block;
 
@@ -121,7 +121,7 @@ div.top_profile input {
   font-weight: bold;
 }
 
-div.top_profile button:hover {
+div.top_loggedout button:hover {
   background-color: #2976d3;
 }
 
