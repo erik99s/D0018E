@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, flash, redirect
+from flask import Flask, redirect, url_for, render_template, flash, redirect, session
 from forms import RegistrationForm, LoginForm
 import sys
 
@@ -18,6 +18,7 @@ def registrer():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash(f'Account created for {form.email.data}!', 'success')
+        session['logged_in'] = True
         return redirect(url_for('home'))
     print("fail", file=sys.stderr)
     return render_template('RegisterPage.html', title='Register', form=form)
