@@ -125,6 +125,14 @@ div.top_loggedout button:hover {
   background-color: #2976d3;
 }
 
+div.top_loggedin {
+  position: relative;
+
+  background-color: red;
+  height: 100px;
+  width: 100px;
+}
+
 /*main div (has different content for each page)*/
 div.main {
   position: relative;
