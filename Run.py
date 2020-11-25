@@ -8,6 +8,11 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '1c15e0b9ef383e18d6ba8646275b4c88'  
 
+#pip install flask
+#pip install flask-wtf
+#pip install flask-mysqldb
+#pip install flask-mysql-connector
+
 # config mySQL
 app.config['MYSQL_HOST'] = "localhost"
 app.config['MYSQL_USER'] = "root"
