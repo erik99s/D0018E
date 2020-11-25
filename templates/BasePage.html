@@ -22,31 +22,29 @@
 {% block body %}{% endblock %}
 
   <div class="top">
-    <div class="top_menu">
-
-    </div>
+    <div class="top_menu"></div>
 
     <h1><a class="homelink" href="/">E-Commerce Site</a></h1>
-    <!--
-    <div class="top_profile">
-      <i class="fas fa-user-circle"></i>
-    </div>
-    -->
-    <div class="top_profile_div">
-      <a href="/login">
-        <div class="top_login">
-          <i class="fas fa-user-circle"></i>
-          Sign In
-        </div>
-      </a>
 
-      <a href="/register">
-        <div class="top_register">
-          <i class="fas fa-user-circle"></i>
-          Sign Up
-        </div>
-      </a>
-    </div>
+    {% if session['logged_in'] == True %}
+
+      <div class="top_loggedin">
+        <i class="fas fa-user-circle"></i>
+      </div>
+
+    {% else %}
+
+      <div class="top_loggedout noselect">
+        <a class="blue_button" href="/login">
+          <input type="button" value="Sign In">
+        </a>
+
+        <a class="blue_button" href="/register">
+          <input type="button" value="Sign Up">
+        </a> 
+      </div>
+
+    {% endif %}
 
   </div>
 
