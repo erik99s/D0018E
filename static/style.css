@@ -9,6 +9,7 @@ body {
 /*top bar*/
 div.top {
   position: relative;
+  display: block;
   z-index: 1000px;
 
   background-color: #2e2e2e;
@@ -80,17 +81,51 @@ div.top > h1 > a {
   text-decoration: none;
 }
 
+/*Shopping cart div*/
+div.cart {
+  position: absolute;
+  display: inline-block;
+  right: 320px;
+  top: 0;
+  
+  background-color: #2e2e2e;
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+  border-radius: 20px;
+}
+
+div.cart:hover {
+  box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.fa-shopping-cart {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+
+  background-color: none;
+  height: auto;
+  width: auto;
+
+  color: white;
+  font-size: 20px;
+}
+
+
 div.top_loggedin {
   position: relative;
 
-  background-color: red;
+  background-color: none;
   height: 100px;
   width: 100px;
 }
 
 div.top_loggedout {
   position: absolute;
-  display: block;
+  display: inline-block;
   right: 0;
   top: 0;
 
