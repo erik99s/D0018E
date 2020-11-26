@@ -1,8 +1,10 @@
 from flask import Flask, redirect, url_for, render_template, flash, redirect, session, request
 from forms import RegistrationForm, LoginForm
 from flask_mysqldb import MySQLdb, MySQL
-from flask_mysql_connector import mysql
 import sys, MySQLdb.cursors, re
+from flask_sqlalchemy import SQLAlchemy
+from flask_admin import Admin, AdminIndexView
+from flask_admin.contrib.sqla import ModelView 
 
 app = Flask(__name__)
 
@@ -14,10 +16,20 @@ app.config['SECRET_KEY'] = '1c15e0b9ef383e18d6ba8646275b4c88'
 #pip install flask-mysql-connector
 
 # config mySQL
-app.config['MYSQL_HOST'] = "localhost"
-app.config['MYSQL_USER'] = "root"
-app.config['MYSQL_PASSWORD'] = ""
-app.config['MYSQL_DB'] = 'mydb'
+app.config['MYSQL_HOST'] = "utbweb.its.ltu.se"
+app.config['MYSQL_USER'] = "980705"
+app.config['MYSQL_PASSWORD'] = "980705"
+app.config['MYSQL_DB'] = 'db980705'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://980705:980705@utbweb.its.ltu.se/db980705'
+
+db = SQLAlchemy(app)
+db.Model.metadata.reflect(bind=db.engine, schema='db980705')
+
+class Customer(db.Model):
+    __table__ = db.Model.metadata.tables['db980705.Customer']
+
+admin = Admin(app)
+admin.add_view(ModelView(Customer, db.session))
 
 # init mySQL
 mysql = MySQL(app)
@@ -33,26 +45,28 @@ def register():
     msg = ''
     form = RegistrationForm()
     if form.validate_on_submit():
-        if request.method == 'POST' and 'firstName' in request.form and 'lastName' in request.form and 'email' in request.form and 'repeatEmail' in request.form and 'password' in request.form and 'repeatPassword' in request.form:
+        print(request.form)
+        if request.method == 'POST' and 'firstName' in request.form and 'lastName' in request.form and 'email' in request.form and 'confirm_email' in request.form and 'password' in request.form and 'confirm_password' in request.form:
             firstName = request.form['firstName']
             lastName = request.form['lastName']
             email = request.form['email']
             password = request.form['password']
-            cursor = mysql.connection.cursor(MySQLdb.cursor.DictCursor)
-            cursor.execute('SELECT * FROM accounts WHERE email = %s',(email,))
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Customer WHERE email = %s',(email,))
             account = cursor.fetchone()
 
             if account:
                 msg = 'Account already exists!'
+
             else:
-                cursor.execute('INSERT INTO accounts VALUES(NULL, %s, %s, %s, %s)', (firstName, lastName, email, password))
+                cursor.execute('INSERT INTO Customer VALUES(NULL, %s, %s, %s, %s)', (firstName, lastName, email, password,))
                 mysql.connection.commit()
                 msg = 'Successfully created account'
                 flash(f'Account created for {form.email.data}!', 'success')
                 return redirect(url_for('home'))
 
-        elif request.method == 'POST':
-            msg = 'fill out form correctly'
+    elif request.method == 'POST':
+        msg = 'Fill out form correctly'
 
     return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
 
@@ -67,8 +81,8 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        cursor = mysql.connection.cursor(MySQLdb.cursor.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE email = %s AND password = %s', (email, password,))
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Customer WHERE email = %s AND password = %s', (email, password,))
         account = cursor.fetchone()
 
         if account:
@@ -80,12 +94,14 @@ def login():
             msg = 'Does not recognize email/password'
             session['logged_in'] = False
             return render_template('LoginPage.html', title='login', form=form, msg=msg)
+    
+    return render_template('LoginPage.html', title='login', form=form, msg=msg)
 
 @app.route("/loggedIn")
 def loggedIn():
     if 'loggedin' in session:
         return render_template('LoggedInPage.html', title='loggedIn')
-    return redirect(url_for('homePage.html'))
+    return redirect(url_for('HomePage.html'))
 
     
 @app.route("/product")
