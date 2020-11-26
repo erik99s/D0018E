@@ -103,7 +103,6 @@ def loggedIn():
         return render_template('LoggedInPage.html', title='loggedIn')
     return redirect(url_for('HomePage.html'))
 
-    
 @app.route("/product")
 def products():
     return render_template('ProductPage.html', title='product')
