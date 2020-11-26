@@ -5,6 +5,7 @@
   <title>Page Title</title>
   {% block style %}{% endblock %}
   <script src="https://kit.fontawesome.com/5a692c1b08.js" crossorigin="anonymous"></script>
+  <!--https://fontawesome.com/icons?d=gallery-->
 </head>
 
 <body>
@@ -25,6 +26,10 @@
     <div class="top_menu"></div>
 
     <h1><a class="homelink" href="/">E-Commerce Site</a></h1>
+
+    <div class="cart">
+      <i class="fas fa-shopping-cart"></i>
+    </div>
 
     {% if session['logged_in'] == True %}
 
