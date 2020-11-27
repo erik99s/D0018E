@@ -87,12 +87,11 @@ def login():
 
         if account:
             session['loggedin'] = True
-            session['id'] = account['id']
-            session['email'] = account['email']
+            session['Email'] = account['Email']
             return render_template('HomePage.html', title='home', form=form, msg=msg)
         else:
             msg = 'Does not recognize email/password'
-            session['logged_in'] = False
+            session['loggedin'] = False
             return render_template('LoginPage.html', title='login', form=form, msg=msg)
     
     return render_template('LoginPage.html', title='login', form=form, msg=msg)
