@@ -55,7 +55,7 @@ def register():
             email = request.form['email']
             password = request.form['password']
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('SELECT * FROM Customer WHERE email = %s',(email,))
+            cursor.execute('SELECT * FROM Customer WHERE Email = %s',(email,))
             account = cursor.fetchone()
 
             if account:
@@ -85,7 +85,7 @@ def login():
         password = request.form['password']
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Customer WHERE email = %s AND password = %s', (email, password,))
+        cursor.execute('SELECT * FROM Customer WHERE Email = %s AND Password = %s', (email, password,))
         account = cursor.fetchone()
 
         if account:
@@ -113,7 +113,7 @@ def products():
 def profile():
     if 'loggedin' in session:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Customer WHERE email = %s', (session['Email'],))
+        cursor.execute('SELECT * FROM Customer WHERE Email = %s', (session['Email'],))
         account = cursor.fetchone()
         return render_template('ProfilePage.html', account=account)
     
