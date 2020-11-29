@@ -40,7 +40,7 @@ def home():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM Products")
     data = cursor.fetchall()
-    return render_template("HomePage.html")
+    return render_template("HomePage.html", data=data)
 
 
 @app.route("/register", methods=['GET', 'POST'])

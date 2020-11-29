@@ -8,19 +8,7 @@
 
 {% block main %}
 
-<div class="product_table" method="">
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
-    <a href="/product"><div class="product"></div></a>
+<div class="product_table">
     {% for row in data %}
         <a href="/product"><div class="product">{{row[1]}}</div></a>
     {% endfor %}
