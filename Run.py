@@ -104,6 +104,10 @@ def loggedIn():
 
 @app.route("/product")
 def products():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Products WHERE ProductID = 1',(id))
+    product = cursor.fetchone()
+
     return render_template('ProductPage.html', title='product')
 
 @app.route("/profile")
