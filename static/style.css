@@ -316,13 +316,14 @@ div.product_table {
   background-color: none;
   
   margin-top: 20px;
+  margin-bottom: 80px;
   
   text-align: center;
 }
 
 div.product_table > a {
-  height: 100%;
-  width: 100%;
+  height: max-content;
+  width: auto;
 }
 
 div.product {
@@ -343,9 +344,10 @@ div.product:hover {
 div.product > p {
   background-color: none;
   color: white;
+  max-width: 200px;
 
   margin: 0;
-  padding: 5px 5px 5px 5px;
+  padding: 5px 0px 5px 0px;
 
   text-decoration: none !important;
   text-shadow: 2px 2px 10px black;
