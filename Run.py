@@ -110,7 +110,6 @@ def products():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Products WHERE ProductID = 1')
     data = cursor.fetchone()
-    print(data["ProductPicture"])
     return render_template('ProductPage.html', data=data)
 
 @app.route("/profile")
