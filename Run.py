@@ -37,6 +37,9 @@ mysql = MySQL(app)
 @app.route("/")
 @app.route("/home")
 def home():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM Products")
+    data = cursor.fetchall()
     return render_template("HomePage.html")
 
 
