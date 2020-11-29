@@ -10,7 +10,13 @@
 
 <div class="product_table">
     {% for row in data %}
-        <a href="/product"><div class="product"><p>{{row.ProductName}}</p><img src="{{row.ProductPicture}}"></div></a>
+        <a href="/product">
+            <div class="product">
+                <img src="{{row.ProductPicture}}">
+                <p>{{row.ProductName}}</p>
+                <p>{{row.Price}}</p>
+            </div>
+        </a>
     {% endfor %}
 </div>
 
