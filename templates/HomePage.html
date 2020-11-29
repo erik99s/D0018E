@@ -21,6 +21,9 @@
     <a href="/product"><div class="product"></div></a>
     <a href="/product"><div class="product"></div></a>
     <a href="/product"><div class="product"></div></a>
+    {% for row in data %}
+        <a href="/product"><div class="product">{{row[1]}}</div></a>
+    {% endfor %}
 </div>
 
 {% endblock %}
