@@ -109,12 +109,12 @@ def products():
 @app.route("/profile")
 def profile():
     if 'loggedin' in session:
-        cursor = mysql.connection.cursor(MySQLdb.cursor.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id']))
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Customer WHERE email = %s', (session['Email'],))
         account = cursor.fetchone()
         return render_template('ProfilePage.html', account=account)
     
-    return redirect(url_for('loggedInPage'))
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
     app.run(debug=True)
