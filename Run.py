@@ -38,7 +38,7 @@ mysql = MySQL(app)
 @app.route("/home")
 def home():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT * FROM Products")
+    cursor.execute('SELECT * FROM Products')
     data = cursor.fetchall()
     return render_template("HomePage.html", data=data)
 
@@ -107,7 +107,11 @@ def loggedIn():
 
 @app.route("/product")
 def products():
-    return render_template('ProductPage.html', title='product')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Products WHERE ProductID = 1')
+    data = cursor.fetchone()
+    print(data["ProductPicture"])
+    return render_template('ProductPage.html', data=data)
 
 @app.route("/profile")
 def profile():
