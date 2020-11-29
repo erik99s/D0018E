@@ -306,7 +306,7 @@ div.row {
 div.product_table {
   position: relative;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto;
   grid-gap: 10px;
 
   left: 50%;
@@ -314,7 +314,6 @@ div.product_table {
   z-index: -10px;
 
   background-color: none;
-
   width: 700px;
   margin-top: 20px;
   
@@ -322,8 +321,6 @@ div.product_table {
 }
 
 div.product_table > a {
-  max-height: 200px;
-  max-width: 200px;
   height: auto;
   width: auto;
 }
@@ -354,9 +351,11 @@ div.product > p {
 }
 
 div.product > img {
-  background-color: none;
+  background-color: white;
+  max-width: 200px;
   width: 100%;
   margin: 0;
+  margin-top: 0px;
   padding: 0;
   border-radius: 10px;
   vertical-align: top;
