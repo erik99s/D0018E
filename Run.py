@@ -55,14 +55,14 @@ def register():
             email = request.form['email']
             password = request.form['password']
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('SELECT * FROM Customer WHERE Email = %s',(email,))
+            cursor.execute('SELECT * FROM Customer WHERE Email = %s', [email])
             account = cursor.fetchone()
 
             if account:
                 msg = 'Account already exists!'
 
             else:
-                cursor.execute('INSERT INTO Customer VALUES(NULL, %s, %s, %s, %s)', (firstName, lastName, email, password,))
+                cursor.execute('INSERT INTO Customer VALUES(NULL, %s, %s, %s, %s)', [firstName, lastName, email, password])
                 mysql.connection.commit()
                 msg = 'Successfully created account'
                 flash(f'Account created for {form.email.data}!', 'success')
@@ -85,7 +85,7 @@ def login():
         password = request.form['password']
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Customer WHERE Email = %s AND Password = %s', (email, password,))
+        cursor.execute('SELECT * FROM Customer WHERE Email = %s AND Password = %s', [email, password])
         account = cursor.fetchone()
 
         if account:
@@ -105,10 +105,10 @@ def loggedIn():
         return render_template('LoggedInPage.html', title='loggedIn')
     return redirect(url_for('HomePage.html'))
 
-@app.route("/product")
-def products():
+@app.route("/product.<string:id>")
+def products(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM Products WHERE ProductID = 1')
+    cursor.execute('SELECT * FROM Products WHERE ProductID = %s', [id])
     data = cursor.fetchone()
     return render_template('ProductPage.html', data=data)
 
