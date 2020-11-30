@@ -38,6 +38,7 @@ mysql = MySQL(app)
 @app.route("/home")
 def home():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('DROP TABLE Cart')
     cursor.execute('SELECT * FROM Products')
     data = cursor.fetchall()
     return render_template("HomePage.html", data=data)
@@ -85,11 +86,12 @@ def login():
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Customer WHERE Email = %s AND Password = %s', [email, password])
-        account = cursor.fetchone()
+        data = cursor.fetchone()
 
-        if account:
+        if data:
             session['loggedin'] = True
-            session['Email'] = account['Email']
+            print(data['CustomerID'])
+            session['_id'] = data['CustomerID']
             return render_template('HomePage.html', title='home', form=form, msg=msg)
         else:
             msg = 'Does not recognize email/password'
@@ -115,12 +117,24 @@ def products(id):
 def profile():
     if 'loggedin' in session:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Customer WHERE Email = %s', (session['Email'],))
-        account = cursor.fetchone()
-        return render_template('ProfilePage.html', account=account)
+        cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', (session['CustomerID'],))
+        data = cursor.fetchone()
+        return render_template('ProfilePage.html', data=data)
     
     return redirect(url_for('login'))
 
+@app.route("/cart")
+def cart():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s', (session['id'],))
+    data = cursor.fetchall()
+    products = []
+    for row in data:
+        cursor.execute('SELECT * FROM Products WHERE ProductID = %s', [row['ProductID']])
+        product = cursor.fetchone()
+        products.append(product.update({'Amount,' : row['Amount']}))
+    print(products)
+    return render_template('CartPage.html', products=products)
+
 if __name__ == "__main__":
     app.run(debug=True)
-
