@@ -26,12 +26,14 @@
     <div class="top_menu"></div>
 
     <h1><a class="homelink" href="/">E-Commerce Site</a></h1>
-
-    <div class="cart">
-      <i class="fas fa-shopping-cart"></i>
-    </div>
-
+    
     {% if session['loggedin'] %}
+
+      <a href="/cart">
+        <div class="cart">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+      </a>
 
       <div class="top_loggedin">
         <i class="fas fa-user-circle"></i>
