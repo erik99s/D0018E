@@ -10,7 +10,7 @@
 
 <div class="product_table">
     {% for row in data %}
-        <a href="/product">
+        <a href="/product.{{row.ProductID}}">
             <div class="product">
                 <img src="{{row.ProductPicture}}">
                 <p id="name">{{row.ProductName}}</p>
