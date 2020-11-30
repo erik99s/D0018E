@@ -23,33 +23,42 @@
 {% block body %}{% endblock %}
 
   <div class="top">
-    <div class="top_menu"></div>
-
     <h1><a class="homelink" href="/">E-Commerce Site</a></h1>
 
-    <div class="cart">
-      <i class="fas fa-shopping-cart"></i>
-    </div>
+    <div class="navbar noselect">
+      {% if session['loggedin'] %}
 
-    {% if session['loggedin'] %}
+        <a class="signed_in_buttons cart_button">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
 
-      <div class="top_loggedin">
-        <i class="fas fa-user-circle"></i>
-      </div>
+        <a class="signed_in_buttons profile_button">
+          <i class="fas fa-user-circle"></i>
+          <div class="profile_dropdown">
+            <a href="/profile">
+              <input type="button" value="View Profile">
+            </a>
+            <a href="/cart">
+              <input type="button" value="View Cart">
+            </a>
+            <form method="post">
+              <input type="submit" name="sign_out" value="Sign Out">
+            </form>
+        </div>
+        </a>
 
-    {% else %}
+      {% else %}
 
-      <div class="top_loggedout noselect">
-        <a class="blue_button" href="/login">
+        <a class="signed_out_buttons blue_button sign_in_button" href="/login">
           <input type="button" value="Sign In">
         </a>
 
-        <a class="blue_button" href="/register">
+        <a class="signed_out_buttons blue_button sign_up_button" href="/register">
           <input type="button" value="Sign Up">
         </a> 
-      </div>
 
-    {% endif %}
+      {% endif %}
+    </div>
 
   </div>
 
