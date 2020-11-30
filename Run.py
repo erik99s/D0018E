@@ -98,12 +98,6 @@ def login():
     
     return render_template('LoginPage.html', title='login', form=form, msg=msg)
 
-@app.route("/loggedIn")
-def loggedIn():
-    if 'loggedin' in session:
-        return render_template('LoggedInPage.html', title='loggedIn')
-    return redirect(url_for('HomePage.html'))
-
 @app.route("/product.<string:id>")
 def products(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
