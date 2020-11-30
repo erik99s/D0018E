@@ -321,37 +321,51 @@ div.product_table {
   
 }
 
-div.product_table > a {
-  height: max-content;
-  width: auto;
-}
-
 div.product {
   background-color: #2e2e2e;
-  height: auto;
+  height: max-content;
   width: auto;
   padding: 10px 10px 0px 10px;
   box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
   border-radius: 10px;
 }
 
-div.product:hover {
-  
-  box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
-  cursor: pointer;
-}
-
-div.product:hover > img {
-  filter: brightness(50%);
-}
-
-div.product > img {
+div.product > a > img {
   vertical-align: top;
 
   background-color: white;
   width: 200px;
   padding: 0;
   border-radius: 10px;
+}
+
+div.product > a > img:hover {
+  filter: brightness(50%);
+  cursor: pointer;
+}
+
+div.product > a#image {
+  text-decoration: none;
+  width: max-content;
+  height: max-content;
+}
+
+div.product > a#name {
+  position: relative;
+  display: block;
+
+  color: white;
+  max-width: 200px;
+  width: max-content;
+  padding-top: 10px;
+
+  text-decoration: none;
+  text-shadow: 2px 2px 10px black;
+  font-size: 22px;
+}
+
+div.product > a#name:hover {
+  text-decoration: underline;
 }
 
 div.product > p {
@@ -367,14 +381,10 @@ div.product > p {
   font-size: 15px;
 }
 
-div.product > p#name {
-  padding-top: 10px;
-  font-size: 22px;
-}
-
 div.product button {
   background-color: #2976d3;
   color: white;
+  max-width: 200px;
   width: 100%;
   border: none;
   height: 30px;
@@ -439,7 +449,11 @@ div.product_info > div#text_div {
   padding: 0;
 }
 
-
+div.product > form.add_to_cart {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
 
 /*PROFILE PAGE ==================================================================*/
 
