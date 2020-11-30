@@ -38,7 +38,6 @@ mysql = MySQL(app)
 @app.route("/home")
 def home():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('DROP TABLE Cart')
     cursor.execute('SELECT * FROM Products')
     data = cursor.fetchall()
     return render_template("HomePage.html", data=data)
@@ -90,8 +89,7 @@ def login():
 
         if data:
             session['loggedin'] = True
-            print(data['CustomerID'])
-            session['_id'] = data['CustomerID']
+            session['id'] = data['CustomerID']
             return render_template('HomePage.html', title='home', form=form, msg=msg)
         else:
             msg = 'Does not recognize email/password'
@@ -126,15 +124,24 @@ def profile():
 @app.route("/cart")
 def cart():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s', (session['id'],))
+    cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s', [session['id']])
     data = cursor.fetchall()
     products = []
     for row in data:
         cursor.execute('SELECT * FROM Products WHERE ProductID = %s', [row['ProductID']])
         product = cursor.fetchone()
-        products.append(product.update({'Amount,' : row['Amount']}))
+        product.update({'Amount,' : row['Amount']})
+        products.append(product)
     print(products)
     return render_template('CartPage.html', products=products)
+
+@app.route("/addToCart.<string:id>")
+def addToCart(id):
+    print(id)
+    print(session['_id'])
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, 1])
+    mysql.connection.commit()
 
 if __name__ == "__main__":
     app.run(debug=True)
