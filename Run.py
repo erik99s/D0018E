@@ -48,7 +48,6 @@ def register():
     msg = ''
     form = RegistrationForm()
     if form.validate_on_submit():
-        print(request.form)
         if request.method == 'POST' and 'firstName' in request.form and 'lastName' in request.form and 'email' in request.form and 'confirm_email' in request.form and 'password' in request.form and 'confirm_password' in request.form:
             firstName = request.form['firstName']
             lastName = request.form['lastName']
