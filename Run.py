@@ -14,7 +14,7 @@ app.config['SECRET_KEY'] = '1c15e0b9ef383e18d6ba8646275b4c88'
 #pip install flask-wtf
 #pip install flask-mysqldb
 #pip install flask-mysql-connector
-#test
+
 #config mySQL
 app.config['MYSQL_HOST'] = "utbweb.its.ltu.se"
 app.config['MYSQL_USER'] = "980705"
