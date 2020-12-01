@@ -283,7 +283,7 @@ div.main form {
 }
 
 /*for all inputs*/
-div.main input {
+input.form-inputs {
   height: 40px;
   width: 400px;
   margin-bottom: 20px;
@@ -295,14 +295,14 @@ div.main input {
 }
 
 /*specifically for the login form inputs*/
-form.login_form > input {
+form.login-form > input {
   position: relative;
   display: inline-block;
   left: 50%;
   transform: translateX(-50%);
 }
 
-form.login_form > p {
+form.login-form > p {
   text-align: center;
 }
 
@@ -329,7 +329,7 @@ div.main input[type=submit]:hover {
   background-color: #2976d3;
 }
 
-div.main input[type=button] {
+div.main input.green-button {
   position: relative;
   display: inline-cell;
   left: 50%;
@@ -344,27 +344,9 @@ div.main input[type=button] {
   font-weight: bold;
 }
 
-div.main input[type=button]:hover {
+div.main input.green-button:hover {
   background-color: rgb(7, 133, 7);
   cursor: pointer;
-}
-
-.green_button {
-  position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
-
-  background-color: rgb(10, 150, 10);
-  height: 40px;
-  width: 200px;
-  margin-top: 40px;
-  border: none;
-  border-radius: 10px;
-
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
 }
 
 div.main > p {
@@ -449,6 +431,7 @@ div.product > a#name:hover {
   text-decoration: underline;
 }
 
+/*product name and price text*/
 div.product > p {
   background-color: none;
   color: white;
@@ -462,22 +445,36 @@ div.product > p {
   font-size: 15px;
 }
 
-div.product button {
-  background-color: #2976d3;
-  color: white;
-  max-width: 200px;
-  width: 100%;
-  border: none;
-  height: 30px;
-  font-family: Product Sans;
-  font-weight: bold;
-  font-size: 15px;
-  border-radius: 10px;
-
+/*add to cart button*/
+div.product div.button-container {
   margin-top: 10px;
   margin-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
+
+  text-align: center;
+}
+
+div.product div.button-container a {
+
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 30px;
+}
+
+div.product input.addtocart-button {
+  background-color: #3987e6;
+  height: 30px;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+  font-family: Product Sans;
+  font-size: 18px;
 }
 
 /*PRODUCT PAGE =================================================================*/
