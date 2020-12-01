@@ -48,16 +48,6 @@ textarea:focus, input:focus, button:focus {
     outline: none;
 }
 
-/*grey square in top right*/
-div.top_menu {
-  position: absolute;
-
-  background-color: grey;
-  margin: 5px 5px;
-  height: 40px;
-  width: 40px;
-}
-
 /*Website name in top middle*/
 div.top > h1 {
   position: absolute;
@@ -81,51 +71,9 @@ div.top > h1 > a {
   text-decoration: none;
 }
 
-/*Shopping cart div*/
-div.cart {
+div.navbar {
   position: absolute;
-  display: inline-block;
-  right: 320px;
-  top: 0;
-  
-  background-color: #2e2e2e;
-  height: 40px;
-  width: 40px;
-  margin: 5px;
-  border-radius: 20px;
-}
-
-div.cart:hover {
-  box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
-  cursor: pointer;
-}
-
-.fa-shopping-cart {
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-
-  background-color: none;
-  height: auto;
-  width: auto;
-
-  color: white;
-  font-size: 20px;
-}
-
-
-div.top_loggedin {
-  position: relative;
-
-  background-color: none;
-  height: 100px;
-  width: 100px;
-}
-
-div.top_loggedout {
-  position: absolute;
-  display: inline-block;
+  display: inline-flex;
   right: 0;
   top: 0;
 
@@ -134,11 +82,11 @@ div.top_loggedout {
   height: inherit;
 }
 
-div.top_loggedout > a {
+div.navbar > a {
   position: relative;
   display: inline-block;
 
-  background-color: red;
+  background-color: none;
   height: auto;           /*IMPORTANT*/
   width: auto;            /*IMPORTANT*/
   margin-top: 5px;        /*IMPORTANT*/
@@ -148,9 +96,10 @@ div.top_loggedout > a {
   text-decoration: none;  /*IMPORTANT*/
 }
 
-div.top_loggedout > a > input {
+div.navbar > div.button-container > a.signed_out_buttons > input {
   position: relative;
   display: inline-block;
+  z-index: 300px;
 
   background-color: #3987e6;
   height: 40px;
@@ -166,12 +115,143 @@ div.top_loggedout > a > input {
   font-weight: bold;
 }
 
-div.top_loggedout > a:hover {
+div.navbar a:hover {
   background-color: #2976d3;
 }
 
-div.top_loggedout button:hover {
+div.navbar button:hover {
   background-color: #2976d3;
+}
+
+div.navbar a.signed_out_buttons:hover {
+  background-color: #2976d3;
+}
+
+/*buttons when signed in*/
+div.navbar > div.button-container {
+  position: relative;
+  display: block;
+  margin: 5px;
+
+  background-color: none;
+  height: auto;
+  width: auto;
+}
+
+div.navbar > div.button-container > a.signed_in_buttons {
+  position: relative;
+  display: inline-block;
+  right: 0;
+
+  background-color: #3987e6;
+  border-radius: 10px;    /*IMPORTANT*/
+
+  color: white;
+  text-decoration: none;  /*IMPORTANT*/
+  cursor: pointer;
+}
+
+div.navbar > div.profile-dropdown {
+  position: relative;
+  display: inline-block;
+
+  background-color: none;
+  height: auto;
+  width: auto;
+}
+
+div#outer {
+  position: absolute;
+  display: block;
+  right: 0;
+  
+  background-color: none;
+  height: 135px;
+  width: 170px;
+}
+
+div.profile-dropdown div.profile-dropdown-content {
+  position: absolute;
+  display: none;
+  right: 0px;
+
+  background-color: #2e2e2e;
+  width: 160px;
+  margin-top: 25px;
+  padding: 5px;
+  padding-top: 0px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px black;
+  overflow: hidden;
+}
+
+div.profile-dropdown:hover div.profile-dropdown-content, div.profile-dropdown:hover div#outer{
+  display: block;
+  z-index: 100;
+}
+
+div.profile-dropdown div.profile-dropdown-content > a {
+  display: block;
+
+  background-color: none;
+  height: 30px;
+  width: 100%;
+  margin: 0;
+  margin-top: 5px;
+  padding: 0;
+
+  border-radius: 10px;
+
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+  line-height: 30px;
+}
+
+div.profile-dropdown div.profile-dropdown-content > form {
+  background-color: none;
+  display: block;
+
+  height: 30px;
+  width: auto;
+  margin: 0;
+  margin-top: 5px;
+  padding: 0;
+
+  text-align: center;
+}
+
+div.profile-dropdown input {
+  position: relative;
+  display: inline-block;
+
+  background-color: #2976d3;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  border: none;
+  border-radius: 10px;
+
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 30px;
+}
+
+a.signed_in_buttons > i {
+  height: 40px;
+  width: 80px;
+
+  text-align: center;
+  vertical-align: middle;
+
+  font-size: 20px;
+  line-height: 40px;
 }
 
 /*main div (has different content for each page)*/
@@ -181,7 +261,8 @@ div.main {
   transform: translateX(-50%);
 
   background-color: none;
-  height: 500px;
+  min-height: 500px;
+  height: auto;
   width: 100%;
 }
 
