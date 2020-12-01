@@ -8,17 +8,18 @@
 
 {% block main %}
 
-<form class="login_form" method="post" action="">
+<form class="login-form" method="post">
   {{ form.csrf_token }}
   <h1>Sign In</h1>
 
-    <input type="email" name="email" placeholder="Email" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <input type="submit" name="sign in" id="login_button" value="Sign In"><br>
+  <input class="form-inputs fill-input" type="email" name="email" placeholder="Email" required><br>
+  <input class="form-inputs fill-input" type="password" name="password" placeholder="Password" required><br>
+  <input class="form-inputs submit-input" type="submit" name="sign in" id="login_button" value="Sign In"><br>
 
   <p>Don't have an account yet?</p>
+
   <a href="/register">
-    <input type="button" class="green_button" value="Sign Up">
+      <input class="form-inputs main-redirect-input green-button" type="button" value="Sign Up">
   </a>
 </form>
 
