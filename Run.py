@@ -103,7 +103,7 @@ def logout():
     session.pop('loggedin', None)
     session.pop('id', None)
     session.pop('email', None)
-    return redirect(url_for('home')
+    return redirect(url_for('home'))
 
 @app.route("/product.<string:id>")
 def products(id):
