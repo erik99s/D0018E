@@ -9,15 +9,13 @@
 {% block main %}
 
 <div class="product_table">
-    {% set counter = 0 -%} 
     {% for row in data %}
         <div class="product">
             <a id="image" href="/product.{{row.ProductID}}"><img src="{{row.ProductPicture}}"></a>
             <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
             <p id="price">{{row.Price}} kr</p>
-            <form class="add_to_cart" method="post">
-                <button name="{{ counter + loop.index0 }}">Add to cart</button>
-            </form>
+            <a class="button" href="/addToCart.{{row.ProductID}}">Add to cart</a>
+
         </div>
     {% endfor %}
 </div>
