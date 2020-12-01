@@ -439,6 +439,7 @@ div.product > p {
 
   margin: 0;
   padding-top: 5px;
+  padding-bottom: 10px;
 
   text-decoration: none !important;
   text-shadow: 2px 2px 10px black;
