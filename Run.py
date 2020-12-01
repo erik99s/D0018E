@@ -98,11 +98,12 @@ def login():
     
     return render_template('LoginPage.html', title='login', form=form, msg=msg)
 
-@app.route("/loggedIn")
-def loggedIn():
-    if 'loggedin' in session:
-        return render_template('LoggedInPage.html', title='loggedIn')
-    return redirect(url_for('HomePage.html'))
+@app.route("/logout")
+def logout():
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('email', None)
+    return redirect(url_for('home'))
 
 @app.route("/product.<string:id>")
 def products(id):
