@@ -90,7 +90,7 @@ def login():
         if data:
             session['loggedin'] = True
             session['id'] = data['CustomerID']
-            return render_template('HomePage.html', title='home', form=form, msg=msg)
+            return redirect(url_for('home'))
         else:
             msg = 'Does not recognize email/password'
             session['loggedin'] = False
