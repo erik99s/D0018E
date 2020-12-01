@@ -116,7 +116,7 @@ def products(id):
 def profile():
     if 'loggedin' in session:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', (session['CustomerID'],))
+        cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [session['id']])
         data = cursor.fetchone()
         return render_template('ProfilePage.html', data=data)
     
