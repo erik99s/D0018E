@@ -14,7 +14,11 @@
             <a id="image" href="/product.{{row.ProductID}}"><img src="{{row.ProductPicture}}"></a>
             <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
             <p id="price">{{row.Price}} kr</p>
-            <a class="button" href="/addToCart.{{row.ProductID}}">Add to cart</a>
+            <div class="button-container">
+                <a href="/addToCart.{{row.ProductID}}">
+                    <input class="addtocart-button" type="button" value="Add to cart">
+                </a>
+            </div>
         </div>
     {% endfor %}
 </div>
