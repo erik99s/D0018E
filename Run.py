@@ -137,11 +137,10 @@ def cart():
 
 @app.route("/addToCart.<string:id>")
 def addToCart(id):
-    print(id)
-    print(session['_id'])
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, 1])
     mysql.connection.commit()
-
+    return redirect(url_for('home'))
+    
 if __name__ == "__main__":
     app.run(debug=True)
