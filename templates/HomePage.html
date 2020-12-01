@@ -14,11 +14,14 @@
             <a id="image" href="/product.{{row.ProductID}}"><img src="{{row.ProductPicture}}"></a>
             <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
             <p id="price">{{row.Price}} kr</p>
-            <div class="button-container">
-                <a href="/addToCart.{{row.ProductID}}">
-                    <input class="addtocart-button" type="button" value="Add to cart">
-                </a>
-            </div>
+
+            {% if session['loggedin'] %}
+                <div class="button-container">
+                    <a href="/addToCart.{{row.ProductID}}">
+                        <input class="addtocart-button" type="button" value="Add to cart">
+                    </a>
+                </div>
+            {% endif %}
         </div>
     {% endfor %}
 </div>
