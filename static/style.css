@@ -2,6 +2,8 @@
 
 html {
   height: 100%;
+  background: rgb(44,66,93);
+  background: linear-gradient(0deg, rgba(44,66,93,1) 0%, rgba(28,28,28,1) 100%) fixed;
 }
 
 body {
@@ -686,9 +688,6 @@ div.cartpage-div div.product{
 }
 
 div.cartpage-div div.image-container {
-  position: relative;
-  display: inline-block;
-
   background-color: white;
   min-height: 200px;
   height: auto;
