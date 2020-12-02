@@ -6,7 +6,6 @@ html {
 
 body {
   background: #1c1c1c;
-  min-height: 100%;
   height: auto;
   margin: 0;
   font-family: Product Sans;
@@ -269,7 +268,7 @@ div.main {
 
   background-color: none;
   min-height: 500px;
-  height: 100%;
+  height: auto;
   width: 100%;
 }
 
