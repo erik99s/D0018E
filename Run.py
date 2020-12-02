@@ -148,5 +148,15 @@ def addToCart(id):
         mysql.connection.commit()
     return redirect(url_for('home'))
 
+@app.route("/removeFromCart.<string:id>")
+def removeFromCart(id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+    data = cursor.fetchall()
+    if data:
+        cursor.execute('DELETE FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+    mysql.connection.commit()
+    return redirect(url_for('cart'))
+
 if __name__ == "__main__":
     app.run(debug=True)
