@@ -9,7 +9,16 @@
 {% block main %}
 
 <div class="cartpage-div">
-    <h1 class="shoppingcart-header">Your Shoppingcart</h1>
+    {% if products|length < 1 %}
+
+        <h1 class="shoppingcart-header">A whole lot of nothing here</h1>
+
+    {% else %}
+
+        <h1 class="shoppingcart-header">Your Shoppingcart</h1>
+
+    {% endif %}
+
     {% for row in products %}
         <div class="product">
             <div class="image-container">
