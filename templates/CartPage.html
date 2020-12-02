@@ -9,6 +9,7 @@
 {% block main %}
 
 <div class="cartpage-div">
+    <h1 class="shoppingcart-header">Your Shoppingcart</h1>
     {% for row in products %}
         <div class="product">
             <div class="image-container">
@@ -17,6 +18,9 @@
             <div class="text-container">
                 <h1 id="product-name">{{row.ProductName}}</h1>
                 <p id="product-price">{{row.Price}} kr</p>
+                <div class="remove-product">
+                    <a href="/removeFromCart.{{row.ProductID}}"><i class="fas fa-times"></i></a>
+                </div>
                 <hr>
                 <p id="product-description">{{row.Description}}</p>
             </div>
