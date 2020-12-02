@@ -738,7 +738,14 @@ div.cartpage-div div.remove-product {
 }
 
 div.cartpage-div div.remove-product a {
-  color: black;
   font-size: 20px;
+}
+
+div.cartpage-div a {
+  color: black;
   text-decoration: none;
+}
+
+div.cartpage-div a:hover {
+  text-decoration-line: underline;
 }
