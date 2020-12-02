@@ -130,7 +130,7 @@ def cart():
     for row in data:
         cursor.execute('SELECT * FROM Products WHERE ProductID = %s', [row['ProductID']])
         product = cursor.fetchone()
-        product.update({'Amount,' : row['Amount']})
+        product.update({'Amount' : row['Amount']})
         products.append(product)
     print(products)
     return render_template('CartPage.html', products=products)
@@ -142,10 +142,9 @@ def addToCart(id):
     data = cursor.fetchone()
     if data:
         cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] + 1, session['id'], id])
-        mysql.connection.commit()
     else:
         cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, 1])
-        mysql.connection.commit()
+    mysql.connection.commit()
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
