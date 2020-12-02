@@ -14,9 +14,9 @@ body {
 
 /*top bar*/
 div.top {
-  position: relative;
+  position: fixed;
   display: block;
-  z-index: 1000px;
+  z-index: 1000;
 
   background-color: #2e2e2e;
   height: 50px;
@@ -66,13 +66,13 @@ div.top > h1 {
   margin: 0;
 
   color: white;
-  font-family: Product Sans;
+  font-family: 'Sansita Swashed', cursive;
+  font-size: 45px;
+  line-height: 40px;
   text-align: center;
 }
 
 div.top > h1 > a {
-  vertical-align: middle;
-
   color: white;
   text-decoration: none;
 }
@@ -105,7 +105,7 @@ div.navbar > a {
 div.navbar > div.button-container > a.signed_out_buttons > input {
   position: relative;
   display: inline-block;
-  z-index: 300px;
+  z-index: 300;
 
   background-color: #3987e6;
   height: 40px;
@@ -262,13 +262,14 @@ a.signed_in_buttons > i {
 
 /*main div (has different content for each page)*/
 div.main {
-  position: relative;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  top: 50px;
 
   background-color: none;
   min-height: 500px;
-  height: auto;
+  height: 100%;
   width: 100%;
 }
 
@@ -381,7 +382,7 @@ div.product-grid {
 
   left: 50%;
   transform: translateX(-50%);
-  z-index: -10px;
+  z-index: 1;
 
   background-color: none;
   
@@ -400,7 +401,9 @@ div.product-grid div.product {
 }
 
 div.product > a > img {
+  position: relative;
   vertical-align: top;
+  z-index: 1;
 
   background-color: white;
   width: 200px;
