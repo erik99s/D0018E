@@ -20,8 +20,15 @@
             <p>{{data.Description}}</p>
             <hr>
 
-            <div class="">
+            <div class="button-container">
+                <form method="post">
+                    <input type="number" name="productAmount" min="1" max="10" value="1">
+                
 
+                <a href="/addToCart.{{data.ProductID}}">
+                    <input class="addtocart-button" type="button" value="Add to cart">
+                </a>    
+                </form>        
             </div>
         </div>
     </div>
