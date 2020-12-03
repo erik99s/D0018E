@@ -165,7 +165,7 @@ def removeFromCart(id):
 @app.route("/rateProduct.<string:id>")
 def rateProduct(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT FROM rates WHERE ProductID = %s', [row['ProductID']])
+    cursor.execute('INSERT INTO Rating VALUES(%s, %s, %s, %s) ProductID = %s', [session['id'], id, 'Comment', 'Rating'])
     data = cursor.fetchone()
     
     try:
