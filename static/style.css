@@ -507,8 +507,10 @@ div.productpage-div {
 div.productpage-div div.product {
   position: relative;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: repeat(2, 1fr);;
   grid-gap: 10px;
+
+  padding: 10px;
 }
 
 div.productpage-div div.image-container {
@@ -526,7 +528,7 @@ div.productpage-div div.image-container img {
   position: relative;
   display: block;
 
-  background-color: black;
+  background-color: white;
   height: 100%;
   width: 100%;
   border-radius: 10px;
@@ -540,6 +542,18 @@ div.productpage-div div.text-container {
   margin: 0;
   padding: 0;
   border-radius: 10px;
+}
+
+div.productpage-div div.text-container h1 {
+  margin: 15px 15px 5px 15px;
+}
+
+div.productpage-div div.text-container p {
+  margin: 5px 15px 15px 15px;
+}
+
+div.productpage-div div.text-container div.button-container a input {
+  background-color: rgb(7, 133, 7);
 }
 
 div.product > form.add_to_cart {
