@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, flash, redirect, session, request
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, AddToCartForm
 from flask_mysqldb import MySQLdb, MySQL
 import sys, MySQLdb.cursors, re
 from flask_sqlalchemy import SQLAlchemy
@@ -135,17 +135,24 @@ def cart():
     print(products)
     return render_template('CartPage.html', products=products)
 
-@app.route("/addToCart.<string:id>")
+@app.route("/addToCart.<string:id>", methods=['GET', 'POST'])
 def addToCart(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
     data = cursor.fetchone()
+
+    try:
+        form = AddToCartForm()
+        amount = int(request.form['productAmount'])
+    except:
+        amount = 1
+
     if data:
-        cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] + 1, session['id'], id])
+        cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] + amount, session['id'], id])
     else:
-        cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, 1])
+        cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, amount])
     mysql.connection.commit()
-    return redirect(url_for('home'))
+    return redirect(request.referrer)
 
 @app.route("/removeFromCart.<string:id>")
 def removeFromCart(id):
