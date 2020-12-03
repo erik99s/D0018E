@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, flash, redirect, session, request
-from forms import RegistrationForm, LoginForm, AddToCartForm
+from forms import RegistrationForm, LoginForm, AddToCartForm, ratingForm
 from flask_mysqldb import MySQLdb, MySQL
 import sys, MySQLdb.cursors, re
 from flask_sqlalchemy import SQLAlchemy
@@ -160,6 +160,29 @@ def removeFromCart(id):
     cursor.execute('DELETE FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
     mysql.connection.commit()
     return redirect(url_for('cart'))
+
+
+@app.route("/rateProduct.<string:id>")
+def rateProduct(id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT FROM Cart WHERE ProductID = %s', [row['ProductID']])
+    data = cursor.fetchone()
+    
+    try:
+        form = AddToCartForm()
+        rate = int(request.form['rateAmount'])
+    except:
+        rate = 0
+
+    #cursor.execute('INSERT INTO rates VALUES(%s, %s, %s)', [session[]id, id, rate])
+
+    
+    
+    
+
+    
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

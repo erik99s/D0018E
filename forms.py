@@ -22,3 +22,9 @@ class LoginForm(FlaskForm):
 
 class AddToCartForm(FlaskForm):
     amount = IntegerField('productAmount', [DataRequired()])
+
+
+
+class ratingForm(FlaskForm):
+    rate = IntegerField('prdocutRate', [DataRequired()])
+    
