@@ -165,7 +165,7 @@ def removeFromCart(id):
 @app.route("/rateProduct.<string:id>")
 def rateProduct(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT FROM Cart WHERE ProductID = %s', [row['ProductID']])
+    cursor.execute('SELECT FROM rates WHERE ProductID = %s', [row['ProductID']])
     data = cursor.fetchone()
     
     try:
