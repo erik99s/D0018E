@@ -21,13 +21,13 @@
             <hr>
 
             <div class="button-container">
-                <form method="post">
+                <form method="post" action="/addToCart.{{data.ProductID}}">
                     <input type="number" name="productAmount" min="1" max="10" value="1">
                 
 
-                <a href="/addToCart.{{data.ProductID}}">
-                    <input class="addtocart-button" type="button" value="Add to cart">
-                </a>    
+                
+                    <input class="addtocart-button" type="submit" value="Add to cart">
+                   
                 </form>        
             </div>
         </div>
