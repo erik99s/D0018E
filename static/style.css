@@ -754,10 +754,18 @@ div.cartpage-div div.remove-product {
   top: 5px;
   
   height: auto;
+  line-height: 20px;
 }
 
 div.cartpage-div div.remove-product a {
   font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+div.cartpage-div div.remove-product a i {
+  margin: 0;
+  padding: 0;
 }
 
 div.cartpage-div a {
