@@ -497,9 +497,11 @@ div.productpage-div {
   transform: translateX(-50%);
 
   background-color: #2e2e2e;
-  height: 800px;
+  min-height: 800px;
+  height: auto;
   width: 1000px;
-  margin-top: 20px;
+  margin: 20px 0 20px 0;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
 }
@@ -509,8 +511,6 @@ div.productpage-div div.product {
   display: grid;
   grid-template-columns: repeat(2, 1fr);;
   grid-gap: 10px;
-
-  padding: 10px;
 }
 
 div.productpage-div div.image-container {
@@ -561,6 +561,48 @@ div.product > form.add_to_cart {
   padding: 0;
   width: 100%;
 }
+
+div.productpage-div div.review-section {
+  background-color: #1c1c1c;
+  min-height: 200px;
+  height: auto;
+  width: auto;
+  margin-top: 10px;
+  padding: 10px 10px 0 10px;
+
+  border-radius: 10px;
+}
+
+div.productpage-div h1.section-headers {
+  color: white;
+  font-size: 40px;
+  text-align: center;
+}
+
+div.productpage-div div.review {
+  position: relative;
+  display: inline-block;
+
+  background-color: white;
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+div.productpage-div div.rating {
+  position: relative;
+  display: inline-block;
+
+  background-color: none;
+  height: 20px;
+  width: fit-content;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+
+  color: black;
+} 
 
 /*PROFILE PAGE ==================================================================*/
 
