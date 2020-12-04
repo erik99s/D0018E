@@ -9,6 +9,7 @@
 {% block main %}
 
 <div class="productpage-div">
+    <h1 class="section-headers">Product</h1>
     <div class="product">
         <div class="image-container">
             <img src={{data.ProductPicture}}>
@@ -27,6 +28,20 @@
                 </form>        
             </div>
         </div>
+    </div>
+
+    <div class="review-section">
+        <h1 class="section-headers">Product reviews</h1>
+        {% for n in range(0, 5) %}
+            <div class="review">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                <p class="comment"></p>
+            </div>
+        {% endfor %}
     </div>
 </div>
 
