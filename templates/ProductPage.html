@@ -32,14 +32,15 @@
 
     <div class="review-section">
         <h1 class="section-headers">Product reviews</h1>
-        {% set showReviews = True %}
-
-        <form class="review-form" method="post" action="/rateProduct.{{data.ProductID}}">
-            <input class="form-inputs int-input" type="number" name="rating" placeholder="Rating (TEMPORÄR)" min="1" max="5" required><br>
-            <input class="form-inputs fill-input title" type="text" name="title" placeholder="Title" required><br>
-            <textarea class="form-inputs fill-input comment" name="comment"></textarea><br>
-            <input class="form-inputs submit-input" type="submit" name="submit" value="Submit Review"><br>
-        </form>
+        
+        {% if session['loggedin'] %}
+            <form class="review-form" method="post" action="/rateProduct.{{data.ProductID}}">
+                <input class="form-inputs int-input" type="number" name="rating" placeholder="Rating (TEMPORÄR)" min="1" max="5" required><br>
+                <input class="form-inputs fill-input title" type="text" name="title" placeholder="Title" required><br>
+                <textarea class="form-inputs fill-input comment" name="comment"></textarea><br>
+                <input class="form-inputs submit-input" type="submit" name="submit" value="Submit Review"><br>
+            </form>
+        {% endif %}
 
         {% for row in reviews %}
             <div class="review">
