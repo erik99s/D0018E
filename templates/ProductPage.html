@@ -32,14 +32,26 @@
 
     <div class="review-section">
         <h1 class="section-headers">Product reviews</h1>
-        {% for n in range(0, 5) %}
+        {% set showReviews = True %}
+
+        <a href="">
+            <input class="form-inputs main-redirect-input green-button" type="button" value="Write a Review">
+        </a>
+
+
+        {% for row in reviews %}
             <div class="review">
                 <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                    <i class="far fa-star"></i>
+                    {% for n in range(0, row.Rating) %}
+                        <i class="fas fa-star"></i>
+                    {% endfor %}
+                    {% for n in range(row.Rating, 5) %}
+                        <i class="far fa-star"></i>
+                    {% endfor %}
+                    <p class="comment-title">Comment title</p>
                 </div>
-                <p class="comment"></p>
+                <p class="customer">By user 2020-01-12</p>
+                <p class="comment">{{row.Comment}}</p>
             </div>
         {% endfor %}
     </div>
