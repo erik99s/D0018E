@@ -104,7 +104,10 @@ def products(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Products WHERE ProductID = %s', [id])
     data = cursor.fetchone()
-    return render_template('ProductPage.html', data=data)
+
+    cursor.execute('SELECT * FROM Rating WHERE ProductID = %s', [id])
+    reviews = cursor.fetchall()
+    return render_template('ProductPage.html', data=data, reviews=reviews)
 
 @app.route("/profile")
 def profile():
