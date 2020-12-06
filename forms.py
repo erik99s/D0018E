@@ -9,7 +9,6 @@ class RegistrationForm(FlaskForm):
     confirm_email = StringField('confirm email', validators=[DataRequired(), EqualTo('email')])
     password = PasswordField('password', validators=[DataRequired()])
     confirm_password = PasswordField('confirm password', validators=[DataRequired(), EqualTo('password')])
-      
     submit = SubmitField('Sign Up')
 
 class LoginForm(FlaskForm):
@@ -23,10 +22,7 @@ class LoginForm(FlaskForm):
 class AddToCartForm(FlaskForm):
     amount = IntegerField('productAmount', [DataRequired()])
 
-
-
 class ratingForm(FlaskForm):
     rating = IntegerField('rating', [DataRequired()])
     title = StringField('title', [DataRequired()])
     comment = StringField('comment', [DataRequired()])
-    
