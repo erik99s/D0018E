@@ -34,10 +34,12 @@
         <h1 class="section-headers">Product reviews</h1>
         {% set showReviews = True %}
 
-        <a href="">
-            <input class="form-inputs main-redirect-input green-button" type="button" value="Write a Review">
-        </a>
-
+        <form class="review-form" method="post" action="/rateProduct.<string:id>">
+            <input class="form-inputs int-input" type="number" name="rating" placeholder="Rating (TEMPORÄR)" min="1" max="5" required><br>
+            <input class="form-inputs fill-input" type="text" name="title" placeholder="Title" required><br>
+            <input class="form-inputs fill-input" type="text" name="comment" placeholder="Comment" required><br>        
+            <input class="form-inputs submit-input" type="submit" name="submit" value="Submit Review"><br>
+        </form>
 
         {% for row in reviews %}
             <div class="review">
@@ -48,9 +50,9 @@
                     {% for n in range(row.Rating, 5) %}
                         <i class="far fa-star"></i>
                     {% endfor %}
-                    <p class="comment-title">Comment title</p>
+                    <p class="comment-title">{{row.Title}}</p>
                 </div>
-                <p class="customer">By user 2020-01-12</p>
+                <p class="customer">2020-01-12</p>
                 <p class="comment">{{row.Comment}}</p>
             </div>
         {% endfor %}
