@@ -34,7 +34,7 @@
         <h1 class="section-headers">Product reviews</h1>
         {% set showReviews = True %}
 
-        <form class="review-form" method="post" action="/rateProduct.<string:id>">
+        <form class="review-form" method="post" action="/rateProduct.{{data.ProductID}}">
             <input class="form-inputs int-input" type="number" name="rating" placeholder="Rating (TEMPORÄR)" min="1" max="5" required><br>
             <input class="form-inputs fill-input" type="text" name="title" placeholder="Title" required><br>
             <input class="form-inputs fill-input" type="text" name="comment" placeholder="Comment" required><br>        
@@ -52,7 +52,7 @@
                     {% endfor %}
                     <p class="comment-title">{{row.Title}}</p>
                 </div>
-                <p class="customer">2020-01-12</p>
+                <p class="date">{{row.Date}}</p>
                 <p class="comment">{{row.Comment}}</p>
             </div>
         {% endfor %}
