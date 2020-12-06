@@ -26,6 +26,7 @@ class AddToCartForm(FlaskForm):
 
 
 class ratingForm(FlaskForm):
-    rate = IntegerField('prodcutRate', [DataRequired()])
-    comment = StringField('productComment', [DataRequired()])
+    rating = IntegerField('rating', [DataRequired()])
+    title = StringField('title', [DataRequired()])
+    comment = StringField('comment', [DataRequired()])
     
