@@ -104,7 +104,6 @@ def products(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Products WHERE ProductID = %s', [id])
     data = cursor.fetchone()
-
     cursor.execute('SELECT * FROM Reviews WHERE ProductID = %s', [id])
     reviews = cursor.fetchall()
     return render_template('ProductPage.html', data=data, reviews=reviews)
@@ -159,15 +158,16 @@ def removeFromCart(id):
     mysql.connection.commit()
     return redirect(url_for('cart'))
 
-
-@app.route("/rateProduct.<string:id>")
+@app.route("/rateProduct.<string:id>", methods=['GET', 'POST'])
 def rateProduct(id):
+    form = ratingForm()
+    comment = request.form['comment']
+    title = request.form['title']
+    rating = request.form['rating']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('INSERT INTO Reviews VALUES(%s, %s, %s, %s) ProductID = %s', [session['id'], id, 'rating', 'title', 'comment'])
-    return redirect(url_for('home'))
-
-
-    
+    cursor.execute('INSERT INTO Reviews VALUES(%s, %s, %s, %s, %s, NULL)', [session['id'], id, comment, title, rating])
+    mysql.connection.commit()
+    return redirect(request.referrer)
 
 if __name__ == "__main__":
     app.run(debug=True)
