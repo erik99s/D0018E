@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms.fields import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 class RegistrationForm(FlaskForm):
@@ -25,4 +26,4 @@ class AddToCartForm(FlaskForm):
 class ratingForm(FlaskForm):
     rating = IntegerField('rating', [DataRequired()])
     title = StringField('title', [DataRequired()])
-    comment = StringField('comment', [DataRequired()])
+    comment = StringField('comment', widget=TextArea())

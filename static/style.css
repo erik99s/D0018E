@@ -579,6 +579,19 @@ div.productpage-div h1.section-headers {
   text-align: center;
 }
 
+div.productpage-div form.review-form {
+  margin: 0;
+}
+
+div.productpage-div form.review-form textarea{
+  height: 300px;
+  width: 395px;
+  margin-bottom: 20px;
+
+  border: none;
+  border-radius: 10px;
+}
+
 div.productpage-div div.review {
   position: relative;
   display: inline-block;
