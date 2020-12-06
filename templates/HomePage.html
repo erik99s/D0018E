@@ -14,7 +14,6 @@
             <a id="image" href="/product.{{row.ProductID}}"><img src="{{row.ProductPicture}}"></a>
             <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
             <p id="price">{{row.Price}} kr</p>
-
             {% if session['loggedin'] %}
                 <div class="button-container">
                     <a href="/addToCart.{{row.ProductID}}">
