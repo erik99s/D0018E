@@ -164,7 +164,7 @@ def rateProduct(id):
     data = cursor.fetchone()
     
     try:
-        form = AddToCartForm()
+        form = ratingForm()
         rate = int(request.form['rateAmount'])
     except:
         rate = 0
@@ -172,12 +172,6 @@ def rateProduct(id):
     #cursor.execute('INSERT INTO rates VALUES(%s, %s, %s)', [session[]id, id, rate])
 
     
-    
-    
-
-    
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
