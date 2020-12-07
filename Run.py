@@ -114,7 +114,11 @@ def profile():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [session['id']])
         data = cursor.fetchone()
-        return render_template('ProfilePage.html', data=data)
+
+        cursor.execute('SELECT * FROM Reviews WHERE CustomerID = %s', [session['id']])
+        reviews = cursor.fetchall()
+        print(reviews)
+        return render_template('ProfilePage.html', data=data, reviews=reviews)
     
     return redirect(url_for('login'))
 
