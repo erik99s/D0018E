@@ -30,8 +30,12 @@
                 </h1>
                 <p id="product-price">{{row.Price}} kr</p>
                 <div class="remove-product">
-                    <input type="number" value="{{row.Amount}}" min="1" max="10">
+                    <a href="/removeOneFromCart.{{row.ProductID}}"><i class="fas fa-minus"></i></a>
+                    <td nowrap><div class="display-Amount fas">{{row.Amount}}</div></td>
+                    <a href="/addToCart.{{row.ProductID}}"><i class="fas fa-plus"></i></a> 
                     <a href="/removeFromCart.{{row.ProductID}}"><i class="fas fa-times"></i></a>
+                    
+                    
                 </div>
                 <hr>
                 <p id="product-description">{{row.Description}}</p>
@@ -39,5 +43,7 @@
         </div>
     {% endfor %}
 </div>
+
+<script>
 
 {% endblock %}
