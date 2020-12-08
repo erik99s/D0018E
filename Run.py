@@ -168,13 +168,12 @@ def removeOneFromCart(id):
     cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
     data = cursor.fetchone()
     
-    try:
-        form = AddToCartForm()
-        amount = int(request.form['productAmount'])
-    except:
-        amount = 1
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] - amount, session['id'], id])
+    cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] - 1, session['id'], id])
+
+    if data['Amount'] <= 1:
+        return redirect(url_for('removeFromCart', id=id))
+        
     mysql.connection.commit()
     return redirect(request.referrer)
 
