@@ -869,24 +869,50 @@ div.cartpage-div p#product-price {
   color: green;
 }
 
-div.cartpage-div div.remove-product {
+div.cartpage-div div.adjust-comtainer {
   position: absolute;
   right: 10px;
   top: 5px;
   
+  background-color: none;
   height: auto;
   line-height: 20px;
 }
 
-div.cartpage-div div.remove-product a {
+div.cartpage-div div.adjust-comtainer a {
   font-size: 20px;
+  margin: 0;
+}
+
+div.cartpage-div div.adjust-comtainer a.adjust-quantity {
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 1px solid black;
+}
+
+div.cartpage-div div.adjust-comtainer a.dec {
+  border-radius: 10px 0 0 10px;
+}
+
+div.cartpage-div div.adjust-comtainer a.inc {
+  border-radius: 0 10px 10px 0;
+
+}
+
+div.cartpage-div div.adjust-comtainer a.remove-product {
+  margin-left: 20px;
+}
+
+div.cartpage-div div.adjust-comtainer a i {
   margin: 0;
   padding: 0;
 }
 
-div.cartpage-div div.remove-product a i {
+div.cartpage-div div.adjust-comtainer p.product-amount {
+  display: inline-block;
   margin: 0;
   padding: 0;
+  font-size: 20px;
 }
 
 div.cartpage-div a {
@@ -896,4 +922,11 @@ div.cartpage-div a {
 
 div.cartpage-div a:hover {
   text-decoration-line: underline;
+}
+
+div.cartpage-div div.total {
+  background-color: white;
+  height: 200px;
+  width: auto;
+  border-radius: 10px;
 }
