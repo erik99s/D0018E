@@ -106,9 +106,12 @@ def products(id):
     product = cursor.fetchone()
     cursor.execute('SELECT * FROM Reviews WHERE ProductID = %s', [id])
     reviews = cursor.fetchall()
-    cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [session['id']])
-    customer = cursor.fetchone()
-    return render_template('ProductPage.html', product=product, reviews=reviews, customer=customer)
+    for row in reviews:
+        cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [row['CustomerID']])
+        customer = cursor.fetchone()
+        row.update({'FirstName' : customer['FirstName']})
+        row.update({'LastName' : customer['LastName']})
+    return render_template('ProductPage.html', product=product, reviews=reviews)
 
 @app.route("/profile")
 def profile():
@@ -116,10 +119,8 @@ def profile():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [session['id']])
         data = cursor.fetchone()
-
         cursor.execute('SELECT * FROM Reviews WHERE CustomerID = %s', [session['id']])
         reviews = cursor.fetchall()
-        print(reviews)
         return render_template('ProfilePage.html', data=data, reviews=reviews)
     
     return redirect(url_for('login'))
@@ -135,7 +136,6 @@ def cart():
         product = cursor.fetchone()
         product.update({'Amount' : row['Amount']})
         products.append(product)
-    print(products)
     return render_template('CartPage.html', products=products)
 
 @app.route("/addToCart.<string:id>", methods=['GET', 'POST'])
