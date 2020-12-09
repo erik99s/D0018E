@@ -8,29 +8,54 @@
 
 {% block main %}
 
-<div class="profile_main">
-    <div class="table_div">
-        <table class="profile_info">
+<div class="profilepage">
+    <div class="table-section">
+        <h1 class="section-headers">Profile Information</h1>
+        <table class="profile-table">
             <tr>
                 <td>Firstname:</td>
-                <td>{{data['FirstName']}}</td>
+                <td class="column2 row1">{{data['FirstName']}}</td>
             </tr>
             <tr>
                 <td>Lastname:</td>
-                <td>{{data['LastName']}}</td>
+                <td class="column2 row2">{{data['LastName']}}</td>
                 
             </tr>
             <tr>
                 <td>Email:</td>
-                <td>{{data['Email']}}</td>
+                <td class="column2 row3">{{data['Email']}}</td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td class="column2 row3">{{data['Password']|length * "*"}}</td>
             </tr>
         </table>
     </div>
 
-    <div class="form_div">
-        <form class="profile_form" method="post" action="">
-            <input type="button" class="button" id="change_profile_button" name="profile" value="Change profile"><br>
+    <div class="form-container">
+        <form class="profile-form" method="post" action="">
+            <input type="button" class="button" name="profile" value="Change profile"><br>
         </form>
+    </div>
+
+    <div class="review-section">
+        <h1 class="section-headers">My Product Reviews</h1>
+
+        {% for row in reviews %}
+            <div class="review">
+                <div class="rating">
+                    {% for n in range(0, row.Rating) %}
+                        <i class="fas fa-star"></i>
+                    {% endfor %}
+                    {% for n in range(row.Rating, 5) %}
+                        <i class="far fa-star"></i>
+                    {% endfor %}
+                    <p class="comment-title">{{row.Title}}</p>
+                </div>
+                <p class="date">{{row.Date}}</p>
+                <p class="comment">{{row.Comment}}</p>
+            </div>
+        {% endfor %}
     </div>
 </div>
 

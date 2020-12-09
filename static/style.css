@@ -627,67 +627,64 @@ div.productpage-div div.rating p.comment-title {
 
 /*PROFILE PAGE ==================================================================*/
 
-div.profile_main {
+div.profilepage {
   position: relative;
   display: inline-block;
   left: 50%;
   transform: translateX(-50%);
 
-  background-color: red;
+  background-color: #2e2e2e;
   width: 800px;
-  height: 800px;
-  margin-top: 50px;
+  height: auto;
+  margin: 50px 0 50px 0;
+  padding: 10px;
+
+  border-radius: 10px;
 }
 
 /*table*/
-div.table_div {
+div.table-section {
   position: relative;
   display: inline-block;
   
-  background-color: white;
-  height: auto;
-  width: inherit;
-}
-
-table.profile_info {
-  position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
-
-  background-color: green;
-  color: white;
-  margin: 0;
-  padding: 0;
-}
-
-table.profile_info {
-  height: auto;
-  width: 80%;
-}
-
-table.profile_info tr {
   background-color: #1c1c1c;
+  height: auto;
   width: inherit;
-  height: 50px;
+  
+  border-radius: 10px;
 }
 
-table.profile_info td {
+table.profile-table {
+  background-color: none;
   width: 100%;
+  padding: 5px;
+
+  color: white;
+  border: none;
+}
+
+table.profile-table tr {
+  background-color: none;
+  height: 40px;
+}
+
+table.profile-table tr td {
+  padding: 10px;
+  border: 1px solid #3987e6;
+  border-radius: 10px;
 }
 
 /*change-profile button*/
-div.form_div {
+div.form-container {
   position: relative;
-  display: inline-block;
+  display: block;
 
   background-color: none;
   height: auto;
   width: inherit;
-  padding-top: 50px;
 }
 
-form.profile_form {
+form.profile-form {
   position: relative;
   display: inline-block;
   left: 50%;
@@ -698,7 +695,7 @@ form.profile_form {
   width: auto;
 }
 
-form.profile_form > input {
+form.profile-form > input {
   position: relative;
   display: inline-cell;
   left: 50%;
@@ -714,7 +711,7 @@ form.profile_form > input {
   font-size: large;
 }
 
-form.profile_form > input[type=button] {
+form.profile-form > input[type=button] {
   background-color: #3987e6;
   cursor: pointer;
 
@@ -722,11 +719,72 @@ form.profile_form > input[type=button] {
   font-weight: bold;
 }
 
-form.profile_form > input[type=button]:hover {
+form.profile-form > input[type=button]:hover {
   background-color: #2976d3;
 }
 
+div.profilepage div.review-section {
+  background-color: #1c1c1c;
+  min-height: 200px;
+  height: auto;
+  width: auto;
+  margin-top: 10px;
+  padding: 10px 10px 0 10px;
 
+  border-radius: 10px;
+}
+
+div.profilepage h1.section-headers {
+  color: white;
+  font-size: 40px;
+  text-align: center;
+}
+
+div.profilepage form.review-form {
+  margin: 0;
+}
+
+div.profilepage form.review-form textarea{
+  height: 300px;
+  width: 395px;
+  margin-bottom: 20px;
+
+  border: none;
+  border-radius: 10px;
+}
+
+div.profilepage div.review {
+  position: relative;
+  display: inline-block;
+
+  background-color: white;
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+div.profilepage div.rating {
+  position: relative;
+  display: inline-block;
+
+  background-color: none;
+  height: 20px;
+  width: fit-content;
+  margin: 10px;
+  border-radius: 10px;
+
+  color: #f8b912;
+} 
+
+div.profilepage div.review p {
+  color: black;
+  margin: 10px;
+}
+
+div.profilepage div.rating p.comment-title {
+  display: inline;
+}
 
 
 /*CART PAGE =====================================================================*/
@@ -811,24 +869,50 @@ div.cartpage-div p#product-price {
   color: green;
 }
 
-div.cartpage-div div.remove-product {
+div.cartpage-div div.adjust-comtainer {
   position: absolute;
   right: 10px;
   top: 5px;
   
+  background-color: none;
   height: auto;
   line-height: 20px;
 }
 
-div.cartpage-div div.remove-product a {
+div.cartpage-div div.adjust-comtainer a {
   font-size: 20px;
+  margin: 0;
+}
+
+div.cartpage-div div.adjust-comtainer a.adjust-quantity {
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 1px solid black;
+}
+
+div.cartpage-div div.adjust-comtainer a.dec {
+  border-radius: 10px 0 0 10px;
+}
+
+div.cartpage-div div.adjust-comtainer a.inc {
+  border-radius: 0 10px 10px 0;
+
+}
+
+div.cartpage-div div.adjust-comtainer a.remove-product {
+  margin-left: 20px;
+}
+
+div.cartpage-div div.adjust-comtainer a i {
   margin: 0;
   padding: 0;
 }
 
-div.cartpage-div div.remove-product a i {
+div.cartpage-div div.adjust-comtainer p.product-amount {
+  display: inline-block;
   margin: 0;
   padding: 0;
+  font-size: 20px;
 }
 
 div.cartpage-div a {
@@ -838,4 +922,11 @@ div.cartpage-div a {
 
 div.cartpage-div a:hover {
   text-decoration-line: underline;
+}
+
+div.cartpage-div div.total {
+  background-color: white;
+  height: 200px;
+  width: auto;
+  border-radius: 10px;
 }
