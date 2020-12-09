@@ -103,10 +103,12 @@ def logout():
 def products(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM Products WHERE ProductID = %s', [id])
-    data = cursor.fetchone()
+    product = cursor.fetchone()
     cursor.execute('SELECT * FROM Reviews WHERE ProductID = %s', [id])
     reviews = cursor.fetchall()
-    return render_template('ProductPage.html', data=data, reviews=reviews)
+    cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [session['id']])
+    customer = cursor.fetchone()
+    return render_template('ProductPage.html', product=product, reviews=reviews, customer=customer)
 
 @app.route("/profile")
 def profile():
@@ -142,7 +144,7 @@ def addToCart(id):
         form = AddToCartForm()
         amount = int(request.form['productAmount'])
     except:
-        amount = 1
+        amount = 1  
 
     if data:
         cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] + amount, session['id'], id])
