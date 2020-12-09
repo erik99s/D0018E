@@ -12,17 +12,17 @@
     <h1 class="section-headers">Product</h1>
     <div class="product">
         <div class="image-container">
-            <img src={{data.ProductPicture}}>
+            <img src={{product.ProductPicture}}>
         </div>
         <div class="text-container">
-            <h1>{{data.ProductName}}</h1>
-            <p>{{data.Price}}</p>
+            <h1>{{product.ProductName}}</h1>
+            <p>{{product.Price}}</p>
             <hr>
-            <p>{{data.Description}}</p>
+            <p>{{product.Description}}</p>
             <hr>
 
             <div class="button-container">
-                <form method="post" action="/addToCart.{{data.ProductID}}">
+                <form method="post" action="/addToCart.{{product.ProductID}}">
                     <input type="number" name="productAmount" min="1" max="10" value="1">
                     <input class="addtocart-button" type="submit" value="Add to cart">
                 </form>        
@@ -34,7 +34,7 @@
         <h1 class="section-headers">Product reviews</h1>
         {% set showReviews = True %}
 
-        <form class="review-form" method="post" action="/rateProduct.{{data.ProductID}}">
+        <form class="review-form" method="post" action="/rateProduct.{{product.ProductID}}">
             <input class="form-inputs int-input" type="number" name="rating" placeholder="Rating (TEMPORÄR)" min="1" max="5" required><br>
             <input class="form-inputs fill-input title" type="text" name="title" placeholder="Title" required><br>
             <textarea class="form-inputs fill-input comment" name="comment"></textarea><br>
@@ -52,7 +52,7 @@
                     {% endfor %}
                     <p class="comment-title">{{row.Title}}</p>
                 </div>
-                <p class="date">{{row.Date}}</p>
+                <p class="date">{{customer.FirstName}} {{customer.LastName}} {{row.Date}}</p>
                 <p class="comment">{{row.Comment}}</p>
             </div>
         {% endfor %}
