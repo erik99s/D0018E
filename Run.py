@@ -204,5 +204,13 @@ def rateProduct(id):
     mysql.connection.commit()
     return redirect(request.referrer)
 
+@app.route("/deleteReview.<string:id>")
+def deleteReview(id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('DELETE FROM Reviews WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+    # TO DO: change CustomerID and ProductID to ReviewID when addded in database
+    mysql.connection.commit()
+    return redirect(request.referrer)
+
 if __name__ == "__main__":
     app.run(debug=True)
