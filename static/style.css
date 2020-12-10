@@ -598,40 +598,32 @@ div.productpage-div form.review-form {
 div.productpage-div div.rating-container {
   position: relative;
   display: flex;
+  transform: rotateY(180deg);
+  width: fit-content;
+  margin: 20px 20px 20px 0px;
 }
 
 /*TUTORIAL*/
 
-div.productpage-div form.review-form input {
-  display: none
+.rating-container input {
+  display: none;
 }
 
-div.productpage-div form.review-form label {
+.rating-container label {
   display: block;
   cursor: pointer;
-  height: 50px;
-  width: 50px;
+  height: auto;
+  width: auto;
+  margin-left: 5px;
 }
 
-div.productpage-div form.review-form label:before {
-  position: absolute;
-  display: inline-block;
-
+.rating-container input:not(:checked) ~ label:hover,
+.rating-container input:not(:checked) ~ label:hover ~ label {
   color: #f8b912;
-  content: '\f005';
-  font-family: fontAwesome;
-  font-size: 22px;
 }
 
-div.productpage-div form.review-form label:after {
-  position: absolute;
-  display: block;
-
-  color: #3987e6;
-  content: '\f005';
-  font-family: fontAwesome;
-  font-size: 22px;
-  opacity: 0;
+.rating-container input:checked ~ label {
+  color: #f8b912;
 }
 
 /*TUTORIAL*/
