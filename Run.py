@@ -23,8 +23,12 @@ db.Model.metadata.reflect(bind=db.engine, schema='db980705')
 class Customer(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Customer']
 
+class Products(db.Model):
+    __table__ = db.Model.metadata.tables['db980705.Products']
+
 admin = Admin(app)
 admin.add_view(ModelView(Customer, db.session))
+admin.add_view(ModelView(Products, db.session))
 
 # init mySQL
 mysql = MySQL(app)
@@ -36,6 +40,10 @@ def home():
     cursor.execute('SELECT * FROM Products')
     data = cursor.fetchall()
     return render_template("HomePage.html", data=data)
+
+@app.route("/admin")  
+def admin():
+   return None
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -83,9 +91,15 @@ def login():
         data = cursor.fetchone()
 
         if data:
-            session['loggedin'] = True
-            session['id'] = data['CustomerID']
-            return redirect(url_for('home'))
+            if email == "admin@desire.com":
+                print("im here")
+                session['loggedin'] = True
+                session['id'] = data['CustomerID']
+                return redirect(url_for('admin'))
+            else:
+                session['loggedin'] = True
+                session['id'] = data['CustomerID']
+                return redirect(url_for('home'))
         else:
             msg = 'Does not recognize email/password'
             session['loggedin'] = False
