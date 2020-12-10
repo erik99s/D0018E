@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms.fields import StringField, PasswordField, SubmitField, BooleanField, IntegerField, RadioField
 from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
@@ -24,6 +24,6 @@ class AddToCartForm(FlaskForm):
     amount = IntegerField('productAmount', [DataRequired()])
 
 class ratingForm(FlaskForm):
-    rating = IntegerField('rating', [DataRequired()])
+    rating = RadioField('star', choices=[('value','description'),('value_two','whatever')])
     title = StringField('title', [DataRequired()])
     comment = StringField('comment', widget=TextArea())
