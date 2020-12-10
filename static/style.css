@@ -563,6 +563,10 @@ div.product > form.add_to_cart {
 }
 
 div.productpage-div div.review-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+
   background-color: #1c1c1c;
   min-height: 200px;
   height: auto;
@@ -571,6 +575,14 @@ div.productpage-div div.review-section {
   padding: 10px 10px 0 10px;
 
   border-radius: 10px;
+}
+
+div.write-review {
+  display: block;
+}
+
+div.reviews {
+  display: block;
 }
 
 div.productpage-div h1.section-headers {
@@ -583,7 +595,52 @@ div.productpage-div form.review-form {
   margin: 0;
 }
 
-div.productpage-div form.review-form textarea{
+div.productpage-div div.rating-container {
+  position: relative;
+  display: flex;
+}
+
+/*TUTORIAL*/
+
+div.productpage-div form.review-form input {
+  display: none
+}
+
+div.productpage-div form.review-form label {
+  display: block;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+}
+
+div.productpage-div form.review-form label:before {
+  position: absolute;
+  display: inline-block;
+
+  color: #f8b912;
+  content: '\f005';
+  font-family: fontAwesome;
+  font-size: 22px;
+}
+
+div.productpage-div form.review-form label:after {
+  position: absolute;
+  display: block;
+
+  color: #3987e6;
+  content: '\f005';
+  font-family: fontAwesome;
+  font-size: 22px;
+  opacity: 0;
+}
+
+/*TUTORIAL*/
+
+div.productpage-div form.review-form input.title {
+  
+}
+
+div.productpage-div form.review-form textarea {
   height: 300px;
   width: 395px;
   margin-bottom: 20px;
@@ -600,6 +657,8 @@ div.productpage-div div.review {
   width: 100%;
   min-height: 100px;
   margin-bottom: 10px;
+
+  border: 2px solid none;
   border-radius: 10px;
 }
 
@@ -622,8 +681,23 @@ div.productpage-div div.review p {
   margin: 10px;
 }
 
-div.productpage-div div.rating p.comment-title {
-  display: inline;
+div.productpage-div p.comment-title {
+  position: absolute;
+  display: inline-block;
+  top: 0;
+}
+
+div.productpage-div div.review a.remove-review {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+
+  margin: 3px 8px 0 0;
+
+  color: black;
+  font-size: 18px;
+  text-decoration: none;
 }
 
 /*PROFILE PAGE ==================================================================*/
@@ -725,6 +799,9 @@ form.profile-form > input[type=button]:hover {
 }
 
 div.profilepage div.review-section {
+  position: relative;
+  display: block;
+
   background-color: #1c1c1c;
   min-height: 200px;
   height: auto;
@@ -783,8 +860,28 @@ div.profilepage div.review p {
   margin: 10px;
 }
 
-div.profilepage div.rating p.comment-title {
-  display: inline;
+div.profilepage p.comment-title {
+  position: absolute;
+  display: inline-block;
+  top: 0;
+}
+
+div.profilepage div.review a.remove-review {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+
+  margin: 3px 8px 0 0;
+
+  color: black;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+div.profilepage div.review a.remove-review i {
+  margin: 0;
+  padding: 0;
 }
 
 
