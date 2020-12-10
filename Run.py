@@ -206,7 +206,7 @@ def rateProduct(id):
     form = ratingForm()
     comment = request.form['comment']
     title = request.form['title']
-    rating = request.form['rating']
+    rating = request.form['star']
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('INSERT INTO Reviews VALUES(%s, %s, %s, %s, %s, NULL)', [session['id'], id, comment, title, rating])
     mysql.connection.commit()
@@ -216,7 +216,6 @@ def rateProduct(id):
 def deleteReview(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('DELETE FROM Reviews WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
-    # TO DO: change CustomerID and ProductID to ReviewID when addded in database
     mysql.connection.commit()
     return redirect(request.referrer)
 
