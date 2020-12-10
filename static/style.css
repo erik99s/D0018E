@@ -603,8 +603,6 @@ div.productpage-div div.rating-container {
   margin: 20px 20px 20px 0px;
 }
 
-/*TUTORIAL*/
-
 .rating-container input {
   display: none;
 }
@@ -624,12 +622,6 @@ div.productpage-div div.rating-container {
 
 .rating-container input:checked ~ label {
   color: #f8b912;
-}
-
-/*TUTORIAL*/
-
-div.productpage-div form.review-form input.title {
-  
 }
 
 div.productpage-div form.review-form textarea {
