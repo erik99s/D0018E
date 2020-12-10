@@ -394,7 +394,7 @@ div.product-grid {
 
 div.product-grid div.product {
   background-color: #2e2e2e;
-  height: max-content;
+  height: auto;
   width: auto;
   padding: 10px 10px 0px 10px;
   box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
@@ -403,7 +403,7 @@ div.product-grid div.product {
 
 div.product > a > img {
   position: relative;
-  vertical-align: top;
+  vertical-align: middle;
   z-index: 1;
 
   background-color: white;
