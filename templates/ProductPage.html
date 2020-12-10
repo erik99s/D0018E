@@ -30,33 +30,56 @@
         </div>
     </div>
 
+    <h1 class="section-headers">Product Reviews</h1>
     <div class="review-section">
-        <h1 class="section-headers">Product Reviews</h1>
-        
-        {% if session['loggedin'] %}
-            <form class="review-form" method="post" action="/rateProduct.{{product.ProductID}}">
-                <input class="form-inputs int-input" type="number" name="rating" placeholder="Rating (TEMPORÄR)" min="1" max="5" required><br>
-                <input class="form-inputs fill-input title" type="text" name="title" placeholder="Title" required><br>
-                <textarea class="form-inputs fill-input comment" name="comment"></textarea><br>
-                <input class="form-inputs submit-input" type="submit" name="submit" value="Submit Review"><br>
-            </form>
-        {% endif %}
 
-        {% for row in reviews %}
-            <div class="review">
-                <div class="rating">
-                    {% for n in range(0, row.Rating) %}
-                        <i class="fas fa-star"></i>
-                    {% endfor %}
-                    {% for n in range(row.Rating, 5) %}
-                        <i class="far fa-star"></i>
-                    {% endfor %}
+        <div class="reviews">
+            {% for row in reviews %}
+                <div class="review">
+                    <div class="rating">
+                        {% for n in range(0, row.Rating) %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                        {% for n in range(row.Rating, 5) %}
+                            <i class="far fa-star"></i>
+                        {% endfor %}
+                    </div>
+
                     <p class="comment-title">{{row.Title}}</p>
+                    <p class="date">{{row.FirstName}} {{row.LastName}} {{row.Date}}</p>
+                    <p class="comment">{{row.Comment}}</p>
+                    {% if row.CustomerID == session['id'] %}
+                        <a class="remove-review" href="/deleteReview.{{row.ProductID}}"><i class="fas fa-times"></i></a>
+                    {% endif %}
                 </div>
-                <p class="date">{{row.FirstName}} {{row.LastName}} {{row.Date}}</p>
-                <p class="comment">{{row.Comment}}</p>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
+
+        <div class="write-review">
+            {% if session['loggedin'] %}
+                <form class="review-form" method="post" action="/rateProduct.{{product.ProductID}}">
+                    <input class="form-inputs int-input" type="number" name="rating" placeholder="Rating (TEMPORÄR)" min="1" max="5" required><br>
+                    
+                    <div class="rating-container">
+                        <input id="star1" name="star" type="radio" value="5" class="radio-btn hide" />
+                        <label for="star1"></label>
+                        <input id="star2" name="star" type="radio" value="4" class="radio-btn hide" />
+                        <label for="star2"></label>
+                        <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                        <label for="star3"></label>
+                        <input id="star4" name="star" type="radio" value="2" class="radio-btn hide" />
+                        <label for="star4"></label>
+                        <input id="star5" name="star" type="radio" value="1" class="radio-btn hide" />
+                        <label for="star5"></label>
+                    </div>
+                    
+                    <input class="form-inputs fill-input title" type="text" name="title" placeholder="Title" required><br>
+                    <textarea class="form-inputs fill-input comment" name="comment"></textarea><br>
+                    <input class="form-inputs submit-input" type="submit" name="submit" value="Submit Review"><br>
+                </form>
+            {% endif %}
+        </div>
+
     </div>
 </div>
 
