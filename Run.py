@@ -26,9 +26,17 @@ class Customer(db.Model):
 class Products(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Products']
 
+#class Cart(db.Model):
+#    __table__ = db.Model.metadata.tables['db980705.Cart']
+
+#class Reviews(db.Model):
+#    __table__ = db.Model.metadata.tables['db980705.Reviews']
+
 admin = Admin(app)
 admin.add_view(ModelView(Customer, db.session))
 admin.add_view(ModelView(Products, db.session))
+#admin.add_view(ModelView(Cart, db.session))
+#admin.add_view(ModelView(Reviews, db.session))
 
 # init mySQL
 mysql = MySQL(app)
