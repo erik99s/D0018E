@@ -58,19 +58,18 @@
         <div class="write-review">
             {% if session['loggedin'] %}
                 <form class="review-form" method="post" action="/rateProduct.{{product.ProductID}}">
-                    <input class="form-inputs int-input" type="number" name="rating" placeholder="Rating (TEMPORÄR)" min="1" max="5" required><br>
                     
                     <div class="rating-container">
                         <input id="star1" name="star" type="radio" value="5" class="radio-btn hide" />
-                        <label for="star1"></label>
+                        <label for="star1" class="fas fa-star"></label>
                         <input id="star2" name="star" type="radio" value="4" class="radio-btn hide" />
-                        <label for="star2"></label>
+                        <label for="star2" class="fas fa-star"></label>
                         <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
-                        <label for="star3"></label>
+                        <label for="star3" class="fas fa-star"></label>
                         <input id="star4" name="star" type="radio" value="2" class="radio-btn hide" />
-                        <label for="star4"></label>
+                        <label for="star4" class="fas fa-star"></label>
                         <input id="star5" name="star" type="radio" value="1" class="radio-btn hide" />
-                        <label for="star5"></label>
+                        <label for="star5" class="fas fa-star"></label>
                     </div>
                     
                     <input class="form-inputs fill-input title" type="text" name="title" placeholder="Title" required><br>
