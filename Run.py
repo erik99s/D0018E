@@ -29,7 +29,7 @@ class AdminIndexView(AdminIndexView):
             account = cursor.fetchone()
             if account:
                 return True
-        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
             return False
         return False  # This returns false only if a user is logged in, but not admin
 
@@ -45,7 +45,7 @@ class AdminUserView(ModelView):
             account = cursor.fetchone()
             if account:
                 return True
-        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
             return False
         return False  # This returns false only if a user is logged in, but not admin
 
@@ -60,7 +60,7 @@ class CustomerView(ModelView):
             account = cursor.fetchone()
             if account:
                 return True
-        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
             return False
         return False  # This returns false only if a user is logged in, but not admin
 
@@ -75,7 +75,7 @@ class ProductsView(ModelView):
             account = cursor.fetchone()
             if account:
                 return True
-        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
             return False
         return False  # This returns false only if a user is logged in, but not admin
 
