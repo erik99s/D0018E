@@ -107,7 +107,7 @@ def home():
 
 @app.route("/admin")  
 def admin():
-   return None
+    return None
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -198,74 +198,92 @@ def profile():
 
 @app.route("/cart")
 def cart():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s', [session['id']])
-    data = cursor.fetchall()
-    products = []
-    for row in data:
-        cursor.execute('SELECT * FROM Products WHERE ProductID = %s', [row['ProductID']])
-        product = cursor.fetchone()
-        product.update({'Amount' : row['Amount']})
-        products.append(product)
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s', [session['id']])
+        data = cursor.fetchall()
+        products = []
+        for row in data:
+            cursor.execute('SELECT * FROM Products WHERE ProductID = %s', [row['ProductID']])
+            product = cursor.fetchone()
+            product.update({'Amount' : row['Amount']})
+            products.append(product)
+    except:
+        return redirect(url_for('login'))
     return render_template('CartPage.html', products=products)
 
 @app.route("/addToCart.<string:id>", methods=['GET', 'POST'])
 def addToCart(id):
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
-    data = cursor.fetchone()
-
     try:
-        form = AddToCartForm()
-        amount = int(request.form['productAmount'])
-    except:
-        amount = 1  
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+        data = cursor.fetchone()
 
-    if data:
-        cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] + amount, session['id'], id])
-    else:
-        cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, amount])
-    mysql.connection.commit()
+        if data:
+            cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] + amount, session['id'], id])
+        else:
+            cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, amount])
+        mysql.connection.commit()
+    
+        form = AddToCartForm()
+        try:
+            amount = int(request.form['productAmount'])
+        except:
+            amount = 1  
+    except:
+        return redirect(url_for('home'))
     return redirect(request.referrer)
 
 @app.route("/removeFromCart.<string:id>")
 def removeFromCart(id):
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('DELETE FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
-    mysql.connection.commit()
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('DELETE FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+        mysql.connection.commit()
+    except:
+        return redirect(url_for('home'))
     return redirect(url_for('cart'))
 
 @app.route("/removeOneFromCart.<string:id>")
 def removeOneFromCart(id):
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
-    data = cursor.fetchone()
-    
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] - 1, session['id'], id])
-
-    if data['Amount'] <= 1:
-        return redirect(url_for('removeFromCart', id=id))
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+        data = cursor.fetchone()
         
-    mysql.connection.commit()
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] - 1, session['id'], id])
+
+        if data['Amount'] <= 1:
+            return redirect(url_for('removeFromCart', id=id))
+            
+        mysql.connection.commit()
+    except:
+        return redirect(url_for('home'))
     return redirect(request.referrer)
 
 @app.route("/rateProduct.<string:id>", methods=['GET', 'POST'])
 def rateProduct(id):
-    form = ratingForm()
-    comment = request.form['comment']
-    title = request.form['title']
-    rating = request.form['star']
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('INSERT INTO Reviews VALUES(%s, %s, %s, %s, %s, NULL)', [session['id'], id, comment, title, rating])
-    mysql.connection.commit()
+    try:
+        form = ratingForm()
+        comment = request.form['comment']
+        title = request.form['title']
+        rating = request.form['star']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('INSERT INTO Reviews VALUES(%s, %s, %s, %s, %s, NULL)', [session['id'], id, comment, title, rating])
+        mysql.connection.commit()
+    except:
+        return redirect(url_for('home'))
     return redirect(request.referrer)
 
 @app.route("/deleteReview.<string:id>")
 def deleteReview(id):
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('DELETE FROM Reviews WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
-    mysql.connection.commit()
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('DELETE FROM Reviews WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+        mysql.connection.commit()
+    except:
+        return redirect(url_for('home'))
     return redirect(request.referrer)
 
 if __name__ == "__main__":
