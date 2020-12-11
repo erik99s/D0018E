@@ -568,7 +568,7 @@ div.productpage-div div.review-section {
   grid-gap: 10px;
 
   background-color: #1c1c1c;
-  min-height: 200px;
+  min-height: 100px;
   height: auto;
   width: auto;
   margin-top: 10px;
