@@ -4,6 +4,7 @@ from flask_mysqldb import MySQLdb, MySQL
 import sys, MySQLdb.cursors, re
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin, AdminIndexView
+from flask_admin.menu import MenuLink
 from flask_admin.contrib.sqla import ModelView 
 
 app = Flask(__name__)
@@ -20,11 +21,63 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://980705:980705@utbweb.its.ltu.se
 db = SQLAlchemy(app)
 db.Model.metadata.reflect(bind=db.engine, schema='db980705')
 
+class AdminIndexView(AdminIndexView):
+     def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
+
+class AdminUser(db.Model):
+    __table__ = db.Model.metadata.tables['db980705.Admin']
+
+class AdminUserView(ModelView):
+    column_list = ('CustomerID', 'DateOfAdmin')
+    def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
+
 class Customer(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Customer']
 
+class CustomerView(ModelView):
+     def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
+
 class Products(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Products']
+
+class ProductsView(ModelView):
+    def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if email is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
 
 #class Cart(db.Model):
 #    __table__ = db.Model.metadata.tables['db980705.Cart']
@@ -32,11 +85,14 @@ class Products(db.Model):
 #class Reviews(db.Model):
 #    __table__ = db.Model.metadata.tables['db980705.Reviews']
 
-admin = Admin(app)
-admin.add_view(ModelView(Customer, db.session))
-admin.add_view(ModelView(Products, db.session))
+admin = Admin(app, name="Desire", index_view = AdminIndexView())
+admin.add_view(AdminUserView(AdminUser, db.session, 'Admin'))
+admin.add_view(CustomerView(Customer, db.session))
+admin.add_view(ProductsView(Products, db.session))
 #admin.add_view(ModelView(Cart, db.session))
 #admin.add_view(ModelView(Reviews, db.session))
+admin.add_link(MenuLink(name='Profile', category='', url="/profile"))
+admin.add_link(MenuLink(name='Logout', category='', url="/logout"))
 
 # init mySQL
 mysql = MySQL(app)
@@ -99,18 +155,11 @@ def login():
         data = cursor.fetchone()
 
         if data:
-            if email == "admin@desire.com":
-                print("im here")
-                session['loggedin'] = True
-                session['id'] = data['CustomerID']
-                return redirect(url_for('admin'))
-            else:
-                session['loggedin'] = True
-                session['id'] = data['CustomerID']
-                return redirect(url_for('home'))
+            session['loggedin'] = True
+            session['id'] = data['CustomerID']
+            return redirect(url_for('home'))
         else:
             msg = 'Does not recognize email/password'
-            session['loggedin'] = False
             return render_template('LoginPage.html', title='login', form=form, msg=msg)
     
     return render_template('LoginPage.html', title='login', form=form, msg=msg)
