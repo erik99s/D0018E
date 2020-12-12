@@ -1018,3 +1018,40 @@ div.cartpage-div div.total {
   width: auto;
   border-radius: 10px;
 }
+
+/*CHECKOUT PAGE==================================================================*/
+
+.checkOutPage {
+  position: absolute;
+  display: block;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40px;
+
+  background-color: #1c1c1c;
+  height: 600px;
+  width: auto;
+}
+
+.check-out-form {
+  background-color: navy;
+}
+
+.check-out-form input {
+
+  background-color: red;
+}
+
+/*GENERAL =======================================================================*/
+
+.section-headers {
+  color: white;
+  font-size: 40px;
+  text-align: center;
+}
+
+.login-form label {
+  position: relative;
+  display: inline;
+  padding-left: 20px;
+}
