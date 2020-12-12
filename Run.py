@@ -271,8 +271,15 @@ def rateProduct(id):
         title = request.form['title']
         rating = request.form['star']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO Reviews VALUES(%s, %s, %s, %s, %s, NULL)', [session['id'], id, comment, title, rating])
+        cursor.execute('SELECT * FROM Reviews WHERE CustomerID = %s AND ProductID = %s', [session['id'], id])
+        data = cursor.fetchone()
+
+        if data:
+            cursor.execute('UPDATE Reviews SET Comment = %s, Title = %s, Rating = %s WHERE CustomerID = %s and ProductID = %s', [comment, title, rating ,session['id'], id])
+        else:
+            cursor.execute('INSERT INTO Reviews VALUES(%s, %s, %s, %s, %s, NULL)', [session['id'], id, comment, title, rating])
         mysql.connection.commit()
+
     except:
         return redirect(url_for('home'))
     return redirect(request.referrer)
