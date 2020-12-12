@@ -219,17 +219,18 @@ def addToCart(id):
         cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
         data = cursor.fetchone()
 
+        form = AddToCartForm()
+        try:
+            amount = int(request.form['productAmount'])
+        except:
+            amount = 1 
+
         if data:
             cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] + amount, session['id'], id])
         else:
             cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, amount])
         mysql.connection.commit()
-    
-        form = AddToCartForm()
-        try:
-            amount = int(request.form['productAmount'])
-        except:
-            amount = 1  
+     
     except:
         return redirect(url_for('home'))
     return redirect(request.referrer)
@@ -285,6 +286,10 @@ def deleteReview(id):
     except:
         return redirect(url_for('home'))
     return redirect(request.referrer)
+
+@app.route("/check_out")
+def checkOut():
+    return render_template('CheckOutPage.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
