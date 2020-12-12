@@ -8,7 +8,7 @@
 
 {% block main %}
 
-<div class="productpage-div">
+<div class="productpage">
     <h1 class="section-headers">Product</h1>
     <div class="product">
         <div class="image-container">
@@ -22,7 +22,7 @@
             <hr>
 
             <div class="button-container">
-                <form method="post" action="/addToCart.{{product.ProductID}}">
+                <form autocomplete="off" method="post" action="/addToCart.{{product.ProductID}}">
                     <input type="number" name="productAmount" min="1" max="10" value="1">
                     <input class="addtocart-button" type="submit" value="Add to cart">
                 </form>        
@@ -57,23 +57,23 @@
 
         <div class="write-review">
             {% if session['loggedin'] %}
-                <form class="review-form" method="post" action="/rateProduct.{{product.ProductID}}">
+                <form class="review-form" method="post" autocomplete="off" action="/rateProduct.{{product.ProductID}}">
                     
                     <div class="rating-container">
                         <input id="star1" name="star" type="radio" value="5" class="radio-btn hide" required/>
                         <label for="star1" class="fas fa-star"></label>
-                        <input id="star2" name="star" type="radio" value="4" class="radio-btn hide" />
+                        <input id="star2" name="star" type="radio" value="4" class="radio-btn hide" required/>
                         <label for="star2" class="fas fa-star"></label>
-                        <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                        <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" required/>
                         <label for="star3" class="fas fa-star"></label>
-                        <input id="star4" name="star" type="radio" value="2" class="radio-btn hide" />
+                        <input id="star4" name="star" type="radio" value="2" class="radio-btn hide" required/>
                         <label for="star4" class="fas fa-star"></label>
-                        <input id="star5" name="star" type="radio" value="1" class="radio-btn hide" />
+                        <input id="star5" name="star" type="radio" value="1" class="radio-btn hide" required/>
                         <label for="star5" class="fas fa-star"></label>
                     </div>
                     
-                    <input class="form-inputs fill-input title" type="text" name="title" placeholder="Title" required><br>
-                    <textarea class="form-inputs fill-input comment" name="comment"></textarea><br>
+                    <input class="form-inputs fill-input title" type="text" name="title" placeholder="Title" maxlength="50" required><br>
+                    <textarea class="form-inputs fill-input comment" name="comment" maxlength="200" placeholder="Comment"></textarea><br>
                     <input class="form-inputs submit-input" type="submit" name="submit" value="Submit Review"><br>
                 </form>
             {% endif %}
