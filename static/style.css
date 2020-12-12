@@ -216,7 +216,7 @@ div.profile-dropdown div.profile-dropdown-content > a {
   line-height: 30px;
 }
 
-div.profile-dropdown div.profile-dropdown-content > form {
+.profile-dropdown .profile-dropdown-content > form {
   background-color: none;
   display: block;
 
@@ -276,16 +276,20 @@ div.main {
 
 /*LOGIN PAGE ====================================================================*/
 
-div.main form {
+.loginpage {
   position: relative;
   display: inline-table;
   left: 50%;
   transform: translateX(-50%);
+  
+  width: auto;
+  margin-top: 100px;
+}
 
+div.main form {
   background-color: none;
   height: auto;
   width: auto;
-  margin-top: 100px;
 
   color: white;
 }
@@ -314,17 +318,23 @@ form.login-form > p {
   text-align: center;
 }
 
+.register-form i, .login-form i {
+  position: absolute;
+  z-index: 1;
+
+  background-color: none;
+  margin-left: 10px;
+
+  color: grey;
+  line-height: 40px;
+}
+
 div.main input[type=text], div.main input[type=email], div.main input[type=password] {
   background-color: none;
-  text-indent: 10px;
+  text-indent: 35px;
 }
 
 div.main input[type=submit] {
-  position: relative;
-  display: inline-cell;
-  left: 50%;
-  transform: translateX(-50%);
-
   background-color: #3987e6;
   cursor: pointer;
 
@@ -366,11 +376,20 @@ div.main > p {
 
 /*REGISTER PAGE =================================================================*/
 
+.registerpage {
+  position: relative;
+  display: inline-table;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: auto;
+  margin-top: 100px;
+}
+
 div.row {
   position: relative;
   display: block;
 }
-
 
 /*HOME PAGE =====================================================================*/
 
@@ -457,15 +476,20 @@ div.product > p {
 }
 
 /*add to cart button*/
-div.product div.button-container {
+.product .button-container {
   margin-top: 10px;
   margin-bottom: 10px;
-
-  text-align: center;
 }
 
-div.product div.button-container a {
+.product form {
+  margin: 0;
+}
 
+.product form input {
+  
+}
+
+.product .button-container a {
   color: white;
   text-decoration: none;
   font-size: 15px;
@@ -473,7 +497,7 @@ div.product div.button-container a {
   line-height: 30px;
 }
 
-div.product input.addtocart-button {
+.product .addtocart-button {
   background-color: #3987e6;
   height: 30px;
   width: 200px;
@@ -490,7 +514,7 @@ div.product input.addtocart-button {
 
 /*PRODUCT PAGE ==================================================================*/
 
-div.productpage-div {
+.productpage {
   position: relative;
   display: block;
   left: 50%;
@@ -506,14 +530,14 @@ div.productpage-div {
   box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
 }
 
-div.productpage-div div.product {
+.productpage .product {
   position: relative;
   display: grid;
   grid-template-columns: repeat(2, 1fr);;
   grid-gap: 10px;
 }
 
-div.productpage-div div.image-container {
+.productpage .image-container {
   position: relative;
   display: block;
 
@@ -524,7 +548,7 @@ div.productpage-div div.image-container {
   border-radius: 10px;
 }
 
-div.productpage-div div.image-container img {
+.productpage .image-container img {
   position: relative;
   display: block;
 
@@ -534,7 +558,7 @@ div.productpage-div div.image-container img {
   border-radius: 10px;
 }
 
-div.productpage-div div.text-container {
+.productpage .text-container {
   position: relative;
   display: block;
 
@@ -544,28 +568,28 @@ div.productpage-div div.text-container {
   border-radius: 10px;
 }
 
-div.productpage-div div.text-container h1 {
+.productpage .text-container h1 {
   margin: 15px 15px 5px 15px;
 }
 
-div.productpage-div div.text-container p {
+.productpage .text-container p {
   margin: 5px 15px 15px 15px;
 }
 
-div.productpage-div div.text-container div.button-container a input {
+.productpage .text-container .button-container a input {
   background-color: rgb(7, 133, 7);
 }
 
-div.product > form.add_to_cart {
+.product > .add_to_cart {
   margin: 0;
   padding: 0;
   width: 100%;
 }
 
-div.productpage-div div.review-section {
+.productpage .review-section {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
+  grid-gap: 40px;
 
   background-color: #1c1c1c;
   min-height: 100px;
@@ -577,33 +601,38 @@ div.productpage-div div.review-section {
   border-radius: 10px;
 }
 
-div.write-review {
+.write-review {
   display: block;
 }
 
-div.reviews {
+.reviews {
   display: block;
   max-width: 100%;
   overflow: hidden;
   height: auto;
 }
 
-div.productpage-div h1.section-headers {
+.productpage .section-headers {
   color: white;
   font-size: 40px;
   text-align: center;
 }
 
-div.productpage-div form.review-form {
+.productpage .review-form {
   margin: 0;
 }
 
-div.productpage-div div.rating-container {
+.productpage .review-form input {
+  width: 100%;
+  text-indent: 10px !important;
+}
+
+.productpage .rating-container {
   position: relative;
   display: flex;
   transform: rotateY(180deg);
   width: fit-content;
-  margin: 20px 20px 20px 0px;
+  margin: 0px 0px 20px 0px;
 }
 
 .rating-container input {
@@ -627,16 +656,20 @@ div.productpage-div div.rating-container {
   color: #f8b912;
 }
 
-div.productpage-div form.review-form textarea {
+.productpage .review-form textarea {
+  box-sizing: border-box;
   height: 100px;
-  width: 395px;
+  width: 100%;
   margin-bottom: 20px;
+  padding: 5px;
+
+  font-family: Product Sans;
 
   border: none;
   border-radius: 10px;
 }
 
-div.productpage-div div.review {
+.productpage .review {
   position: relative;
   display: inline-block;
 
@@ -651,7 +684,7 @@ div.productpage-div div.review {
   word-wrap: break-word;
 }
 
-div.productpage-div div.rating {
+.productpage .rating {
   position: relative;
   display: inline-block;
 
@@ -665,19 +698,19 @@ div.productpage-div div.rating {
   font-weight: bold;
 } 
 
-div.productpage-div div.review p {
+.productpage .review p {
   color: black;
   margin: 10px;
   max-width: 100%;
 }
 
-div.productpage-div p.comment-title {
+.productpage .comment-title {
   position: absolute;
   display: inline-block;
   top: 0;
 }
 
-div.productpage-div div.review a.remove-review {
+.productpage .review .remove-review {
   position: absolute;
   display: block;
   top: 0;
@@ -692,7 +725,7 @@ div.productpage-div div.review a.remove-review {
 
 /*PROFILE PAGE ==================================================================*/
 
-div.profilepage {
+.profilepage {
   position: relative;
   display: inline-block;
   left: 50%;
@@ -708,7 +741,7 @@ div.profilepage {
 }
 
 /*table*/
-div.table-section {
+.table-section {
   position: relative;
   display: inline-block;
   
@@ -719,7 +752,7 @@ div.table-section {
   border-radius: 10px;
 }
 
-table.profile-table {
+.profile-table {
   background-color: none;
   width: 100%;
   padding: 5px;
@@ -728,19 +761,19 @@ table.profile-table {
   border: none;
 }
 
-table.profile-table tr {
+.profile-table tr {
   background-color: none;
   height: 40px;
 }
 
-table.profile-table tr td {
+.profile-table tr td {
   padding: 10px;
   border: 1px solid #3987e6;
   border-radius: 10px;
 }
 
 /*change-profile button*/
-div.form-container {
+.form-container {
   position: relative;
   display: block;
 
@@ -749,7 +782,7 @@ div.form-container {
   width: inherit;
 }
 
-form.profile-form {
+.profile-form {
   position: relative;
   display: inline-block;
   left: 50%;
