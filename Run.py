@@ -294,7 +294,7 @@ def deleteReview(id):
         return redirect(url_for('home'))
     return redirect(request.referrer)
 
-@app.route("/check_out")
+@app.route("/checkOut")
 def checkOut():
     return render_template('CheckOutPage.html')
 
