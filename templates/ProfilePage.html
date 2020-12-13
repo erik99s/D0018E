@@ -49,14 +49,13 @@
                     {% endfor %}
                     {% for n in range(row.Rating, 5) %}
                         <i class="far fa-star"></i>
-                    {% endfor %}
-                       
+                    {% endfor %}     
                 </div>
 
                 <p class="comment-title">{{row.Title}}</p> 
                 <p class="date">{{row.Date}}</p>
                 <p class="comment">{{row.Comment}}</p>
-                <a class="remove-review" href=""><i class="fas fa-times"></i></a>
+                <a class="remove-review" href="/deleteReview.{{row.ProductID}}"><i class="fas fa-times"></i></a>
             </div>
         {% endfor %}
     </div>
