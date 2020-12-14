@@ -15,7 +15,12 @@
             <img src={{product.ProductPicture}}>
         </div>
         <div class="text-container">
-            <h1>{{product.ProductName}}</h1>
+            <h1>{{product.ProductName}}
+            {% for row in result %}
+                {{row.0}}
+            {% endfor %}
+
+            </h1>
             <p>{{product.Price}}</p>
             <hr>
             <p>{{product.Description}}</p>
