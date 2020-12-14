@@ -3,6 +3,7 @@ from forms import RegistrationForm, LoginForm, AddToCartForm, ratingForm
 from flask_mysqldb import MySQLdb, MySQL
 import sys, MySQLdb.cursors, re
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 from flask_admin import Admin, AdminIndexView
 from flask_admin.menu import MenuLink
 from flask_admin.contrib.sqla import ModelView 
@@ -177,12 +178,17 @@ def products(id):
     product = cursor.fetchone()
     cursor.execute('SELECT * FROM Reviews WHERE ProductID = %s', [id])
     reviews = cursor.fetchall()
+
+    #TO DO: ändra till average av Reviews.Rating (funkar inte i stunden)
+    result = db.session.query(func.avg(Customer.CustomerID))
+    print(result)
+
     for row in reviews:
         cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [row['CustomerID']])
         customer = cursor.fetchone()
         row.update({'FirstName' : customer['FirstName']})
         row.update({'LastName' : customer['LastName']})
-    return render_template('ProductPage.html', product=product, reviews=reviews)
+    return render_template('ProductPage.html', product=product, reviews=reviews, result=result)
 
 @app.route("/profile")
 def profile():
