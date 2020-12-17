@@ -14,7 +14,6 @@
         <h1 class="shoppingcart-header">A whole lot of nothing here</h1>
 
     {% else %}
-
         <h1 class="shoppingcart-header">Your Shoppingcart</h1>
 
         {% set total = [] %}
@@ -49,7 +48,7 @@
 
         <div class="total">
             <p>Total: {{("{0}").format(total | sum)}} kr</p>
-            <a href="/checkOut">
+            <a href="/removeEntireCart">
                 <input class="form-inputs main-redirect-input green-button" type="button" value="Check Out">
             </a>
         </div>

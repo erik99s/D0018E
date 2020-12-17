@@ -269,6 +269,17 @@ def removeOneFromCart(id):
         return redirect(url_for('home'))
     return redirect(request.referrer)
 
+@app.route("/removeEntireCart")
+def removeEntireCart():
+    try:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
+        mysql.connection.commit()
+    except:
+        return redirect(url_for('home'))
+    return redirect(request.referrer)
+
+
 @app.route("/rateProduct.<string:id>", methods=['GET', 'POST'])
 def rateProduct(id):
     try:
