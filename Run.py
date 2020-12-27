@@ -171,7 +171,6 @@ def home():
 def admin():
     return None
 
-
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     msg = ''
