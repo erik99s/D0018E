@@ -69,7 +69,7 @@ class Products(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Products']
 
 class ProductsView(ModelView):
-    column_list = ('ProductID', 'ProductName', 'Price', 'ProductPicture', 'Description')
+    column_list = ('ProductID', 'ProductName', 'Price', 'InStock', 'ProductPicture', 'Description')
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -294,7 +294,7 @@ def addToCart(id):
         if cursor.fetchone():
             cursor.execute('UPDATE Cart SET Amount = Amount + %s WHERE CustomerID = %s and ProductID = %s', [amount, session['id'], id])
         else:
-            cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, amount])
+            cursor.execute('INSERT INTO Cart VALUES(NULL, %s, %s, %s)', [session['id'], id, amount])
 
         mysql.connection.commit()
         return redirect(request.referrer)
@@ -346,7 +346,7 @@ def rateProduct(id):
         if data:
             cursor.execute('UPDATE Reviews SET Comment = %s, Title = %s, Rating = %s WHERE CustomerID = %s and ProductID = %s', [comment, title, rating ,session['id'], id])
         else:
-            cursor.execute('INSERT INTO Reviews VALUES(%s, %s, %s, %s, %s, NULL)', [session['id'], id, comment, title, rating])
+            cursor.execute('INSERT INTO Reviews VALUES(NULL, %s, %s, %s, %s, %s, NULL)', [session['id'], id, comment, title, rating])
         mysql.connection.commit()
 
     except:
