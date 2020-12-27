@@ -323,19 +323,8 @@ div.main form {
   transform: translateX(-50%);
 }
 
-form.login-form > p {
+.login-form > p {
   text-align: center;
-}
-
-.register-form i, .login-form i {
-  position: absolute;
-  z-index: 1;
-
-  background-color: none;
-  margin-left: 10px;
-
-  color: grey;
-  line-height: 40px;
 }
 
 div.main input[type=text], div.main input[type=email], div.main input[type=password] {
@@ -1047,18 +1036,20 @@ div.cartpage-div div.total {
   transform: translateX(-50%);
   top: 40px;
 
-  background-color: #1c1c1c;
+  background-color: none;
   height: 600px;
   width: auto;
 }
 
 .check-out-form {
-  background-color: navy;
+  background-color: none;
+  text-align: center;
 }
 
 .check-out-form input {
-
-  background-color: red;
+  position: relative;
+  display: inline-block;
+  background-color: none;
 }
 
 /*GENERAL =======================================================================*/
@@ -1069,8 +1060,13 @@ div.cartpage-div div.total {
   text-align: center;
 }
 
-.login-form label {
-  position: relative;
-  display: inline;
-  padding-left: 20px;
+form i {
+  position: absolute;
+  z-index: 1;
+
+  background-color: none;
+  margin-left: 10px;
+
+  color: grey;
+  line-height: 40px !important;
 }
