@@ -304,7 +304,9 @@ def deleteReview(id):
 
 @app.route("/checkOut")
 def checkOut():
-    return render_template('CheckOutPage.html')
+    if 'loggedin' in session:
+        return render_template('CheckOutPage.html')
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
     app.run(debug=True)
