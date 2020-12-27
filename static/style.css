@@ -901,13 +901,6 @@ form.profile-form > input {
   /*box-shadow: 0px 0px 5px black;  */
 }
 
-.cartpage .shoppingcart-header {
-  color: white;
-  text-align: center;
-  font-size: 40px;
-  margin: 10px 0px 20px 0px;
-}
-
 .cartpage .product{
   position: relative;
   display: grid;
@@ -975,38 +968,9 @@ form.profile-form > input {
   line-height: 20px;
 }
 
-.cartpage .adjust-comtainer a {
-  font-size: 20px;
-  margin: 0;
-}
-
 .cartpage .adjust-quantity {
   height: fit-content;
   width: fit-content;
-}
-
-.cartpage .adjust-comtainer a.dec {
-  border-radius: 10px 0 0 10px;
-}
-
-.cartpage .adjust-comtainer .inc {
-  border-radius: 0 10px 10px 0;
-}
-
-.cartpage .adjust-comtainer .remove-product {
-  margin-left: 20px;
-}
-
-.cartpage .adjust-comtainer a i {
-  margin: 0;
-  padding: 0;
-}
-
-.cartpage .adjust-comtainer .product-amount {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  font-size: 20px;
 }
 
 .cartpage a {
@@ -1018,53 +982,55 @@ form.profile-form > input {
   text-decoration-line: underline;
 }
 
-.cartpage div.total {
+.cartpage .remove-product {
+  color: red;
+  transition: font-size 0.5s;
+}
+
+.cartpage .remove-product:hover {
+  font-size: 24px;
+  transition: font-size 0.5s;
+}
+
+.cartpage .total {
   background: rgba(0, 0, 0, 0.3);
   height: 200px;
   width: auto;
   border-radius: 10px;
   color: white;
+  box-shadow: 0px 0px 10px black;
 }
 
 
 /*cartpage table*/
 .shopping-cart {
+  display: flex;
+  flex-direction: column;
+
+  background: rgba(0, 0, 0, 0.3);
   width: auto;
   height: auto;
   margin-bottom: 40px;
-  background: none;
-  border-radius: 6px;
- 
-  display: flex;
-  flex-direction: column;
+  
   color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px black;
 }
  
 .item, .item-header {
-  height: auto;
   display: flex;
 
-  background: rgba(0, 0, 0, 0.3);
+  height: auto;
   padding: 20px 30px;
 }
 
 .item {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  box-shadow: inset 0px -10px 10px -10px black;
-}
 
-.item:last-child {
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  box-shadow: none;
 }
 
 .item-header {
   min-height: auto;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  box-shadow: inset 0px -10px 10px -10px black;
+  border-bottom: 1px solid white;
 }
 
 
@@ -1083,13 +1049,15 @@ form.profile-form > input {
 }
 
 .image img {
+  background-color: white;
   width: 100px;
+  border-radius: 10px;
 }
  
 .description {
   position: relative;
   margin-right: 60px;
-  width: 400px;
+  width: 300px;
 }
  
 .description span {
@@ -1102,6 +1070,7 @@ form.profile-form > input {
   margin-right: 60px;
   background-color: none;
   height: max-content;
+  width: 110px;
 }
 
 .quantity input {
@@ -1135,9 +1104,8 @@ input:focus {
   outline:0;
 }
 
-.total-price {
+.price, .total-price {
   width: 83px;
-  text-align: center;
   font-size: 16px;
   font-weight: 300;
 }
@@ -1204,6 +1172,7 @@ input:focus {
   color: white;
   font-size: 40px;
   text-align: center;
+  margin: 10px 0 40px 0;
 }
 
 form i {
