@@ -891,14 +891,14 @@ form.profile-form > input {
   left: 50%;
   transform: translateX(-50%);
 
-  background-color: #2e2e2e;
+  background-color: none;
   height: auto;
   width: 1000px;
   margin: 20px 0px 20px 0px;
   padding: 10px;
 
   border-radius: 10px ;
-  box-shadow: 0px 0px 5px black;  
+  /*box-shadow: 0px 0px 5px black;  */
 }
 
 .cartpage-div .shoppingcart-header {
@@ -980,10 +980,9 @@ form.profile-form > input {
   margin: 0;
 }
 
-.cartpage-div .adjust-comtainer .adjust-quantity {
-  padding-left: 5px;
-  padding-right: 5px;
-  border: 1px solid black;
+.cartpage-div .adjust-quantity {
+  height: fit-content;
+  width: fit-content;
 }
 
 div.cartpage-div div.adjust-comtainer a.dec {
@@ -1012,7 +1011,7 @@ div.cartpage-div div.adjust-comtainer p.product-amount {
 }
 
 div.cartpage-div a {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
@@ -1021,10 +1020,152 @@ div.cartpage-div a:hover {
 }
 
 div.cartpage-div div.total {
-  background-color: white;
+  background: rgba(0, 0, 0, 0.3);
   height: 200px;
   width: auto;
   border-radius: 10px;
+}
+
+
+/*cartpage table*/
+.shopping-cart {
+  width: auto;
+  height: auto;
+  margin-bottom: 40px;
+  background: none;
+  border-radius: 6px;
+ 
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+ 
+.item {
+  margin-bottom: 10px;
+  padding: 20px 30px;
+  min-height: 80px;
+  height: auto;
+  display: flex;
+
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 10px;
+  padding-top: 30px;
+  margin-right: 60px;
+  background-color: none;
+  Cursor: pointer;
+}
+ 
+@keyframes animate {
+  0%   { background-position: left;  }
+  50%  { background-position: right; }
+  100% { background-position: right; }
+}
+
+.image {
+  margin-right: 50px;
+  max-width: 50px;
+}
+ 
+.description {
+  position: relative;
+  padding-top: 10px;
+  margin-right: 60px;
+  width: 400px;
+}
+ 
+.description span {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.quantity {
+  padding-top: 20px;
+  margin-right: 60px;
+  background-color: none;
+  height: max-content;
+}
+
+.quantity input {
+  -webkit-appearance: none;
+  border: none;
+  text-align: center;
+  height: 30px;
+  width: 32px;
+  margin: 0;
+  padding: 0;
+  text-indent: 0 !important;
+
+  background-color: #1c1c1c;
+  color: white;
+  font-size: 16px;
+  font-weight: 300;
+  vertical-align: top;
+}
+ 
+button[class*=btn] {
+  width: 30px;
+  height: 30px;
+  background-color: #1c1c1c;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.minus-btn img {
+  margin-bottom: 3px;
+}
+
+.plus-btn img {
+  margin-top: 2px;
+}
+ 
+button:focus,
+input:focus {
+  outline:0;
+}
+
+.total-price {
+  width: 83px;
+  padding-top: 27px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+@media (max-width: 800px) {
+  .shopping-cart {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .item {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .image img {
+    height: auto;
+    width: 50px;
+  }
+
+  .image,
+  .quantity,
+  .description {
+    width: 100%;
+    text-align: center;
+    margin: 6px 0;
+  }
+  .buttons {
+    margin-right: 20px;
+  }
 }
 
 /*CHECKOUT PAGE==================================================================*/
