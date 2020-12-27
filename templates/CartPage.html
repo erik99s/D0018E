@@ -11,10 +11,10 @@
 <div class="cartpage">
     {% if products|length < 1 %}
 
-        <h1 class="shoppingcart-header">A whole lot of nothing here</h1>
+        <h1 class="section-headers shoppingcart-header">A whole lot of nothing here</h1>
 
     {% else %}
-        <h1 class="shoppingcart-header">Your Shoppingcart</h1>
+        <h1 class="section-headers shoppingcart-header">Your Shoppingcart</h1>
 
         {% set total = [] %}
 
@@ -23,6 +23,7 @@
             <div class="item-header">
                 <div class="image"></div>
                 <div class="description">Product</div>
+                <div class="price">Price</div>
                 <div class="quantity">Quantity</div>
                 <div class="total-price">Total price</div>
                 <div class="delete-btn"></div>
@@ -39,6 +40,11 @@
                     <div class="description">
                         <span>{{row.ProductName}}</span>
                     </div>
+
+                    <div class="price">
+                        <span>{{row.Price}} kr</span>
+                    </div>
+
                 
                     <div class="quantity">
                         <button class="plus-btn" type="button" name="button">
