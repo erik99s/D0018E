@@ -69,6 +69,7 @@ class Products(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Products']
 
 class ProductsView(ModelView):
+    column_list = ('ProductID', 'ProductName', 'Price', 'ProductPicture', 'Description')
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -80,18 +81,78 @@ class ProductsView(ModelView):
             return False
         return False  # This returns false only if a user is logged in, but not admin
 
-#class Cart(db.Model):
-#    __table__ = db.Model.metadata.tables['db980705.Cart']
+class Reviews(db.Model):
+    __table__ = db.Model.metadata.tables['db980705.Reviews']
 
-#class Reviews(db.Model):
-#    __table__ = db.Model.metadata.tables['db980705.Reviews']
+class ReviewsView(ModelView):
+    column_list = ('CustomerID', 'ProductID', 'Comment', 'Title', 'Rating', 'Date')
+    def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
+
+class Cart(db.Model):
+    __table__ = db.Model.metadata.tables['db980705.Cart']
+
+class CartView(ModelView):
+    column_list = ('CustomerID', 'ProductID', 'Amount')
+    def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
+
+class Orders(db.Model):
+    __table__ = db.Model.metadata.tables['db980705.Orders']
+
+class OrdersView(ModelView):
+    column_list = ('OrderDetailsID', 'CustomerID', 'ProductID', 'Amount')
+    def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
+
+class OrderDetails(db.Model):
+    __table__ = db.Model.metadata.tables['db980705.OrderDetails']
+
+class OrderDetailsView(ModelView):
+    column_list = ('CustomerID', 'Price', 'Country', 'City', 'ZIPcode', 'Address')
+    def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
 
 admin = Admin(app, name="Desire", index_view = AdminIndexView())
 admin.add_view(AdminUserView(AdminUser, db.session, 'Admin'))
 admin.add_view(CustomerView(Customer, db.session))
 admin.add_view(ProductsView(Products, db.session))
-#admin.add_view(ModelView(Cart, db.session))
-#admin.add_view(ModelView(Reviews, db.session))
+admin.add_view(ReviewsView(Reviews, db.session))
+admin.add_view(CartView(Cart, db.session))
+admin.add_view(OrdersView(Orders, db.session))
+admin.add_view(OrderDetailsView(OrderDetails, db.session))
 admin.add_link(MenuLink(name='Profile', category='', url="/profile"))
 admin.add_link(MenuLink(name='Logout', category='', url="/logout"))
 
@@ -180,7 +241,7 @@ def products(id):
     reviews = cursor.fetchall()
 
     #TO DO: ändra till average av Reviews.Rating (funkar inte i stunden)
-    result = db.session.query(func.avg(Customer.CustomerID))
+    result = db.session.query(func.avg(Reviews.Rating))
     print(result)
 
     for row in reviews:
@@ -199,8 +260,8 @@ def profile():
         cursor.execute('SELECT * FROM Reviews WHERE CustomerID = %s', [session['id']])
         reviews = cursor.fetchall()
         return render_template('ProfilePage.html', data=data, reviews=reviews)
-    
-    return redirect(url_for('login'))
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/cart")
 def cart():
@@ -225,20 +286,20 @@ def addToCart(id):
 
         form = AddToCartForm()
         try:
-            amount = int(request.form['productAmount'])
+            amount = int (request.form['productAmount'])
         except:
             amount = 1 
 
-        try:
-            cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, amount])
+        cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+        if cursor.fetchone():
             cursor.execute('UPDATE Cart SET Amount = Amount + %s WHERE CustomerID = %s and ProductID = %s', [amount, session['id'], id])
-        except:
+        else:
             cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, amount])
+
         mysql.connection.commit()
-     
+        return redirect(request.referrer)
     except:
         return redirect(url_for('home'))
-    return redirect(request.referrer)
 
 @app.route("/removeFromCart.<string:id>")
 def removeFromCart(id):
