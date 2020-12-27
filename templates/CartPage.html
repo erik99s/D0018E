@@ -8,7 +8,7 @@
 
 {% block main %}
 
-<div class="cartpage-div">
+<div class="cartpage">
     {% if products|length < 1 %}
 
         <h1 class="shoppingcart-header">A whole lot of nothing here</h1>
@@ -19,12 +19,21 @@
         {% set total = [] %}
 
         <div class="shopping-cart">
+
+            <div class="item-header">
+                <div class="image"></div>
+                <div class="description">Product</div>
+                <div class="quantity">Quantity</div>
+                <div class="total-price">Total price</div>
+                <div class="delete-btn"></div>
+            </div>
+
             {% for row in products %}
                 {% if total.append((row.Price * row.Amount)) %}{% endif %}
                 <!-- Products -->
                 <div class="item">
                     <div class="image">
-                        <img src="{{row.ProductPicture}}" width="50px" alt="" />
+                        <img src="{{row.ProductPicture}}" alt="" />
                     </div>
                 
                     <div class="description">
