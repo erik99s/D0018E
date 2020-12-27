@@ -206,7 +206,7 @@ def profile():
 def cart():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s', [session['id']])
+        cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
         data = cursor.fetchall()
         products = []
         for row in data:
@@ -214,16 +214,14 @@ def cart():
             product = cursor.fetchone()
             product.update({'Amount' : row['Amount']})
             products.append(product)
+        return render_template('CartPage.html', products=products)
     except:
         return redirect(url_for('login'))
-    return render_template('CartPage.html', products=products)
 
 @app.route("/addToCart.<string:id>", methods=['GET', 'POST'])
 def addToCart(id):
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
-        data = cursor.fetchone()
 
         form = AddToCartForm()
         try:
@@ -231,9 +229,10 @@ def addToCart(id):
         except:
             amount = 1 
 
-        if data:
-            cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] + amount, session['id'], id])
-        else:
+        try:
+            cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, amount])
+            cursor.execute('UPDATE Cart SET Amount = Amount + %s WHERE CustomerID = %s and ProductID = %s', [amount, session['id'], id])
+        except:
             cursor.execute('INSERT INTO Cart VALUES(%s, %s, %s)', [session['id'], id, amount])
         mysql.connection.commit()
      
@@ -247,27 +246,20 @@ def removeFromCart(id):
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('DELETE FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
         mysql.connection.commit()
+        return redirect(url_for('cart'))
     except:
         return redirect(url_for('home'))
-    return redirect(url_for('cart'))
 
 @app.route("/removeOneFromCart.<string:id>")
 def removeOneFromCart(id):
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
-        data = cursor.fetchone()
-        
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('UPDATE Cart SET Amount = %s WHERE CustomerID = %s and ProductID = %s', [data['Amount'] - 1, session['id'], id])
-
-        if data['Amount'] <= 1:
-            return redirect(url_for('removeFromCart', id=id))
-            
+        cursor.execute('UPDATE Cart SET Amount = Amount - 1 WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+        cursor.execute('DELETE FROM Cart WHERE Amount = 0')
         mysql.connection.commit()
+        return redirect(request.referrer)
     except:
         return redirect(url_for('home'))
-    return redirect(request.referrer)
 
 @app.route("/clearCart")
 def clearCart():
