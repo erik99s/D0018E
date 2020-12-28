@@ -189,10 +189,6 @@ def home():
     data = cursor.fetchall()
     return render_template("HomePage.html", data=data)
 
-@app.route("/admin")  
-def admin():
-    return None
-
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     msg = ''
@@ -316,6 +312,7 @@ def addToCart(id):
             cursor.execute('UPDATE Cart SET Amount = Amount + %s WHERE CustomerID = %s and ProductID = %s', [amount, session['id'], id])
         else:
             cursor.execute('INSERT INTO Cart VALUES(NULL, %s, %s, %s)', [session['id'], id, amount])
+
         mysql.connection.commit()
         return redirect(request.referrer)
     except:
