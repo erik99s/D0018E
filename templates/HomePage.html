@@ -11,7 +11,7 @@
 <div class="product-grid">
     {% for row in data %}
         <div class="product">
-            <a id="image" href="/product.{{row.ProductID}}"><img src="{{row.ProductPicture}}"></a>
+            <a id="image" href="/product.{{row.ProductID}}"><img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}"></a>
             <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
             <p id="price">{{row.Price}}kr</p>
             <p id="price">{{row.InStock}}st</p>
