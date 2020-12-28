@@ -294,7 +294,6 @@ def addToCart(id):
             cursor.execute('UPDATE Cart SET Amount = Amount + %s WHERE CustomerID = %s and ProductID = %s', [amount, session['id'], id])
         else:
             cursor.execute('INSERT INTO Cart VALUES(NULL, %s, %s, %s)', [session['id'], id, amount])
-
         mysql.connection.commit()
         return redirect(request.referrer)
     except:
@@ -367,6 +366,15 @@ def checkOut():
     if 'loggedin' in session:
         return render_template('CheckOutPage.html')
     return redirect(url_for('login'))
+
+@app.route("/checkedOut")
+def checkedOut():
+    if 'loggedin' in session:
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
+        mysql.connection.commit()
+        return redirect(url_for('home'))
+    return redirect(url_for('cart'))
 
 if __name__ == "__main__":
     app.run(debug=True)
