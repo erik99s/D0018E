@@ -371,6 +371,12 @@ def checkOut():
 def checkedOut():
     if 'loggedin' in session:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT ProductID,Amount FROM Cart WHERE CustomerID = %s', [session['id']])
+        data = cursor.fetchall()
+        print(data)
+
+        for row in data:
+            cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
         cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
         mysql.connection.commit()
         return redirect(url_for('home'))
