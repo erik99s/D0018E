@@ -34,7 +34,7 @@
                 <!-- Products -->
                 <div class="item">
                     <div class="image">
-                        <img src="{{row.ProductPicture}}" alt="" />
+                        <img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}" alt="" />
                     </div>
                 
                     <div class="description">
