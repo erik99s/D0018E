@@ -4,9 +4,10 @@ from flask_mysqldb import MySQLdb, MySQL
 import sys, MySQLdb.cursors, re
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
-from flask_admin import Admin, AdminIndexView
+from flask_admin import Admin, AdminIndexView, form
 from flask_admin.menu import MenuLink
-from flask_admin.contrib.sqla import ModelView 
+from flask_admin.contrib.sqla import ModelView
+import os 
 
 app = Flask(__name__)
 
@@ -18,6 +19,9 @@ app.config['MYSQL_USER'] = "980705"
 app.config['MYSQL_PASSWORD'] = "980705"
 app.config['MYSQL_DB'] = 'db980705'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://980705:980705@utbweb.its.ltu.se/db980705'
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+file_path = os.path.join(basedir, 'static/images')
 
 db = SQLAlchemy(app)
 db.Model.metadata.reflect(bind=db.engine, schema='db980705')
@@ -37,8 +41,10 @@ class AdminIndexView(AdminIndexView):
 class AdminUser(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Admin']
 
+    Customer_ID = db.relationship("Customer")
+
 class AdminUserView(ModelView):
-    column_list = ('CustomerID', 'DateOfAdmin')
+    column_list = ('Customer_ID', 'DateOfAdmin')
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -52,6 +58,9 @@ class AdminUserView(ModelView):
 
 class Customer(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Customer']
+    
+    def __repr__(self):
+        return "%s, %s" % (self.FirstName, self.CustomerID)
 
 class CustomerView(ModelView):
      def is_accessible(self):
@@ -68,8 +77,18 @@ class CustomerView(ModelView):
 class Products(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Products']
 
+    def __repr__(self):
+        return "%s, %s" % (self.ProductName, self.ProductID)
+
 class ProductsView(ModelView):
     column_list = ('ProductID', 'ProductName', 'Price', 'InStock', 'ProductPicture', 'Description')
+    form_columns = ('ProductName', 'Price', 'InStock', 'ProductPicture', 'Description')
+
+    form_extra_fields = {
+        'ProductPicture': form.ImageUploadField(
+            'Picture', base_path=file_path)
+    }
+
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -99,9 +118,11 @@ class ReviewsView(ModelView):
 
 class Cart(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Cart']
+    Customer_ID = db.relationship("Customer")
+    Product_ID = db.relationship("Products")
 
 class CartView(ModelView):
-    column_list = ('CustomerID', 'ProductID', 'Amount')
+    column_list = ('Customer_ID', 'Product_ID', 'Amount')
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -153,6 +174,7 @@ admin.add_view(ReviewsView(Reviews, db.session))
 admin.add_view(CartView(Cart, db.session))
 admin.add_view(OrdersView(Orders, db.session))
 admin.add_view(OrderDetailsView(OrderDetails, db.session))
+
 admin.add_link(MenuLink(name='Profile', category='', url="/profile"))
 admin.add_link(MenuLink(name='Logout', category='', url="/logout"))
 
