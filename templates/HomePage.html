@@ -13,7 +13,8 @@
         <div class="product">
             <a id="image" href="/product.{{row.ProductID}}"><img src="{{row.ProductPicture}}"></a>
             <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
-            <p id="price">{{row.Price}} kr</p>
+            <p id="price">{{row.Price}}kr</p>
+            <p id="price">{{row.InStock}}st</p>
             {% if session['loggedin'] and row.InStock > 0 %}
                 <div class="button-container">
                     <a href="/addToCart.{{row.ProductID}}">
