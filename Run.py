@@ -408,11 +408,13 @@ def checkedOut():
             if row["Amount"] > save["InStock"]:
                 flash(f'Sorry, but we dont have that many in stock')
                 return redirect(url_for('cart'))
+
+        for row in data:
             cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
         
         cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
         mysql.connection.commit()
-        flash(f'Purchase was successfull, your products will arrive soon ')
+        flash(f'Purchase was successfull, your products will arrive soon :)')
         return redirect(url_for('home'))
     return redirect(url_for('home'))
 
