@@ -402,8 +402,6 @@ def checkedOut():
         cursor.execute('SELECT ProductID,Amount FROM Cart WHERE CustomerID = %s', [session['id']])
         data = cursor.fetchall()
 
-        print(data)
-
         for row in data:
             cursor.execute('SELECT InStock FROM Products WHERE ProductID = %s', [row['ProductID']])
             save = cursor.fetchone()
@@ -411,6 +409,7 @@ def checkedOut():
                 flash(f'Sorry, but we dont have that many in stock')
                 return redirect(url_for('cart'))
             cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
+        
         cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
         mysql.connection.commit()
         flash(f'Purchase was successfull, your products will arrive soon ')
