@@ -40,7 +40,6 @@ class AdminIndexView(AdminIndexView):
 
 class AdminUser(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Admin']
-
     Customer_ID = db.relationship("Customer")
 
 class AdminUserView(ModelView):
@@ -102,9 +101,11 @@ class ProductsView(ModelView):
 
 class Reviews(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Reviews']
+    Customer_ID = db.relationship("Customer")
+    Product_ID = db.relationship("Products")
 
 class ReviewsView(ModelView):
-    column_list = ('CustomerID', 'ProductID', 'Comment', 'Title', 'Rating', 'Date')
+    column_list = ('Customer_ID', 'Product_ID', 'Comment', 'Title', 'Rating', 'Date')
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
