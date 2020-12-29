@@ -19,6 +19,7 @@ app.config['MYSQL_USER'] = "980705"
 app.config['MYSQL_PASSWORD'] = "980705"
 app.config['MYSQL_DB'] = 'db980705'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://980705:980705@utbweb.its.ltu.se/db980705'
+app.config['FLASK_ADMIN_SWATCH'] = 'darkly'
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 file_path = os.path.join(basedir, 'static/images')
@@ -44,6 +45,8 @@ class AdminUser(db.Model):
 
 class AdminUserView(ModelView):
     column_list = ('Customer_ID', 'DateOfAdmin')
+    form_columns = ['Customer_ID']
+
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -106,6 +109,8 @@ class Reviews(db.Model):
 
 class ReviewsView(ModelView):
     column_list = ('Customer_ID', 'Product_ID', 'Comment', 'Title', 'Rating', 'Date')
+    form_columns = ('Customer_ID', 'Product_ID', 'Comment', 'Title', 'Rating')
+
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -124,6 +129,7 @@ class Cart(db.Model):
 
 class CartView(ModelView):
     column_list = ('Customer_ID', 'Product_ID', 'Amount')
+
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -140,6 +146,7 @@ class Orders(db.Model):
 
 class OrdersView(ModelView):
     column_list = ('OrderDetailsID', 'CustomerID', 'ProductID', 'Amount')
+
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -156,6 +163,7 @@ class OrderDetails(db.Model):
 
 class OrderDetailsView(ModelView):
     column_list = ('CustomerID', 'Price', 'Country', 'City', 'ZIPcode', 'Address')
+    
     def is_accessible(self):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -167,7 +175,7 @@ class OrderDetailsView(ModelView):
             return False
         return False  # This returns false only if a user is logged in, but not admin
 
-admin = Admin(app, name="Desire", index_view = AdminIndexView())
+admin = Admin(app, name="Desire", index_view = AdminIndexView(), template_mode='bootstrap3')
 admin.add_view(AdminUserView(AdminUser, db.session, 'Admin'))
 admin.add_view(CustomerView(Customer, db.session))
 admin.add_view(ProductsView(Products, db.session))
