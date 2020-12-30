@@ -176,6 +176,24 @@ class OrderDetailsView(ModelView):
             return False
         return False  # This returns false only if a user is logged in, but not admin
 
+class PurchaseHistory(db.Model):
+    __table__ = db.Model.metadata.tables['db980705.PurchaseHistory']
+    Customer_ID = db.relationship("Customer")
+
+class PurchaseHistoryView(ModelView):
+    column_list = ('Customer_ID', 'ProductName', 'Price', 'ProductPicture', 'Amount')
+
+    def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
+
 admin = Admin(app, name="Desire", index_view = AdminIndexView(), template_mode='bootstrap3')
 admin.add_view(AdminUserView(AdminUser, db.session, 'Admin'))
 admin.add_view(CustomerView(Customer, db.session))
@@ -184,6 +202,7 @@ admin.add_view(ReviewsView(Reviews, db.session))
 admin.add_view(CartView(Cart, db.session))
 admin.add_view(OrdersView(Orders, db.session))
 admin.add_view(OrderDetailsView(OrderDetails, db.session))
+admin.add_view(PurchaseHistoryView(PurchaseHistory, db.session))
 
 admin.add_link(MenuLink(name='Profile', category='', url="/profile"))
 admin.add_link(MenuLink(name='Logout', category='', url="/logout"))
@@ -400,7 +419,7 @@ def checkOut():
 def checkedOut():
     if 'loggedin' in session:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT ProductID,Amount FROM Cart WHERE CustomerID = %s', [session['id']])
+        cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
         data = cursor.fetchall()
 
         for row in data:
@@ -411,6 +430,7 @@ def checkedOut():
                 return redirect(url_for('cart'))
 
         for row in data:
+            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s)', [session[id], ])
             cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
         
         cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
