@@ -412,61 +412,50 @@ def deleteReview(id):
 
 @app.route("/checkOut", methods=['GET', 'POST'])
 def checkOut():
-    form = CheckOutForm()
-    msg = ''
     if 'loggedin' in session:
         if request.method == 'POST' and 'country' in request.form and 'city' in request.form and 'zipCode' in request.form and 'address' in request.form:
+            
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
+            data = cursor.fetchall()
+
+            form = CheckOutForm()
             country = request.form['country']
             city = request.form['city']
             zipcode = request.form['zipCode']
             address = request.form['address']
             totalPrice = 0
-            return redirect(url_for('checkedOut'))
+
+            #Check if enough in stock
+            for row in data:
+                cursor.execute('SELECT InStock FROM Products WHERE ProductID = %s', [row['ProductID']])
+                save = cursor.fetchone()
+                if row["Amount"] > save["InStock"]:
+                    flash(f'Sorry, but we dont have that many in stock')
+                    return redirect(url_for('cart'))
+            
+            #Updates in stock on different products
+            for row in data:
+                cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
+            
+            #Calculate total price
+            for row in data:
+                cursor.execute('SELECT Price FROM Products WHERE ProductID = %s', [row['ProductID']])
+                price = cursor.fetchone()
+                totalPrice += row['Amount'] * price['Price']
+
+            #Insert values into Orders
+            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s)', [session['id'], totalPrice, country, city, zipcode, address])
+
+            #Clears cart
+            cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
+            
+            mysql.connection.commit()
+            flash(f'Purchase was successfull, your products will arrive soon')
+
+            return redirect(url_for('home'))
         return render_template('CheckOutPage.html')
     return redirect(url_for('login'))
-
-@app.route("/checkedOut")
-def checkedOut():
-    if 'loggedin' in session:
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
-        data = cursor.fetchall()
-
-        form = CheckOutForm()
-        country = request.form['country']
-        city = request.form['city']
-        zipcode = request.form['zipCode']
-        address = request.form['address']
-        totalPrice = 0
-
-        #Check if enough in stock
-        for row in data:
-            cursor.execute('SELECT InStock FROM Products WHERE ProductID = %s', [row['ProductID']])
-            save = cursor.fetchone()
-            if row["Amount"] > save["InStock"]:
-                flash(f'Sorry, but we dont have that many in stock')
-                return redirect(url_for('cart'))
-        
-        #Updates in stock on different products
-        for row in data:
-            cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
-        
-        #Calculate total price
-        for row in data:
-            cursor.execute('SELECT Price FROM Products WHERE ProductID = %s', [row['ProductID']])
-            price = cursor.fetchone()
-            totalPrice += row['Amount'] * price['Price']
-
-        #Insert values into Orders
-        cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s)', [session['id'], totalPrice, country, city, zipcode, address])
-        mysql.connection.commit()
-
-        #Clears cart
-        cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
-        
-        mysql.connection.commit()
-        flash(f'Purchase was successfull, your products will arrive soon')
-    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(debug=True)
