@@ -143,9 +143,10 @@ class CartView(ModelView):
 
 class Orders(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Orders']
+    Customer_ID = db.relationship("Customer")
 
 class OrdersView(ModelView):
-    column_list = ('OrderDetailsID', 'CustomerID', 'ProductID', 'Amount')
+    column_list = ('Customer_ID', 'Price', 'Country', 'City', 'ZIPcode', 'Address')
 
     def is_accessible(self):
         try:
@@ -160,10 +161,10 @@ class OrdersView(ModelView):
 
 class OrderDetails(db.Model):
     __table__ = db.Model.metadata.tables['db980705.OrderDetails']
-    Customer_ID = db.relationship("Customer")
+    Product_ID = db.relationship("Products")
 
 class OrderDetailsView(ModelView):
-    column_list = ('Customer_ID', 'Price', 'Country', 'City', 'ZIPcode', 'Address')
+    column_list = ('OrderID', 'Product_ID', 'Amount')
     
     def is_accessible(self):
         try:
