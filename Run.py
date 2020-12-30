@@ -424,25 +424,23 @@ def checkOut():
             totalPrice = 0
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s)', [session['id'], country, city, zipcode, address])
+
+            cursor.execute('SELECT OrderID FROM Orders WHERE CustomerID = %s', [session[id]])
             cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
-            data = cursor.fetchall()
+            cart = cursor.fetchall()
 
             #Check if enough in stock
-            for row in data:
+            for row in cart:
                 cursor.execute('SELECT InStock, Price FROM Products WHERE ProductID = %s', [row['ProductID']])
                 data = cursor.fetchone()
                 if row["Amount"] > data["InStock"]:
                     flash(f'Sorry, but we dont have that many in stock')
                     return redirect(url_for('cart'))
-
-                #Calculate total price                
-                totalPrice += row['Amount'] * data['Price']
             
                 #Updates in stock on different products
                 cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
 
-            #Insert values into Orders
-            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s)', [session['id'], totalPrice, country, city, zipcode, address])
 
             #Clears cart
             cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
