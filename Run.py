@@ -431,6 +431,12 @@ def checkedOut():
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
         data = cursor.fetchall()
+
+        form = CheckOutForm()
+        country = request.form['country']
+        city = request.form['city']
+        zipcode = request.form['zipCode']
+        address = request.form['address']
         totalPrice = 0
 
         #Check if enough in stock
