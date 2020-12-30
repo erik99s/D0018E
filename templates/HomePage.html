@@ -14,7 +14,14 @@
             <a id="image" href="/product.{{row.ProductID}}"><img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}"></a>
             <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
             <p id="price">{{row.Price}}kr</p>
-            <p id="price">{{row.InStock}}st</p>
+            <p id="stock" {% if row.InStock < 1 %} style="background: red" {% endif %}>
+                {% if row.InStock < 1 %}
+                    Out of stock
+                {% else%}
+                    {{row.InStock}} in stock
+                {% endif %}
+            </p>
+
             {% if session['loggedin'] and row.InStock > 0 %}
                 <div class="button-container">
                     <a href="/addToCart.{{row.ProductID}}">
