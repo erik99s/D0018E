@@ -27,3 +27,9 @@ class ratingForm(FlaskForm):
     rating = RadioField('star', choices=[('value','description'),('value_two','whatever')])
     title = StringField('title', [DataRequired()])
     comment = StringField('comment', widget=TextArea())
+
+class CheckOutForm(FlaskForm):
+    country = StringField('country', [DataRequired()])
+    city = StringField('city', [DataRequired()])
+    zipCode = StringField('zipCode', [DataRequired()])
+    address = StringField('address', [DataRequired()])
