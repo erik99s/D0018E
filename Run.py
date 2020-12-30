@@ -160,9 +160,10 @@ class OrdersView(ModelView):
 
 class OrderDetails(db.Model):
     __table__ = db.Model.metadata.tables['db980705.OrderDetails']
+    Customer_ID = db.relationship("Customer")
 
 class OrderDetailsView(ModelView):
-    column_list = ('CustomerID', 'Price', 'Country', 'City', 'ZIPcode', 'Address')
+    column_list = ('Customer_ID', 'Price', 'Country', 'City', 'ZIPcode', 'Address')
     
     def is_accessible(self):
         try:
