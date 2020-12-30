@@ -424,9 +424,10 @@ def checkOut():
             totalPrice = 0
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s)', [session['id'], country, city, zipcode, address])
+            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s)', [session['id'], country, city, zipcode, address])
 
-            cursor.execute('SELECT OrderID FROM Orders WHERE CustomerID = %s', [session[id]])
+            cursor.execute('SELECT OrderID FROM Orders WHERE CustomerID = %s', [session['id']])
+            orders = cursor.fetchall()
             cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
             cart = cursor.fetchall()
 
