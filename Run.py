@@ -442,7 +442,7 @@ def checkOut():
                 cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
 
             #Insert values into Orders
-            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s)', [session['id'], totalPrice, country, city, zipcode, address])
+            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s)', [session['id'], country, city, zipcode, address])
 
             #Clears cart
             cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
