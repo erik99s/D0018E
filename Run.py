@@ -433,7 +433,7 @@ def checkedOut():
         data = cursor.fetchall()
         totalPrice = 0
 
-        #check if enough in stock
+        #Check if enough in stock
         for row in data:
             cursor.execute('SELECT InStock FROM Products WHERE ProductID = %s', [row['ProductID']])
             save = cursor.fetchone()
@@ -441,27 +441,25 @@ def checkedOut():
                 flash(f'Sorry, but we dont have that many in stock')
                 return redirect(url_for('cart'))
         
-        #updates in stock on different products
+        #Updates in stock on different products
         for row in data:
             cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
         
-        #calculate total price
+        #Calculate total price
         for row in data:
             cursor.execute('SELECT Price FROM Products WHERE ProductID = %s', [row['ProductID']])
             price = cursor.fetchone()
             totalPrice += row['Amount'] * price['Price']
 
-        #insert values to orderDetails
+        #Insert values into Orders
         cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s)', [session['id'], totalPrice, country, city, zipcode, address])
         mysql.connection.commit()
 
-        
-        #clears cart
+        #Clears cart
         cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
         
         mysql.connection.commit()
-        flash(f'Purchase was successfull, your products will arrive soon :)')
-        return redirect(url_for('home'))
+        flash(f'Purchase was successfull, your products will arrive soon')
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
