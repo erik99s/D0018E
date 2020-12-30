@@ -386,6 +386,7 @@ def rateProduct(id):
         comment = request.form['comment']
         title = request.form['title']
         rating = request.form['star']
+
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM Reviews WHERE CustomerID = %s AND ProductID = %s', [session['id'], id])
         data = cursor.fetchone()
@@ -415,10 +416,6 @@ def checkOut():
     if 'loggedin' in session:
         if request.method == 'POST' and 'country' in request.form and 'city' in request.form and 'zipCode' in request.form and 'address' in request.form:
             
-            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
-            data = cursor.fetchall()
-
             form = CheckOutForm()
             country = request.form['country']
             city = request.form['city']
@@ -426,23 +423,23 @@ def checkOut():
             address = request.form['address']
             totalPrice = 0
 
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
+            data = cursor.fetchall()
+
             #Check if enough in stock
             for row in data:
-                cursor.execute('SELECT InStock FROM Products WHERE ProductID = %s', [row['ProductID']])
-                save = cursor.fetchone()
-                if row["Amount"] > save["InStock"]:
+                cursor.execute('SELECT InStock, Price FROM Products WHERE ProductID = %s', [row['ProductID']])
+                data = cursor.fetchone()
+                if row["Amount"] > data["InStock"]:
                     flash(f'Sorry, but we dont have that many in stock')
                     return redirect(url_for('cart'))
+
+                #Calculate total price                
+                totalPrice += row['Amount'] * data['Price']
             
-            #Updates in stock on different products
-            for row in data:
+                #Updates in stock on different products
                 cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
-            
-            #Calculate total price
-            for row in data:
-                cursor.execute('SELECT Price FROM Products WHERE ProductID = %s', [row['ProductID']])
-                price = cursor.fetchone()
-                totalPrice += row['Amount'] * price['Price']
 
             #Insert values into Orders
             cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s)', [session['id'], totalPrice, country, city, zipcode, address])
@@ -451,7 +448,7 @@ def checkOut():
             cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
             
             mysql.connection.commit()
-            flash(f'Purchase was successfull, your products will arrive soon')
+            flash(f'Purchase was successful, your products will arrive soon')
 
             return redirect(url_for('home'))
         return render_template('CheckOutPage.html')
