@@ -9,55 +9,64 @@
 {% block main %}
 
 <div class="profilepage">
-    <div class="table-section">
-        <h1 class="section-headers">Profile Information</h1>
-        <table class="profile-table">
-            <tr>
-                <td>Firstname:</td>
-                <td class="column2 row1">{{data['FirstName']}}</td>
-            </tr>
-            <tr>
-                <td>Lastname:</td>
-                <td class="column2 row2">{{data['LastName']}}</td>
-                
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td class="column2 row3">{{data['Email']}}</td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td class="column2 row3">{{data['Password']|length * "*"}}</td>
-            </tr>
-        </table>
-    </div>
 
-    <div class="form-container">
-        <form class="profile-form" method="post" action="">
-            <input type="button" class="button" name="profile" value="Change profile"><br>
-        </form>
-    </div>
+    <h1 class="section-headers">Profile</h1>
+    
+    <div class="tab-section">
 
-    <div class="review-section">
-        <h1 class="section-headers">My Product Reviews</h1>
+        <div class="nav-bar">
+            <button class="profile">Profile details</button>
+            <button class="reviews">Reviews</button>
+            <button class="order-history">Order history</button>
+        </div>
 
-        {% for row in reviews %}
-            <div class="review">
-                <div class="rating">
-                    {% for n in range(0, row.Rating) %}
-                        <i class="fas fa-star"></i>
-                    {% endfor %}
-                    {% for n in range(row.Rating, 5) %}
-                        <i class="far fa-star"></i>
-                    {% endfor %}     
-                </div>
+        <div class="table-section">
+            <table class="profile-table">
+                <tr>
+                    <td>Firstname:</td>
+                    <td class="column2 row1">{{data['FirstName']}}</td>
+                </tr>
+                <tr>
+                    <td>Lastname:</td>
+                    <td class="column2 row2">{{data['LastName']}}</td>
+                    
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td class="column2 row3">{{data['Email']}}</td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td class="column2 row3">{{data['Password']|length * "*"}}</td>
+                </tr>
+            </table>
 
-                <p class="comment-title">{{row.Title}}</p> 
-                <p class="date">{{row.Date}}</p>
-                <p class="comment">{{row.Comment}}</p>
-                <a class="remove-review" href="/deleteReview.{{row.ProductID}}"><i class="fas fa-times"></i></a>
+            <div class="form-container">
+                <form class="profile-form" method="post" action="">
+                    <input type="button" class="button" name="profile" value="Change profile"><br>
+                </form>
             </div>
-        {% endfor %}
+        </div>
+
+        <div class="review-section">
+            {% for row in reviews %}
+                <div class="review">
+                    <div class="rating">
+                        {% for n in range(0, row.Rating) %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                        {% for n in range(row.Rating, 5) %}
+                            <i class="far fa-star"></i>
+                        {% endfor %}     
+                    </div>
+
+                    <p class="comment-title">{{row.Title}}</p> 
+                    <p class="date">{{row.Date}}</p>
+                    <p class="comment">{{row.Comment}}</p>
+                    <a class="remove-review" href="/deleteReview.{{row.ProductID}}"><i class="fas fa-times"></i></a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 
