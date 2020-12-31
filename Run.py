@@ -78,13 +78,14 @@ class CustomerView(ModelView):
 
 class Products(db.Model):
     __table__ = db.Model.metadata.tables['db980705.Products']
+    Category_ID = db.relationship("Category")
 
     def __repr__(self):
         return "%s, %s" % (self.ProductName, self.ProductID)
 
 class ProductsView(ModelView):
-    column_list = ('ProductID', 'ProductName', 'Price', 'InStock', 'ProductPicture', 'Description')
-    form_columns = ('ProductName', 'Price', 'InStock', 'ProductPicture', 'Description')
+    column_list = ('ProductID', 'ProductName', 'Category_ID', 'Price', 'InStock', 'ProductPicture', 'Description')
+    form_columns = ('ProductName', 'Category_ID', 'Price', 'InStock', 'ProductPicture', 'Description')
 
     form_extra_fields = {
         'ProductPicture': form.ImageUploadField(
@@ -146,7 +147,7 @@ class Orders(db.Model):
     Customer_ID = db.relationship("Customer")
 
 class OrdersView(ModelView):
-    column_list = ('Customer_ID', 'Price', 'Country', 'City', 'ZIPcode', 'Address')
+    column_list = ('OrderID', 'Customer_ID', 'TotalPrice', 'Country', 'City', 'ZIPcode', 'Address')
 
     def is_accessible(self):
         try:
@@ -195,6 +196,25 @@ class PurchaseHistoryView(ModelView):
             return False
         return False  # This returns false only if a user is logged in, but not admin
 
+class Category(db.Model):
+    __table__ = db.Model.metadata.tables['db980705.Category']
+
+    def __repr__(self):
+        return "%s, %s" % (self.CategoryName, self.CategoryID)
+
+class CategoryView(ModelView):
+
+    def is_accessible(self):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            account = cursor.fetchone()
+            if account:
+                return True
+        except:  # Gets in except if id is not in session, meaning that the user is not logged in
+            return False
+        return False  # This returns false only if a user is logged in, but not admin
+
 admin = Admin(app, name="Desire", index_view = AdminIndexView(), template_mode='bootstrap3')
 admin.add_view(AdminUserView(AdminUser, db.session, 'Admin'))
 admin.add_view(CustomerView(Customer, db.session))
@@ -204,6 +224,7 @@ admin.add_view(CartView(Cart, db.session))
 admin.add_view(OrdersView(Orders, db.session))
 admin.add_view(OrderDetailsView(OrderDetails, db.session))
 admin.add_view(PurchaseHistoryView(PurchaseHistory, db.session))
+admin.add_view(CategoryView(Category, db.session))
 
 admin.add_link(MenuLink(name='Profile', category='', url="/profile"))
 admin.add_link(MenuLink(name='Logout', category='', url="/logout"))
@@ -424,7 +445,8 @@ def checkOut():
             totalPrice = 0
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s)', [session['id'], country, city, zipcode, address])
+            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s) ', [session['id'], totalPrice, country, city, zipcode, address])
+            OrderID = cursor.lastrowid
 
             cursor.execute('SELECT OrderID FROM Orders WHERE CustomerID = %s', [session['id']])
             orders = cursor.fetchall()
@@ -439,9 +461,19 @@ def checkOut():
                     flash(f'Sorry, but we dont have that many in stock')
                     return redirect(url_for('cart'))
             
+                #Calculate total price
+                cursor.execute('SELECT Price FROM Products WHERE ProductID = %s', [row['ProductID']])
+                price = cursor.fetchone()
+                totalPrice += row['Amount'] * data['Price']
+
                 #Updates in stock on different products
                 cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
 
+                #Insert OrderDetails
+                cursor.execute('INSERT INTO OrderDetails VALUES(NULL, %s, %s, %s)', [OrderID, row['ProductID'], row['Amount']])
+
+            #Update total price
+            cursor.execute('UPDATE Orders SET TotalPrice = %s WHERE OrderID = %s', [totalPrice, OrderID])
 
             #Clears cart
             cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
