@@ -25,7 +25,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <p>{{product.Price}}kr</p>
+            <p class="price">{{product.Price}}kr</p>
             <p class="stock" {% if product.InStock < 1 %} style="background: red"{% endif %}>
                 {% if product.InStock < 1 %}
                     Out of stock
