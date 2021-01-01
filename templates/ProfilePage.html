@@ -67,6 +67,12 @@
                 </div>
             {% endfor %}
         </div>
+
+        <div class="order-history-section">
+            {% for row in orders %}
+                <p>Köp för {{row.TotalPrice}}kr till {{row.City}}</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
 
