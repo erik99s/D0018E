@@ -15,11 +15,15 @@
             <img src="{{ url_for('static', filename = "images/" + product.ProductPicture) }}">
         </div>
         <div class="text-container">
-            <h1>{{product.ProductName}}
-            {% for row in result %}
-                {{row.0}}
-            {% endfor %}
-
+            <h1>
+                {{product.ProductName}}
+                {% for n in range(0, 5) %}
+                    {% if n >= result %}
+                        <i class="far fa-star"></i>
+                    {% else %}
+                        <i class="fas fa-star"></i>
+                    {% endif %}
+                {% endfor %}
             </h1>
             <p>{{product.Price}}kr</p>
             <p>{{product.InStock}}st</p>
