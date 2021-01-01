@@ -8,13 +8,15 @@
 
 {% block main %}
 
+<h1 class="section-headers products-header">Products</h1>
+
 <div class="product-grid">
     {% for row in data %}
         <div class="product">
             <a id="image" href="/product.{{row.ProductID}}"><img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}"></a>
             <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
             <p id="price">{{row.Price}}kr</p>
-            <p id="stock" {% if row.InStock < 1 %} style="background: red" {% endif %}>
+            <p id="stock" {% if row.InStock < 1 %} style="background: rgb(255, 0, 0, 0.6)" {% endif %}>
                 {% if row.InStock < 1 %}
                     Out of stock
                 {% else%}
