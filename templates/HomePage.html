@@ -10,29 +10,31 @@
 
 <h1 class="section-headers products-header">Products</h1>
 
-<div class="product-grid">
-    {% for row in data %}
-        <div class="product">
-            <a id="image" href="/product.{{row.ProductID}}"><img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}"></a>
-            <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
-            <p id="price">{{row.Price}}kr</p>
-            <p id="stock" {% if row.InStock < 1 %} style="background: rgb(255, 0, 0, 0.6)" {% endif %}>
-                {% if row.InStock < 1 %}
-                    Out of stock
-                {% else%}
-                    {{row.InStock}} in stock
-                {% endif %}
-            </p>
+<div class="homepage">
+    <div class="product-grid">
+        {% for row in data %}
+            <div class="product">
+                <a id="image" href="/product.{{row.ProductID}}"><img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}"></a>
+                <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
+                <p id="price">{{row.Price}}kr</p>
+                <p id="stock" {% if row.InStock < 1 %} style="background: rgb(255, 0, 0, 0.6)" {% endif %}>
+                    {% if row.InStock < 1 %}
+                        Out of stock
+                    {% else%}
+                        {{row.InStock}} in stock
+                    {% endif %}
+                </p>
 
-            {% if session['loggedin'] and row.InStock > 0 %}
-                <div class="button-container">
-                    <a href="/addToCart.{{row.ProductID}}">
-                        <input class="addtocart-button" type="button" value="Add to cart">
-                    </a>
-                </div>
-            {% endif %}
-        </div>
-    {% endfor %}
+                {% if session['loggedin'] and row.InStock > 0 %}
+                    <div class="button-container">
+                        <a href="/addToCart.{{row.ProductID}}">
+                            <input class="addtocart-button" type="button" value="Add to cart">
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
