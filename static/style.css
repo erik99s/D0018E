@@ -391,7 +391,7 @@ div.row {
 
 /*HOME PAGE =====================================================================*/
 
-.product-grid {
+.homepage .product-grid {
   position: absolute;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -408,7 +408,7 @@ div.row {
   
 }
 
-.product-grid .product {
+.homepage .product-grid .product {
   position: relative;
   background-color: rgba(0, 0, 0, 0.3);
   height: auto;
@@ -418,7 +418,7 @@ div.row {
   border-radius: 10px;
 }
 
-.product > a > img {
+.homepage .product > a > img {
   position: relative;
   vertical-align: middle;
   z-index: 1;
@@ -429,19 +429,19 @@ div.row {
   border-radius: 10px;
 }
 
-div.product > a > img:hover {
+.homepage .product > a > img:hover {
   filter: brightness(50%);
   cursor: pointer;
 }
 
-div.product > a#image {
+.homepage .product > a#image {
   display: inline-block;
   text-decoration: none;
   width: auto;
   height: auto;
 }
 
-div.product > a#name {
+.homepage .product > a#name {
   position: relative;
   display: block;
 
@@ -455,12 +455,12 @@ div.product > a#name {
   font-size: 22px;
 }
 
-div.product > a#name:hover {
+.homepage .product > a#name:hover {
   text-decoration: underline;
 }
 
 /*product name and price text*/
-div.product > p {
+.homepage .product > p {
   background-color: none;
   color: white;
   max-width: 200px;
@@ -474,7 +474,7 @@ div.product > p {
   font-size: 15px;
 }
 
-.product #stock {
+.homepage .product #stock {
   background-color: rgb(128, 128, 128, 0.6);
   width: calc(100% + 20px);
   margin-bottom: 10px;
@@ -486,12 +486,12 @@ div.product > p {
 }
 
 /*add to cart button*/
-.product .button-container {
+.homepage .product .button-container {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.product .button-container a {
+.homepage .product .button-container a {
   display: block;
   width: 100%;
   height: 100%;
@@ -503,11 +503,11 @@ div.product > p {
   line-height: 30px;
 }
 
-.product form {
+.homepage .product form {
   margin: 0;
 }
 
-.product .addtocart-button {
+.homepage .product .addtocart-button {
   background-color: #3987e6;
   height: 30px;
   width: 200px;
@@ -586,8 +586,15 @@ div.product > p {
   margin: 15px 15px 5px 15px;
 }
 
-.productpage .text-container p {
+.productpage .text-container > * {
   margin: 5px 15px 15px 15px;
+}
+
+.productpage .text-container .stock {
+  background-color: grey;
+  padding: 10px;
+
+  text-align: center;
 }
 
 .productpage .text-container .button-container a input {
@@ -695,7 +702,7 @@ div.product > p {
   color: white;
 }
 
-.productpage .rating {
+ .rating {
   position: relative;
   display: inline-block;
 
