@@ -396,7 +396,7 @@ div.row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: masonry;
-  grid-gap: 10px;
+  grid-gap: 30px;
 
   left: 50%;
   transform: translateX(-50%);
@@ -404,25 +404,18 @@ div.row {
 
   background-color: none;
   
-  margin-top: 20px;
   margin-bottom: 80px;
   
 }
 
 .product-grid .product {
   position: relative;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 0, 0, 0.3);
   height: auto;
   width: auto;
   padding: 10px 10px 0px 10px;
   box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
   border-radius: 10px;
-}
-
-.product-grid .product > #stock {
-  width: calc(100% + 200px);
-  padding: 5px 10px 5px 10px;
-  margin-left: -10px;
 }
 
 .product > a > img {
@@ -482,9 +475,11 @@ div.product > p {
 }
 
 .product #stock {
-  background-color: grey;
+  background-color: rgb(128, 128, 128, 0.6);
   width: calc(100% + 20px);
   margin-bottom: 10px;
+  margin-left: -10px;
+  padding: 5px 10px 5px 10px;
 
   font-size: 20px;
   text-align: center;
@@ -535,14 +530,10 @@ div.product > p {
   left: 50%;
   transform: translateX(-50%);
 
-  background-color: #2e2e2e;
   min-height: 800px;
   height: auto;
   width: 1000px;
-  margin: 20px 0 20px 0;
-  padding: 10px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px 2px rgb(0, 0, 0);
 }
 
 .productpage .product {
@@ -550,6 +541,12 @@ div.product > p {
   display: grid;
   grid-template-columns: repeat(2, 1fr);;
   grid-gap: 10px;
+
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px black;   
 }
 
 .productpage .image-container {
@@ -577,10 +574,12 @@ div.product > p {
   position: relative;
   display: block;
 
-  background-color: white;
+  background-color: none;
   margin: 0;
   padding: 0;
   border-radius: 10px;
+
+  color: white;
 }
 
 .productpage .text-container h1 {
@@ -606,14 +605,15 @@ div.product > p {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 40px;
 
-  background-color: #1c1c1c;
+  background-color: rgba(0, 0, 0, 0.3);
   min-height: 100px;
   height: auto;
   width: auto;
-  margin-top: 10px;
+  margin-bottom: 80px;
   padding: 10px 10px 0 10px;
 
   border-radius: 10px;
+  box-shadow: 0 0 10px black;
 }
 
 .write-review {
@@ -683,7 +683,7 @@ div.product > p {
   position: relative;
   display: inline-block;
 
-  background-color: white;
+  background-color: none;
   min-height: 100px;
   height: auto;
   width: 100%;
@@ -691,6 +691,8 @@ div.product > p {
 
   border-radius: 10px;
   word-wrap: break-word;
+
+  color: white;
 }
 
 .productpage .rating {
@@ -708,7 +710,6 @@ div.product > p {
 } 
 
 .productpage .review p {
-  color: black;
   margin: 10px;
   max-width: 100%;
 }
@@ -727,7 +728,7 @@ div.product > p {
 
   margin: 3px 8px 0 0;
 
-  color: black;
+  color: red;
   font-size: 18px;
   text-decoration: none;
 }
@@ -743,8 +744,7 @@ div.product > p {
   background-color: none;
   height: auto;
   width: 1000px;
-  margin: 20px 0px 20px 0px;
-  padding: 10px;
+  margin: 0px 0px 20px 0px;
 
   border-radius: 10px ;
 }
@@ -959,8 +959,7 @@ form.profile-form > input {
   background-color: none;
   height: auto;
   width: 1000px;
-  margin: 20px 0px 20px 0px;
-  padding: 10px;
+  margin: 00px 0px 20px 0px;
 
   border-radius: 10px ;
   /*box-shadow: 0px 0px 5px black;  */
@@ -1239,7 +1238,7 @@ input:focus {
   color: white;
   font-size: 40px;
   text-align: center;
-  margin: 10px 0 40px 0;
+  margin: 40px 0 40px 0;
 }
 
 form i {
