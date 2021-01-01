@@ -308,8 +308,8 @@ def products(id):
     cursor.execute('SELECT * FROM Reviews WHERE ProductID = %s', [id])
     reviews = cursor.fetchall()
 
-    #TO DO: ändra till average av Reviews.Rating (funkar inte i stunden)
-    result = db.session.query(func.avg(Reviews.Rating))
+    # Beräknar genomsnittlig rating
+    result = int(db.session.query(func.avg(Reviews.Rating)).scalar())
     print(result)
 
     for row in reviews:
@@ -327,7 +327,12 @@ def profile():
         data = cursor.fetchone()
         cursor.execute('SELECT * FROM Reviews WHERE CustomerID = %s', [session['id']])
         reviews = cursor.fetchall()
-        return render_template('ProfilePage.html', data=data, reviews=reviews)
+
+        # TO DO: ändra till purchase history
+        cursor.execute('SELECT * FROM Orders WHERE CustomerID = %s', [session['id']])
+        orders = cursor.fetchall()
+
+        return render_template('ProfilePage.html', data=data, reviews=reviews, orders=orders)
     else:
         return redirect(url_for('login'))
 
