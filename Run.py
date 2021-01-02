@@ -309,8 +309,10 @@ def products(id):
     reviews = cursor.fetchall()
 
     # Beräknar genomsnittlig rating
-    result = int(db.session.query(func.avg(Reviews.Rating)).scalar())
-    print(result)
+    result = db.session.query(func.avg(Reviews.Rating)).filter(Reviews.ProductID == [id]).scalar()
+    # Om result är NULL sätt det till 0
+    if not result:
+        result = 0
 
     for row in reviews:
         cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [row['CustomerID']])
