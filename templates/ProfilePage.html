@@ -68,9 +68,10 @@
             {% endfor %}
         </div>
 
-        <div class="order-history-section">
-            {% for row in orders %}
-                <p>Köp för {{row.TotalPrice}}kr till {{row.City}}</p>
+        <div class="purchaseHistory-section">
+            {% for row in purchase %}
+                <!--<a id="image" href="/product.{{row.ProductID}}"><img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}"> -->
+                <p> Köp av {{row.Amount}} st "{{row.ProductName}} för {{row.Price}}</p>
             {% endfor %}
         </div>
     </div>

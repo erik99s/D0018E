@@ -331,10 +331,10 @@ def profile():
         reviews = cursor.fetchall()
 
         # TO DO: ändra till purchase history
-        cursor.execute('SELECT * FROM Orders WHERE CustomerID = %s', [session['id']])
-        orders = cursor.fetchall()
+        cursor.execute('SELECT * FROM PurchaseHistory WHERE CustomerID = %s', [session['id']])
+        purchase = cursor.fetchall()
 
-        return render_template('ProfilePage.html', data=data, reviews=reviews, orders=orders)
+        return render_template('ProfilePage.html', data=data, reviews=reviews, purchase=purchase)
     else:
         return redirect(url_for('login'))
 
@@ -462,7 +462,7 @@ def checkOut():
 
             #Check if enough in stock
             for row in cart:
-                cursor.execute('SELECT InStock, Price FROM Products WHERE ProductID = %s', [row['ProductID']])
+                cursor.execute('SELECT InStock, Price, ProductName, ProductPicture FROM Products WHERE ProductID = %s', [row['ProductID']])
                 data = cursor.fetchone()
                 if row["Amount"] > data["InStock"]:
                     flash(f'Sorry, but we dont have that many in stock')
@@ -478,6 +478,9 @@ def checkOut():
 
                 #Insert OrderDetails
                 cursor.execute('INSERT INTO OrderDetails VALUES(NULL, %s, %s, %s)', [OrderID, row['ProductID'], row['Amount']])
+
+                #Insert into PurchaseHistory
+                cursor.execute('INSERT INTO PurchaseHistory VALUES(NULL, %s, %s, %s, %s, %s)', [session['id'], data['ProductName'], data['Price'], data['ProductPicture'], row['Amount']])
 
             #Update total price
             cursor.execute('UPDATE Orders SET TotalPrice = %s WHERE OrderID = %s', [totalPrice, OrderID])
