@@ -17,16 +17,20 @@
         <div class="text-container">
             <h1>{{product.ProductName}}</h1>
             <div class="rating">
-                {% for n in range(0, 5) %}
-                    {% if n >= result %}
-                        <i class="far fa-star"></i>
-                    {% else %}
-                        <i class="fas fa-star"></i>
-                    {% endif %}
-                {% endfor %}
+                {% if result == 0 %}
+                    No reviews yet
+                {% else %}
+                    {% for n in range(0, 5) %}
+                        {% if n >= result %}
+                            <i class="far fa-star"></i>
+                        {% else %}
+                            <i class="fas fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div>
             <p class="price">{{product.Price}}kr</p>
-            <p class="stock" {% if product.InStock < 1 %} style="background: red"{% endif %}>
+            <p class="stock" {% if product.InStock < 1 %} style="background: rgb(255, 0, 0, 0.6)"{% endif %}>
                 {% if product.InStock < 1 %}
                     Out of stock
                 {% else %}
