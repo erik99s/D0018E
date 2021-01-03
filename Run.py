@@ -234,18 +234,19 @@ mysql = MySQL(app)
 
 @app.route("/")
 @app.route("/home")
-def home():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM Products')
-    data = cursor.fetchall()
-    return render_template("HomePage.html", data=data)
-
 @app.route("/home.<string:id>")
-def category(id):
+def home(id=None):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM Products WHERE CategoryID = %s', [id])
+    cursor.execute('SELECT * FROM Category')
+    categories = cursor.fetchall()
+
+    if id:
+        cursor.execute('SELECT * FROM Products WHERE CategoryID = %s', [id])
+    else:
+        cursor.execute('SELECT * FROM Products')
     data = cursor.fetchall()
-    return render_template("HomePage.html", data=data)
+
+    return render_template("HomePage.html", data=data, categories=categories)
     
 @app.route("/register", methods=['GET', 'POST'])
 def register():
