@@ -226,7 +226,7 @@ admin.add_view(OrderDetailsView(OrderDetails, db.session))
 admin.add_view(PurchaseHistoryView(PurchaseHistory, db.session))
 admin.add_view(CategoryView(Category, db.session))
 
-admin.add_link(MenuLink(name='Profile', category='', url="/profile"))
+admin.add_link(MenuLink(name='Home', category='', url="/home"))
 admin.add_link(MenuLink(name='Logout', category='', url="/logout"))
 
 # init mySQL
