@@ -6,6 +6,22 @@
 
 {% endblock %}
 
+{% block top %}
+    <div class="dropdown-container">
+        <i class="fa fa-list-alt" aria-hidden="true"></i>
+            <div class="category-dropdown">
+                <a href="/home">
+                    <input type="button" value="All">
+                </a>
+                {% for row in categories %}
+                    <a href="/home.{{row.CategoryID}}">
+                        <input type="button" value="{{row.CategoryName}}">
+                    </a>
+                {% endfor %}      
+            </div>
+    </div>
+{% endblock %}
+
 {% block main %}
 
 <h1 class="section-headers products-header">Products</h1>
@@ -16,7 +32,7 @@
             <div class="product">
                 <a id="image" href="/product.{{row.ProductID}}"><img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}"></a>
                 <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
-                <p id="price">{{row.Price}} kr</p>
+                <p id="price">{{row.Price}}kr</p>
                 <p id="stock" {% if row.InStock < 1 %} style="background: rgb(255, 0, 0, 0.6)" {% endif %}>
                     {% if row.InStock < 1 %}
                         Out of stock
