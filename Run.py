@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, flash, redirect, session, request
-from forms import RegistrationForm, LoginForm, AddToCartForm, ratingForm, CheckOutForm
+from forms import RegistrationForm, LoginForm, AddToCartForm, ratingForm, CheckOutForm, UpdateForm
 from flask_mysqldb import MySQLdb, MySQL
 import sys, MySQLdb.cursors, re
 from flask_sqlalchemy import SQLAlchemy
@@ -268,6 +268,46 @@ def register():
         msg = 'Fill out form correctly'
 
     return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
+
+
+@app.route("/updateProfile", methods=['GET', 'POST'])
+def updateProfile():
+    msg = ''
+    form = UpdateForm()
+    if 'loggedin' in session:
+        if form.validate_on_submit():
+            if request.method == 'POST' and 'firstName' in request.form and 'lastName' in request.form and 'email' in request.form and 'confirm_email' in request.form and 'password' in request.form and 'confirm_password' in request.form:
+                firstName = request.form['firstName']
+                lastName = request.form['lastName']
+                email = request.form['email']
+                password = request.form['password']
+                cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [session['id']])
+                account = cursor.fetchone()
+
+                if firstName != account['FirstName']:
+                    cursor.execute('UPDATE Customer set FirstName = %s WHERE CustomerID = %s', [firstName, session['id']])
+                
+                if lastName != account['LastName']:
+                    cursor.execute('UPDATE Customer set LastName = %s WHERE CustomerID = %s', [lastName, session['id']])
+                
+                if email != account['Email']:
+                    cursor.execute('UPDATE Customer set Email = %s WHERE CustomerID = %s', [email, session['id']])
+                
+                if password != account['Password']:
+                    cursor.execute('UPDATE Customer set Password = %s WHERE CustomerID = %s', [password, session['id']])
+                
+                mysql.connection.commit()
+                msg = 'Successfully created account'
+                flash(f'Account successfully updated!', 'success')
+
+                return redirect(url_for('profile'))
+                
+
+        elif request.method == 'POST':
+            msg = 'Fill out form correctly'
+
+        return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
 
 
 @app.route("/login", methods=['GET', 'POST'])

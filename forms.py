@@ -12,6 +12,15 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('confirm password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
+class UpdateForm(FlaskForm):
+    firstName = StringField('firstName', [DataRequired()])
+    lastName = StringField('lastName', [DataRequired()])
+    email = StringField('email', validators=[DataRequired(), Email()])
+    confirm_email = StringField('confirm email', validators=[DataRequired(), EqualTo('email')])
+    password = PasswordField('password', validators=[DataRequired()])
+    confirm_password = PasswordField('confirm password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Update Profile')
+
 class LoginForm(FlaskForm):
     firstName = StringField('firstName', [DataRequired()])
     lastName = StringField('lastName', [DataRequired()])
@@ -33,3 +42,4 @@ class CheckOutForm(FlaskForm):
     city = StringField('city', [DataRequired()])
     zipCode = StringField('zipCode', [DataRequired()])
     address = StringField('address', [DataRequired()])
+
