@@ -240,6 +240,13 @@ def home():
     data = cursor.fetchall()
     return render_template("HomePage.html", data=data)
 
+@app.route("/home.<string:id>")
+def category(id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM Products WHERE CategoryID = %s', [id])
+    data = cursor.fetchall()
+    return render_template("HomePage.html", data=data)
+    
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     msg = ''
