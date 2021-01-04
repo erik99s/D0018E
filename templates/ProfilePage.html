@@ -54,7 +54,7 @@
             <div class="review-section">
                 {% for row in reviews %}
                     <div class="review">
-                        <a id="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
+                        <a class="name" href="/product.{{row.ProductID}}">{{row.ProductName}}</a>
                         <div class="rating">
                             {% for n in range(0, row.Rating) %}
                                 <i class="fas fa-star"></i>
