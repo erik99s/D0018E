@@ -16,8 +16,6 @@
 
         <div class="nav-bar">
             <button class="profile">Profile details</button>
-            <button class="reviews">Reviews</button>
-            <button class="order-history">Order history</button>
         </div>
 
         <div class="table-section">
@@ -48,6 +46,10 @@
             </div>
         </div>
 
+        <div class="nav-bar">
+            <button class="profile">Reviews</button>
+        </div>
+
         <div class="review-section">
             {% for row in reviews %}
                 <div class="review">
@@ -68,10 +70,29 @@
             {% endfor %}
         </div>
 
+        <div class="nav-bar">
+            <button class="profile">Purchase history</button>
+        </div>
+
         <div class="purchaseHistory-section">
             {% for row in purchase %}
-                <!--<a id="image" href="/product.{{row.ProductID}}"><img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}"> -->
-                <p> Köp av {{row.Amount}} st "{{row.ProductName}} för {{row.Price}}</p>
+                <div class="item">
+                    <div class="image">
+                        <img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}" alt="" />
+                    </div>
+                
+                    <div class="description">
+                        <span>{{row.ProductName}}</span>
+                    </div>
+
+                    <div class="price">
+                        <span>{{row.Price}} kr</span>
+                    </div>
+
+                    <div class="amount">
+                        <span>{{row.Amount}} st</span>
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </div>
