@@ -38,7 +38,7 @@
 
             <div id="outer">
                 <div class="profile-dropdown-content">
-                    {% if session['loggedin'] %}
+                    {% if session['isAdmin'] %}
                       <a href="/admin">
                           <input type="button" value="Admin">
                       </a>

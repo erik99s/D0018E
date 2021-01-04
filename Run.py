@@ -335,6 +335,13 @@ def login():
         if data:
             session['loggedin'] = True
             session['id'] = data['CustomerID']
+            session['isAdmin'] = False
+
+            #Check if customer is admin
+            cursor.execute('SELECT * FROM Admin WHERE CustomerID = %s', [session['id']])
+            if cursor.fetchone():
+                session['isAdmin'] = True
+
             return redirect(url_for('home'))
         else:
             msg = 'Does not recognize email/password'
@@ -346,6 +353,7 @@ def login():
 def logout():
     session.pop('loggedin', None)
     session.pop('id', None)
+    session.pop('isAdmin', None)
     return redirect(url_for('home'))
 
 @app.route("/product.<string:id>")
