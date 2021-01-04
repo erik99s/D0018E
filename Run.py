@@ -270,19 +270,14 @@ def register():
             else:
                 cursor.execute('INSERT INTO Customer VALUES(NULL, %s, %s, %s, %s)', [firstName, lastName, email, password])
                 mysql.connection.commit()
-                msg = 'Successfully created account'
                 flash(f'Account created for {form.email.data}!', 'success')
                 return redirect(url_for('home'))
 
     elif request.method == 'POST':
         msg = 'Failed to create account, Please fill out form correctly'
-        return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
+    
+    return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
 
-<<<<<<< HEAD
-=======
-    return render_template('RegisterPage.html', title='register', form=form, msg=msg)
-
->>>>>>> cedf866dfe20feea7b97e7ff2dc2330e108f871c
 @app.route("/updateProfile", methods=['GET', 'POST'])
 def updateProfile():
     form = UpdateForm()
@@ -301,7 +296,6 @@ def updateProfile():
                 cursor.execute('UPDATE Customer SET FirstName = %s, LastName = %s, Email = %s, Password = %s WHERE CustomerID = %s', [firstName, lastName, email, password, session['id']])
                 
                 mysql.connection.commit()
-                msg = 'Successfully created account'
                 flash(f'Account successfully updated!', 'success')
                 return redirect(url_for('profile'))
 
