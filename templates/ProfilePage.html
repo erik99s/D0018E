@@ -46,68 +46,72 @@
             </div>
         </div>
 
-        <div class="nav-bar">
-            <button class="profile">Reviews</button>
-        </div>
-
-        <div class="review-section">
-            {% for row in reviews %}
-                <div class="review">
-                    <div class="rating">
-                        {% for n in range(0, row.Rating) %}
-                            <i class="fas fa-star"></i>
-                        {% endfor %}
-                        {% for n in range(row.Rating, 5) %}
-                            <i class="far fa-star"></i>
-                        {% endfor %}     
-                    </div>
-
-                    <p class="comment-title">{{row.Title}}</p> 
-                    <p class="date">{{row.Date}}</p>
-                    <p class="comment">{{row.Comment}}</p>
-                    <a class="remove-review" href="/deleteReview.{{row.ProductID}}"><i class="fas fa-times"></i></a>
-                </div>
-            {% endfor %}
-        </div>
-
-        <div class="nav-bar">
-            <button class="profile">Purchase history</button>
-        </div>
-
-        <div class="purchaseHistory-section">
-
-            <div class="item-header">
-                <div class="image">Picture</div>
-                <div class="description">Product</div>
-                <div class="price">Price</div>
-                <div class="quantity">Amount</div>
-                <div class="date">Date</div>
+        {% if reviews != () %}
+            <div class="nav-bar">
+                <button class="profile">Reviews</button>
             </div>
-            {% for row in purchase %}
-                <div class="item">
-                    <div class="image">
-                        <img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}" alt="" />
-                    </div>
-                
-                    <div class="description">
-                        <span>{{row.ProductName}}</span>
-                    </div>
+        
+            <div class="review-section">
+                {% for row in reviews %}
+                    <div class="review">
+                        <div class="rating">
+                            {% for n in range(0, row.Rating) %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                            {% for n in range(row.Rating, 5) %}
+                                <i class="far fa-star"></i>
+                            {% endfor %}     
+                        </div>
 
-                    <div class="price">
-                        <span>{{row.Price}} kr</span>
+                        <p class="comment-title">{{row.Title}}</p> 
+                        <p class="date">{{row.Date}}</p>
+                        <p class="comment">{{row.Comment}}</p>
+                        <a class="remove-review" href="/deleteReview.{{row.ProductID}}"><i class="fas fa-times"></i></a>
                     </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-                    <div class="quantity">
-                        <span>{{row.Amount}} st</span>
-                    </div>
+        {% if purchase != () %}
+            <div class="nav-bar">
+                <button class="profile">Purchase history</button>
+            </div>
 
-                    <div class="date">
-                        <span>{{row.Date}} </span>
-                    </div>
-                    
+            <div class="purchaseHistory-section">
+
+                <div class="item-header">
+                    <div class="image">Picture</div>
+                    <div class="description">Product</div>
+                    <div class="price">Price</div>
+                    <div class="quantity">Amount</div>
+                    <div class="date">Date</div>
                 </div>
-            {% endfor %}
-        </div>
+                {% for row in purchase %}
+                    <div class="item">
+                        <div class="image">
+                            <img src="{{ url_for('static', filename = "images/" + row.ProductPicture) }}" alt="" />
+                        </div>
+                    
+                        <div class="description">
+                            <span>{{row.ProductName}}</span>
+                        </div>
+
+                        <div class="price">
+                            <span>{{row.Price}} kr</span>
+                        </div>
+
+                        <div class="quantity">
+                            <span>{{row.Amount}} st</span>
+                        </div>
+
+                        <div class="date">
+                            <span>{{row.Date}} </span>
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 </div>
 
