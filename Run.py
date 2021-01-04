@@ -380,6 +380,11 @@ def profile():
         cursor.execute('SELECT * FROM Reviews WHERE CustomerID = %s', [session['id']])
         reviews = cursor.fetchall()
 
+        for row in reviews:
+            cursor.execute('SELECT ProductName FROM Products WHERE ProductID = %s', [row['ProductID']])
+            product = cursor.fetchone()
+            row.update({'ProductName' : product['ProductName']})
+
         #Get purchase history
         cursor.execute('SELECT * FROM PurchaseHistory WHERE CustomerID = %s', [session['id']])
         purchase = cursor.fetchall()
