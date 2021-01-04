@@ -1000,10 +1000,23 @@ form.profile-form > input {
   overflow: hidden;
 }
 
-.profilepage .comment-title {
-  position: absolute;
+.profilepage .review .name {
   display: inline-block;
-  top: 0;
+
+  width: max-content;
+  margin: 10px;
+
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.profilepage .review .name:hover {
+  text-decoration: underline;
+}
+
+.profilepage .comment-title {
+  display: block;
 }
 
 .profilepage .remove-review {
