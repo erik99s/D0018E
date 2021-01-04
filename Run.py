@@ -275,10 +275,10 @@ def register():
                 return redirect(url_for('home'))
 
     elif request.method == 'POST':
-        msg = 'Fill out form correctly'
+        msg = 'Failed to create account, Please fill out form correctly'
+        return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
 
-    return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
-
+    return render_template('RegisterPage.html', title='register', form=form, msg=msg)
 
 @app.route("/updateProfile", methods=['GET', 'POST'])
 def updateProfile():
@@ -304,9 +304,9 @@ def updateProfile():
                 return redirect(url_for('profile'))
 
         elif request.method == 'POST':
-            msg = 'Fill out form correctly'
-
-        return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
+            msg = 'Failed to update account, Please fill out form correctly'
+        
+        return render_template('RegisterPage.html', title='Register', form=form, msg=msg) 
     return redirect(url_for('login'))
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -344,6 +344,7 @@ def logout():
     session.pop('loggedin', None)
     session.pop('id', None)
     session.pop('isAdmin', None)
+    flash(f'Succesfully logged out!', 'success')
     return redirect(url_for('home'))
 
 @app.route("/product.<string:id>")
@@ -545,7 +546,7 @@ def checkOut():
                     cursor.execute('INSERT INTO OrderDetails VALUES(NULL, %s, %s, %s)', [OrderID, row['ProductID'], row['Amount']])
 
                     #Insert into PurchaseHistory
-                    cursor.execute('INSERT INTO PurchaseHistory VALUES(NULL, %s, %s, %s, %s, %s)', [session['id'], data['ProductName'], data['Price'], data['ProductPicture'], row['Amount']])
+                    cursor.execute('INSERT INTO PurchaseHistory VALUES(NULL, %s, %s, %s, %s, %s, NULL)', [session['id'], data['ProductName'], data['Price'], data['ProductPicture'], row['Amount']])
 
                 #Update total price
                 cursor.execute('UPDATE Orders SET TotalPrice = %s WHERE OrderID = %s', [totalPrice, OrderID])
