@@ -254,10 +254,12 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         if request.method == 'POST' and 'firstName' in request.form and 'lastName' in request.form and 'email' in request.form and 'confirm_email' in request.form and 'password' in request.form and 'confirm_password' in request.form:
+
             firstName = request.form['firstName']
             lastName = request.form['lastName']
             email = request.form['email']
             password = request.form['password']
+
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cursor.execute('SELECT * FROM Customer WHERE Email = %s', [email])
             account = cursor.fetchone()
@@ -280,43 +282,32 @@ def register():
 
 @app.route("/updateProfile", methods=['GET', 'POST'])
 def updateProfile():
-    msg = ''
     form = UpdateForm()
+    msg = ''
+    
     if 'loggedin' in session:
         if form.validate_on_submit():
             if request.method == 'POST' and 'firstName' in request.form and 'lastName' in request.form and 'email' in request.form and 'confirm_email' in request.form and 'password' in request.form and 'confirm_password' in request.form:
+
                 firstName = request.form['firstName']
                 lastName = request.form['lastName']
                 email = request.form['email']
                 password = request.form['password']
-                cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-                cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [session['id']])
-                account = cursor.fetchone()
 
-                if firstName != account['FirstName']:
-                    cursor.execute('UPDATE Customer set FirstName = %s WHERE CustomerID = %s', [firstName, session['id']])
-                
-                if lastName != account['LastName']:
-                    cursor.execute('UPDATE Customer set LastName = %s WHERE CustomerID = %s', [lastName, session['id']])
-                
-                if email != account['Email']:
-                    cursor.execute('UPDATE Customer set Email = %s WHERE CustomerID = %s', [email, session['id']])
-                
-                if password != account['Password']:
-                    cursor.execute('UPDATE Customer set Password = %s WHERE CustomerID = %s', [password, session['id']])
+                cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cursor.execute('UPDATE Customer SET FirstName = %s, LastName = %s, Email = %s, Password = %s WHERE CustomerID = %s', [firstName, lastName, email, password, session['id']])
                 
                 mysql.connection.commit()
                 msg = 'Successfully created account'
                 flash(f'Account successfully updated!', 'success')
 
                 return redirect(url_for('profile'))
-                
 
         elif request.method == 'POST':
             msg = 'Fill out form correctly'
 
         return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
-
+    return redirect(url_for('login'))
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -346,10 +337,9 @@ def login():
         else:
             msg = 'Does not recognize email/password'
             return render_template('LoginPage.html', title='login', form=form, msg=msg)
-    
     return render_template('LoginPage.html', title='login', form=form, msg=msg)
 
-@app.route("/logout", methods=['GET', 'POST'])
+@app.route("/logout")
 def logout():
     session.pop('loggedin', None)
     session.pop('id', None)
@@ -364,29 +354,36 @@ def products(id):
     cursor.execute('SELECT * FROM Reviews WHERE ProductID = %s', [id])
     reviews = cursor.fetchall()
 
-    # Beräknar genomsnittlig rating
+    #Calculate the average rating
     result = db.session.query(func.avg(Reviews.Rating)).filter(Reviews.ProductID == [id]).scalar()
-    # Om result är NULL sätt det till 0
+
+    #If result equals NULL set it to 0
     if not result:
         result = 0
 
+    #Get customers full name
     for row in reviews:
         cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [row['CustomerID']])
         customer = cursor.fetchone()
         row.update({'FirstName' : customer['FirstName']})
         row.update({'LastName' : customer['LastName']})
+
     return render_template('ProductPage.html', product=product, reviews=reviews, result=result)
 
 @app.route("/profile")
 def profile():
     if 'loggedin' in session:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+        #Get customer information
         cursor.execute('SELECT * FROM Customer WHERE CustomerID = %s', [session['id']])
         data = cursor.fetchone()
+
+        #Get customer reviews
         cursor.execute('SELECT * FROM Reviews WHERE CustomerID = %s', [session['id']])
         reviews = cursor.fetchall()
 
-        # TO DO: ändra till purchase history
+        #Get purchase history
         cursor.execute('SELECT * FROM PurchaseHistory WHERE CustomerID = %s', [session['id']])
         purchase = cursor.fetchall()
 
@@ -437,8 +434,9 @@ def removeFromCart(id):
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('DELETE FROM Cart WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+
         mysql.connection.commit()
-        return redirect(url_for('cart'))
+        return redirect(request.referrer)
     except:
         return redirect(url_for('home'))
 
@@ -446,8 +444,14 @@ def removeFromCart(id):
 def removeOneFromCart(id):
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('UPDATE Cart SET Amount = Amount - 1 WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
-        cursor.execute('DELETE FROM Cart WHERE Amount = 0')
+        cursor.execute('START TRANSACTION')
+
+        try:
+            cursor.execute('UPDATE Cart SET Amount = Amount - 1 WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+            cursor.execute('DELETE FROM Cart WHERE Amount = 0')
+        except:
+            cursor.execute('ROLLBACK')
+
         mysql.connection.commit()
         return redirect(request.referrer)
     except:
@@ -458,10 +462,11 @@ def clearCart():
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
+
         mysql.connection.commit()
+        return redirect(request.referrer)
     except:
         return redirect(url_for('home'))
-    return redirect(request.referrer)
 
 @app.route("/rateProduct.<string:id>", methods=['GET', 'POST'])
 def rateProduct(id):
@@ -479,21 +484,22 @@ def rateProduct(id):
             cursor.execute('UPDATE Reviews SET Comment = %s, Title = %s, Rating = %s WHERE CustomerID = %s and ProductID = %s', [comment, title, rating ,session['id'], id])
         else:
             cursor.execute('INSERT INTO Reviews VALUES(NULL, %s, %s, %s, %s, %s, NULL)', [session['id'], id, comment, title, rating])
-        mysql.connection.commit()
 
+        mysql.connection.commit()
+        return redirect(request.referrer)
     except:
         return redirect(url_for('home'))
-    return redirect(request.referrer)
 
 @app.route("/deleteReview.<string:id>")
 def deleteReview(id):
     try:
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('DELETE FROM Reviews WHERE CustomerID = %s and ProductID = %s', [session['id'], id])
+
         mysql.connection.commit()
+        return redirect(request.referrer)
     except:
         return redirect(url_for('home'))
-    return redirect(request.referrer)
 
 @app.route("/checkOut", methods=['GET', 'POST'])
 def checkOut():
@@ -508,41 +514,46 @@ def checkOut():
             totalPrice = 0
 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s) ', [session['id'], totalPrice, country, city, zipcode, address])
-            OrderID = cursor.lastrowid
+            cursor.execute('START TRANSACTION')
 
-            cursor.execute('SELECT OrderID FROM Orders WHERE CustomerID = %s', [session['id']])
-            orders = cursor.fetchall()
-            cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
-            cart = cursor.fetchall()
+            try:
+                cursor.execute('INSERT INTO Orders VALUES(NULL, %s, %s, %s, %s, %s, %s) ', [session['id'], totalPrice, country, city, zipcode, address])
+                OrderID = cursor.lastrowid
 
-            #Check if enough in stock
-            for row in cart:
-                cursor.execute('SELECT InStock, Price, ProductName, ProductPicture FROM Products WHERE ProductID = %s', [row['ProductID']])
-                data = cursor.fetchone()
-                if row["Amount"] > data["InStock"]:
-                    flash(f'Sorry, but we dont have that many in stock')
-                    return redirect(url_for('cart'))
-            
-                #Calculate total price
-                cursor.execute('SELECT Price FROM Products WHERE ProductID = %s', [row['ProductID']])
-                price = cursor.fetchone()
-                totalPrice += row['Amount'] * data['Price']
+                cursor.execute('SELECT OrderID FROM Orders WHERE CustomerID = %s', [session['id']])
+                orders = cursor.fetchall()
+                cursor.execute('SELECT ProductID, Amount FROM Cart WHERE CustomerID = %s', [session['id']])
+                cart = cursor.fetchall()
 
-                #Updates in stock on different products
-                cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
+                #Check if enough in stock
+                for row in cart:
+                    cursor.execute('SELECT InStock, Price, ProductName, ProductPicture FROM Products WHERE ProductID = %s', [row['ProductID']])
+                    data = cursor.fetchone()
+                    if row["Amount"] > data["InStock"]:
+                        flash(f'Sorry, but we dont have that many in stock')
+                        return redirect(url_for('cart'))
+                
+                    #Calculate total price
+                    cursor.execute('SELECT Price FROM Products WHERE ProductID = %s', [row['ProductID']])
+                    price = cursor.fetchone()
+                    totalPrice += row['Amount'] * data['Price']
 
-                #Insert OrderDetails
-                cursor.execute('INSERT INTO OrderDetails VALUES(NULL, %s, %s, %s)', [OrderID, row['ProductID'], row['Amount']])
+                    #Updates in stock on different products
+                    cursor.execute('UPDATE Products SET InStock = InStock - %s WHERE ProductID = %s', [row['Amount'], row['ProductID']])
 
-                #Insert into PurchaseHistory
-                cursor.execute('INSERT INTO PurchaseHistory VALUES(NULL, %s, %s, %s, %s, %s)', [session['id'], data['ProductName'], data['Price'], data['ProductPicture'], row['Amount']])
+                    #Insert OrderDetails
+                    cursor.execute('INSERT INTO OrderDetails VALUES(NULL, %s, %s, %s)', [OrderID, row['ProductID'], row['Amount']])
 
-            #Update total price
-            cursor.execute('UPDATE Orders SET TotalPrice = %s WHERE OrderID = %s', [totalPrice, OrderID])
+                    #Insert into PurchaseHistory
+                    cursor.execute('INSERT INTO PurchaseHistory VALUES(NULL, %s, %s, %s, %s, %s)', [session['id'], data['ProductName'], data['Price'], data['ProductPicture'], row['Amount']])
 
-            #Clears cart
-            cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
+                #Update total price
+                cursor.execute('UPDATE Orders SET TotalPrice = %s WHERE OrderID = %s', [totalPrice, OrderID])
+
+                #Clears cart
+                cursor.execute('DELETE FROM Cart WHERE CustomerID = %s', [session['id']])
+            except:
+                cursor.execute('ROLLBACK')
             
             mysql.connection.commit()
             flash(f'Purchase was successful, your products will arrive soon')
