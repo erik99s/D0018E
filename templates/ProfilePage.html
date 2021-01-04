@@ -75,6 +75,14 @@
         </div>
 
         <div class="purchaseHistory-section">
+
+            <div class="item-header">
+                <div class="image">Picture</div>
+                <div class="description">Product</div>
+                <div class="price">Price</div>
+                <div class="quantity">Amount</div>
+                <div class="date">Date</div>
+            </div>
             {% for row in purchase %}
                 <div class="item">
                     <div class="image">
@@ -89,9 +97,14 @@
                         <span>{{row.Price}} kr</span>
                     </div>
 
-                    <div class="amount">
+                    <div class="quantity">
                         <span>{{row.Amount}} st</span>
                     </div>
+
+                    <div class="date">
+                        <span>{{row.Date}} </span>
+                    </div>
+                    
                 </div>
             {% endfor %}
         </div>
