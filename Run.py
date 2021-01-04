@@ -243,9 +243,9 @@ def home(id=None):
     if id:
         cursor.execute('SELECT * FROM Products WHERE CategoryID = %s', [id])
     else:
-        cursor.execute('SELECT * FROM Products')
+        cursor.execute('SELECT * FROM Products')    
     data = cursor.fetchall()
-
+    
     return render_template("HomePage.html", data=data, categories=categories)
     
 @app.route("/register", methods=['GET', 'POST'])
@@ -279,7 +279,6 @@ def register():
 
     return render_template('RegisterPage.html', title='Register', form=form, msg=msg)        
 
-
 @app.route("/updateProfile", methods=['GET', 'POST'])
 def updateProfile():
     form = UpdateForm()
@@ -300,7 +299,6 @@ def updateProfile():
                 mysql.connection.commit()
                 msg = 'Successfully created account'
                 flash(f'Account successfully updated!', 'success')
-
                 return redirect(url_for('profile'))
 
         elif request.method == 'POST':
