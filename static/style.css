@@ -1016,10 +1016,11 @@ form.profile-form > input {
 }
 
 .profilepage .date {
-  display: inline block;
+  display: inline;
 }
 
 .profilepage .comment-title {
+  display: inline-block;
 }
 
 .profilepage .remove-review {
@@ -1047,7 +1048,6 @@ form.profile-form > input {
   border: 2px solid white;
   border-radius: 10px;
 }
-
 
 /*CART PAGE =====================================================================*/
 
@@ -1166,8 +1166,8 @@ form.profile-form > input {
   box-shadow: 0px 0px 10px black;
 }
 
-
 /*cartpage table*/
+
 .shopping-cart {
   display: flex;
   flex-direction: column;
