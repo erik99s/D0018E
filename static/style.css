@@ -1015,8 +1015,11 @@ form.profile-form > input {
   text-decoration: underline;
 }
 
+.profilepage .date {
+  display: inline block;
+}
+
 .profilepage .comment-title {
-  display: block;
 }
 
 .profilepage .remove-review {
@@ -1186,15 +1189,10 @@ form.profile-form > input {
   padding: 20px 30px;
 }
 
-.item {
-
-}
-
 .item-header {
   min-height: auto;
   border-bottom: 1px solid white;
 }
-
 
 .delete-btn {
   position: absolute;
