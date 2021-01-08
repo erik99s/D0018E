@@ -183,7 +183,7 @@ class PurchaseHistory(db.Model):
     Customer_ID = db.relationship("Customer")
 
 class PurchaseHistoryView(ModelView):
-    column_list = ('Customer_ID', 'ProductName', 'Price', 'ProductPicture', 'Amount')
+    column_list = ('Customer_ID', 'ProductName', 'Price', 'ProductPicture', 'Amount', 'Date')
 
     def is_accessible(self):
         try:
