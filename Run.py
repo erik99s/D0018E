@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '1c15e0b9ef383e18d6ba8646275b4c88'  
 
-#config mySQL
+#config mySQL 
 app.config['MYSQL_HOST'] = "utbweb.its.ltu.se"
 app.config['MYSQL_USER'] = "980705"
 app.config['MYSQL_PASSWORD'] = "980705"
