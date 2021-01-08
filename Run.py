@@ -7,6 +7,7 @@ from sqlalchemy.sql import func
 from flask_admin import Admin, AdminIndexView, form
 from flask_admin.menu import MenuLink
 from flask_admin.contrib.sqla import ModelView
+from wtforms.validators import ValidationError
 import os 
 
 app = Flask(__name__)
@@ -91,6 +92,17 @@ class ProductsView(ModelView):
         'ProductPicture': form.ImageUploadField(
             'Picture', base_path=file_path)
     }
+
+    def on_model_change(self, form, model, is_created):
+        proudctNum = int(form.InStock.data)
+        productPrice = int(form.Price.data)
+        if proudctNum < 0:
+            raise ValidationError("Number in stock cannot be less than 0!")
+        if productPrice < 0:
+            raise ValidationError("The price cannot be less than 0!")
+        if form.ProductPicture.data == None:
+            raise ValidationError("Picture is missing!")
+        return model
 
     def is_accessible(self):
         try:
